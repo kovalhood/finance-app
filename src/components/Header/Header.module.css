@@ -1,0 +1,27 @@
+.header {
+  height: 56px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Roboto', sans-serif;
+
+}
+.logo {
+  width: 90px;
+  height: 30px;
+}
+.userNav {
+  display: flex;
+  justify-content: space-between;
+}
+.DesktopHeader {
+  composes: header;
+  padding-left: 36px;
+  padding-right: 62px;
+}
+.TabletHeader {
+  composes: header;
+  padding-left: 20px;
+  padding-right: 20px;
+}
