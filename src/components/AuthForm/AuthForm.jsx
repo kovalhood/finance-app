@@ -6,7 +6,7 @@ import {useDispatch} from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as Yup from 'yup';
-// import {Loader} from "../Loader";
+import {Loader} from "../Loader";
 import { useMediaQuery } from 'react-responsive';
 import {isMobile, isTablet} from "../../utils/mediaQuery";
 import {Google} from "../Google";
@@ -18,7 +18,7 @@ export const AuthForm = () => {
   };
   const [loaderState, setLoaderState] = useState(false);
   const [initialValues, setInitialValues] = useState(initState);
-  const [isDisabled, setIsDisabled]=useState(true)
+  const [isDisabled, setIsDisabled]=useState(false)
   const IsMobile = isMobile(useMediaQuery);
   const IsTablet = isTablet(useMediaQuery);
 
@@ -63,7 +63,7 @@ export const AuthForm = () => {
   });
   return (
     <>
-      {/*{loaderState && <Loader/>}*/}
+      {loaderState && <Loader/>}
       <Form className={
         IsMobile
           ? styles.formAuthMobile
