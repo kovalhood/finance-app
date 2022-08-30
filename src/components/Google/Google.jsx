@@ -14,7 +14,7 @@ export const Google = () => {
       <Button className={styles.button} type="button">
         <a
           className={styles.container}
-          href="http://localhost:3000/api/auth/google"
+          href="https://finance-wallet.herokuapp.com/api/auth/google"
         >
           <GoogleIcon />
           <span className={styles.btnLabel}>Google</span>
