@@ -1,4 +1,4 @@
-import styles from "./Google.module.css";
+import styles from "./Google.module.scss";
 import { useMediaQuery } from "react-responsive";
 import { isMobile } from "../../utils/mediaQuery";
 import Button from "react-bootstrap/Button";
