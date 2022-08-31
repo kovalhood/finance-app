@@ -1,6 +1,6 @@
 import styles from "./Header.module.css";
 import { useMediaQuery } from "react-responsive";
-import { Default, isDesktop } from "../../utils/mediaQuery";
+import { isDesktop } from "../../utils/mediaQuery";
 import { Logo } from "../Logo/Logo";
 
 export const Header = () => {
@@ -9,6 +9,7 @@ export const Header = () => {
   return (
     <header className={Desktop ? styles.DesktopHeader : styles.TabletHeader}>
       <Logo />
+      
     </header>
   );
 };
