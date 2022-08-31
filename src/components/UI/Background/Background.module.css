@@ -1,4 +1,4 @@
-.mobile{
+.mobile {
   position: absolute;
   z-index: 1;
   width: 100%;
@@ -14,7 +14,7 @@
   composes: mobile;
   height: 582px;
 }
-.desktop{
+.desktop {
   composes: tablet;
   flex-direction: row;
 }

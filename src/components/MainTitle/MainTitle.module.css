@@ -1,25 +1,23 @@
 .mobile {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   letter-spacing: 2px;
 }
 .tablet {
   composes: mobile;
 }
 .desktop {
-  composes:  tablet;
+  composes: tablet;
   letter-spacing: 4px;
 }
 
 .mobileTitle {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 900;
   color: rgb(0, 0, 0);
-  /*margin: 86px 0 0 20px;*/
+  margin: 86px 0 0 20px;
   line-height: 120%;
   font-size: 50px;
-
-
 }
 
 .tabletTitle {
@@ -30,12 +28,12 @@
 
 .desktopTitle {
   composes: tabletTitle;
-  margin: 229px 0 0 308px;
+  margin: 229px 0 0 174px;
   font-size: 102px;
 }
 
 .mobileSubTitle {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   color: rgb(82, 85, 95);
   font-weight: 700;
   text-transform: uppercase;
@@ -43,22 +41,20 @@
   font-size: 12px;
   letter-spacing: 2px;
   line-height: 190%;
-  /*margin:0 0 0 31px;*/
-
+  margin: 0 0 0 31px;
 }
 
 .tabletSubTitle {
   composes: mobileSubTitle;
   font-size: 15px;
   line-height: 150%;
-  margin:0 0 80px -67px;
+  margin: 0 0 80px -67px;
 }
 
 .desktopSubTitle {
   composes: tabletSubTitle;
   letter-spacing: 4px;
-  padding-left: 68px;
-  margin:0 0 0 301px;
+  margin: 0 0 0 254px;
 }
 
 .mobileS {
@@ -66,7 +62,7 @@
 }
 
 .mobileS::before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background-color: rgb(0, 1, 7);
@@ -77,7 +73,7 @@
 }
 
 .mobileS::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background-color: rgb(0, 1, 7);

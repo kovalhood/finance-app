@@ -1,1 +1,1 @@
-export {Logo} from ''
+export { Logo } from "";

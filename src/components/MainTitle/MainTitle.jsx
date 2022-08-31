@@ -1,6 +1,6 @@
-import styles from './MainTitle.module.css';
-import {useMediaQuery} from 'react-responsive';
-import {isMobile, isTablet} from '../../utils/mediaQuery';
+import styles from "./MainTitle.module.css";
+import { useMediaQuery } from "react-responsive";
+import { isMobile, isTablet } from "../../utils/mediaQuery";
 
 export const MainTitle = () => {
   const Mobile = isMobile(useMediaQuery);
@@ -9,11 +9,7 @@ export const MainTitle = () => {
   return (
     <div
       className={
-        Mobile
-          ? styles.mobile
-          : Tablet
-            ? styles.tablet
-            : styles.desktop
+        Mobile ? styles.mobile : Tablet ? styles.tablet : styles.desktop
       }
     >
       <h1
@@ -21,18 +17,14 @@ export const MainTitle = () => {
           Mobile
             ? styles.mobileTitle
             : Tablet
-              ? styles.tabletTitle
-              : styles.desktopTitle
+            ? styles.tabletTitle
+            : styles.desktopTitle
         }
       >
         Kapu
         <span
           className={
-            Mobile
-              ? styles.mobileS
-              : Tablet
-                ? styles.tabletS
-                : styles.desktopS
+            Mobile ? styles.mobileS : Tablet ? styles.tabletS : styles.desktopS
           }
         >
           s
@@ -44,13 +36,12 @@ export const MainTitle = () => {
           Mobile
             ? styles.mobileSubTitle
             : Tablet
-              ? styles.tabletSubTitle
-              : styles.desktopSubTitle
+            ? styles.tabletSubTitle
+            : styles.desktopSubTitle
         }
       >
         smart finance
       </p>
     </div>
   );
-
-}
+};

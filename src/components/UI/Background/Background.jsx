@@ -1,6 +1,6 @@
-import styles from './Background.module.css';
-import { useMediaQuery } from 'react-responsive';
-import { isMobile, isTablet } from '../../../utils/mediaQuery';
+import styles from "./Background.module.css";
+import { useMediaQuery } from "react-responsive";
+import { isMobile, isTablet } from "../../../utils/mediaQuery";
 
 export const Background = () => {
   const IsMobile = isMobile(useMediaQuery);
@@ -8,13 +8,8 @@ export const Background = () => {
   return (
     <section
       className={
-        IsMobile
-          ? styles.mobile
-          : IsTablet
-            ? styles.tablet
-            : styles.desktop
+        IsMobile ? styles.mobile : IsTablet ? styles.tablet : styles.desktop
       }
     />
   );
-
-}
+};
