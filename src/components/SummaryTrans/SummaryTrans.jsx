@@ -1,8 +1,10 @@
-import styles from "./SummaryTrans.module.css";
-
+import styles from "./SummaryTrans.module.scss";
+import { useMediaQuery } from "react-responsive";
+import { isDesktop } from "../../utils/mediaQuery";
 export const SummaryTrans = () => {
+  const Desktop = isDesktop(useMediaQuery);
   return (
-    <div className={styles.container}>
+    <div className={Desktop ? styles.container : styles.none}>
       <div className={styles.titleBlock}>
         <div className={styles.titleCont}>
           <div className={styles.btnBlock}></div>

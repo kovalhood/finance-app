@@ -1,3 +1,5 @@
+@import "../../globalStyles/vars";
+
 .container {
   display: block;
   width: 230px;
@@ -7,14 +9,18 @@
   font-size: 12px;
   line-height: 1.17;
   text-transform: uppercase;
-  color: #000000;
+  color: $blackColor;
+}
+
+.none {
+  display: none;
 }
 
 .titleBlock {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f6fb;
+  background-color: $grayBackgroundColor;
   border-radius: 20px 20px 0 0;
   width: 230px;
   height: 40px;
@@ -41,7 +47,7 @@
 .list {
   margin-top: 2px;
   min-height: 231px;
-  background-color: #f5f6fb;
+  background-color: $grayBackgroundColor;
   border-radius: 0 0 20px 0;
 }
 
@@ -51,7 +57,7 @@
   line-height: 27px;
   padding: 0 22px;
   justify-content: space-between;
-  background-color: #f5f6fb;
+  background-color: $grayBackgroundColor;
   margin-top: 2px;
 }
 .monthPoint:last-child {
@@ -60,5 +66,5 @@
 
 .monthPointText {
   font-weight: 400;
-  color: #52555f;
+  color: $basicTextColor;
 }
