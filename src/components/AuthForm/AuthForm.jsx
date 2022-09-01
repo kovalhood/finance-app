@@ -46,7 +46,7 @@ export const AuthForm = () => {
       .then((response) => {
         setLoaderState(false);
         resetAllFields();
-        navigate("/dashboard");
+        navigate("/expense");
       })
       .catch(() => {
         setLoaderState(false);
@@ -61,7 +61,7 @@ export const AuthForm = () => {
       .then((response) => {
         setLoaderState(false);
         resetAllFields();
-        navigate("/dashboard");
+        navigate("/expense");
       })
       .catch(() => {
         setLoaderState(false);
