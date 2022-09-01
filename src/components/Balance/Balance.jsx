@@ -31,13 +31,13 @@ export const Balance = () => {
       <div className={s.formContainer}>
         <div className={s.reportContainer}>
           <a href="report" className={s.reportLink} type="button">
-            Перейти до звітів
+            Reports
             <Diagram className={s.reportSvg} />
           </a>
         </div>
         <form className={s.form} onSubmit={handleSubmit}>
           <label htmlFor="balance" className={s.label}>
-            Баланс:
+            Balance:
           </label>
           <div className={s.btnContainer}>
             <input
@@ -58,17 +58,17 @@ export const Balance = () => {
               className={!isDisabledBtn ? s.button : s.buttonDisabled}
               disabled={isDisabledBtn}
             >
-              Підтвердити
+              Confirm
             </button>
           </div>
         </form>
         {balance === "00.00 UAH" && (
           <div className={s.popUpContainer}>
             <p className={s.popUpText}>
-              Привіт! Для початку роботи внеси поточний баланс рахунку!
+              Hello! To get started, enter the current balance of your account!
             </p>
             <p className={s.popUpTextBottom}>
-              Ти не можешь витрачати грошу, поки їх у тебе немає!
+              You can't spend money until you have it &#128521;
             </p>
           </div>
         )}
