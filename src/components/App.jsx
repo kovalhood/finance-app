@@ -23,7 +23,19 @@ export const App = () => {
           <Route path="/auth" element={<HomeView />} />
 
           <Route
-            path="/dashboard"
+            path="/expense"
+            element={
+              <PrivateRoute
+                component={
+                  <Suspense fallback={<Loader />}>
+                    <MainView />
+                  </Suspense>
+                }
+              />
+            }
+          />
+          <Route
+            path="/income"
             element={
               <PrivateRoute
                 component={
