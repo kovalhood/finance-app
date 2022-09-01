@@ -51,13 +51,14 @@
     line-height: 1.16;
     letter-spacing: 0.04em;
     color: $basicTextColor;
+    background-color: $whiteColor;
     border: 0;
     text-decoration: none;
     cursor: pointer;
     /* text-decoration-line: underline; */
     font-family: inherit;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
     @media screen and (min-width: 768px) {
         .button_logout_mobile {
@@ -68,6 +69,13 @@
 
 .button_logout:hover,
 .button_logout:focus {
+    text-decoration: underline;
+    cursor: pointer;
+    background-color: $orangeBasicColor;
+}
+
+.button_logout_mobile:hover,
+.button_logout_mobile:focus {
     text-decoration: underline;
     cursor: pointer;
     background-color: $orangeBasicColor;
