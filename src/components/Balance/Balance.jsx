@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { ReactComponent as Diagram } from "../../images/icons/Diagram.svg";
 import s from "./Balance.module.scss";
 
