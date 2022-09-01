@@ -26,7 +26,7 @@ export const Header = () => {
       <img src={defaultAvatar}
       alt="user avatar"
       className={styles.user__avatar} />
-      <button type="button" className={styles.button_logout}onClick={toggleModal} >
+      <button type="button" className={styles.button_logout_mobile}onClick={toggleModal} >
       <Logout />
       </button>
             <span className={styles.user__name}></span>
