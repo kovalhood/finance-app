@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactComponent as CloseModal } from '../../images/close.svg';
-import styles from './Modal.module.css';
-
+import styles from './Modal.module.scss';
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ onClick, text }) => {
+const Modal = ({ massage, onClick }) => {
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
-        onClick();
+         onClick();
       }
     };
 
@@ -21,18 +20,18 @@ const Modal = ({ onClick, text }) => {
   }, [onClick]);
 
   const handleBackdropClick = e => {
-    if (e.currentTarget === e.target) {
-      onClick();
+    if (e.target === e.currentTarget) {
+      onClick(e)
     }
-  };
+  };  
 
-  return createPortal(
-    <div className={styles.backdrop} onClick={handleBackdropClick}>
+
+   return createPortal(
+    <div onClick={handleBackdropClick} className={styles.backdrop}>
       <div className={styles.modal}>
         <button type="button" className={styles.closeModalBtn} onClick={onClick}>
-          <CloseModal />
-        </button>
-        <p className={styles.text}>{text}</p>
+          <CloseModal /></button>
+        <p className={styles.massage}>{massage}</p>
         <div className={styles.btnContainer}>
           <button className={styles.btn} type="button" onClick={onClick}>
             Yes
