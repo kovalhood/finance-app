@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { authOperations } from "../../redux/auth";
+import { useNavigate } from "react-router-dom";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import * as Yup from "yup";
@@ -10,9 +13,12 @@ import { Loader } from "../Loader";
 import { useMediaQuery } from "react-responsive";
 import { isMobile, isTablet } from "../../utils/mediaQuery";
 import { Google } from "../Google";
-import { Toast } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 export const AuthForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const initState = {
     email: "",
     password: "",
@@ -25,9 +31,6 @@ export const AuthForm = () => {
 
   const IsMobile = isMobile(useMediaQuery);
   const IsTablet = isTablet(useMediaQuery);
-
-  const toggleShowA = () => setEmailToast(!emailToast);
-  const toggleShowB = () => setPassToast(!passToast);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -43,16 +46,33 @@ export const AuthForm = () => {
     e.preventDefault();
     setLoaderState(true);
     const { email, password } = data;
-    setInitialValues({ email, password });
-    console.log("login", email);
-
-    resetAllFields();
+    dispatch(authOperations.logIn({ email, password }))
+      .then((response) => {
+        setLoaderState(false);
+        resetAllFields();
+        navigate("/dashboard");
+      })
+      .catch(() => {
+        setLoaderState(false);
+        console.log("pwong pass or login::");
+      });
   };
   const onRegister = (data, e) => {
     e.preventDefault();
     setLoaderState(true);
     const { email, password } = data;
-    console.log("register", initialValues);
+    dispatch(authOperations.register({ email, password }))
+      .then((response) => {
+        setLoaderState(false);
+        resetAllFields();
+        navigate("/dashboard");
+      })
+      .catch(() => {
+        setLoaderState(false);
+        Notify.failure(`User already register/ Try another login`);
+        console.log("wong pass or email::");
+      });
+
     resetAllFields();
   };
 

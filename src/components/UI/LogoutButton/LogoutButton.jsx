@@ -1,21 +1,17 @@
 import styles from "./LogoutButton.module.css";
-import { Mobile, Default } from "../../../utils/mediaQuery";
-import LogOutLogo from "../../../images/icons/logout.svg";
+import Button from "react-bootstrap/Button";
+import { authSelectors, authOperations } from "../../../redux/auth";
+import { useDispatch } from "react-redux";
 
-export const LogOutButton = () => {
+export const LogoutButton = () => {
+  const dispatch = useDispatch();
+
   return (
-    <button type="button" className={styles.button}>
-      <Mobile>
-        <div className={styles.btnIcon}>
-          <LogOutLogo />
-        </div>
-        {/*<svg className={styles.btnIcon}>*/}
-        {/*  <use href={`${svg}#Capa_1`} />*/}
-        {/*</svg>*/}
-      </Mobile>
-      <Default>
-        <span className={styles.label}>Logout</span>
-      </Default>
-    </button>
+    <Button
+      className={styles.button}
+      onClick={() => dispatch(authOperations.logOut())}
+    >
+      Вийти
+    </Button>
   );
 };
