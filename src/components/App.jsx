@@ -1,5 +1,5 @@
 import { MainView } from "../views/MainView";
-// import { Loader } from "./Loader";
+import { Loader } from "./Loader";
 import { Header } from "./Header/Header";
 import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
 import "../CSS/normilize.css";
