@@ -1,7 +1,7 @@
-import styles from "./MainView.module.css";
+import styles from "./ReportView.modulee.css";
 import { Background } from "../../components/UI/Background";
 
-const MainView = () => {
+const ReportView = () => {
   return (
     <>
       <div className={styles.backgroundContainer}>
@@ -13,4 +13,4 @@ const MainView = () => {
     </>
   );
 };
-export default MainView;
+export default ReportView;
