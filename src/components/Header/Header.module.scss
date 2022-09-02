@@ -10,8 +10,13 @@
     height: 56px;
     align-items: center;
     max-width: 1280px;
-    padding: 12px 20px;
     margin: 0 auto;
+}
+
+.wrapper {
+    width: 100%;
+    height: 56px;
+    background-color: $whiteColor;
 }
 
 .button_logout {
@@ -31,13 +36,15 @@
     cursor: pointer;
     /* text-decoration-line: underline; */
     font-family: inherit;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);}
+    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
 @media screen and (max-width: 768px) {
-      .button_logout {
+    .button_logout {
         display: none;
-      }
-} 
+    }
+}
 
 .button_logout_mobile {
     display: inline-block;
@@ -60,11 +67,12 @@
     // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
-    @media screen and (min-width: 768px) {
-        .button_logout_mobile {
-            display: none;
-        }
+
+@media screen and (min-width: 767px) {
+    .button_logout_mobile {
+        display: none;
     }
+}
 
 
 .button_logout:hover,
@@ -127,30 +135,47 @@
     background-color: $whiteColor;
 }
 
-.backgroundLoggedIn::after {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    background-color: $basicTextColor;
-    ;
-    height: 320px;
-    width: 100%;
-    border-bottom-left-radius: 130px;
+
+
+.DesktopHeader {
+    min-width: 1279px;
+    // composes: header;
+    padding-left: 36px;
+    padding-right: 62px;
 }
 
-.backgroundLoggedOut::after {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    background-color: $basicTextColor;
-    height: 320px;
-    width: 100%;
-    border-bottom-left-radius: 130px;
+.TabletHeader {
+    // composes: header;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.logout__mobile {
-    width: 12px;
-    height: 16px;
-    border: none;
-    background: none;
+@media screen and (min-width: 480px) {
+
+    .user__name {
+        display: inline-block;
+    }
+
+    .button_logout {
+        display: inline-block;
+    }
+}
+
+
+.dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    top: 56px;
+    right: 0;
+    width: 230px;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+    background-color: $whiteColor;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.user_mail {
+    margin-bottom: 10px;
 }
