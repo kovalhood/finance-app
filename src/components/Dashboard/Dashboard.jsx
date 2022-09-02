@@ -1,9 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
 import Controls from "./Controls";
-import { Loader } from "../Loader";
+import Form from "./Form";
 import styles from "./Dashboard.module.scss";
-import PrivateRoute from "../../Routes/PrivateRoute";
 
 export const Dashboard = () => {
   return (
@@ -14,18 +11,8 @@ export const Dashboard = () => {
           <Controls link={"/income"} title={"Income"} />
         </div>
         <div className={styles.board}>
-          <h4 className={styles.title}></h4>
+          <Form />
         </div>
-        <Routes>
-          <Route
-            path="/reports"
-            element={
-              <PrivateRoute
-                component={<Suspense fallback={<Loader />}></Suspense>}
-              />
-            }
-          />
-        </Routes>
       </div>
     </>
   );
