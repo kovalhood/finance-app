@@ -77,10 +77,55 @@ const fetchCurrentUser = createAsyncThunk(
   }
 );
 
+// const getCurrentUser = () => async (dispatch, getState) => {
+//   const {
+//     session: { token: persistedToken },
+//   } = getState();
+
+//   if (!persistedToken) {
+//     return;
+//   }
+
+//   dispatch(authActions.getCurrentUserRequest());
+//   try {
+//     token.set(persistedToken);
+//     const { data } = await axios.get('/users/current');
+//     dispatch(authActions.getCurrentUserSuccess(data));
+//   } catch (error) {
+//     dispatch(authActions.getCurrentUserError(error.message));
+//     refreshSession(dispatch, getState);
+//   }
+// };
+
+// const refreshSession = async (dispatch, getState) => {
+//   const {
+//     session: { refreshToken: refToken, sid: id },
+//   } = getState();
+
+//   const credentials = { sid: id };
+//   token.set(refToken);
+
+//   dispatch(authActions.refreshSessionRequest());
+
+//   try {
+//     const data = await axios.post('/users/refresh', credentials);
+//     dispatch(authActions.refreshSessionSuccess(data));
+//     // loginSuccess();
+//     token.unset();
+//   } catch (error) {
+//     dispatch(authActions.refreshSessionError(error.message));
+//     // loginError();
+//   }
+// };
+
+
+
 const operations = {
   register,
   logOut,
   logIn,
   fetchCurrentUser,
+   // getCurrentUser,
+  // refreshSession,
 };
 export default operations;
