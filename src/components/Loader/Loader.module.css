@@ -1,7 +1,11 @@
 .container {
-  position: absolute;
-  top: -56px;
+  position: fixed;
+  top: 0;
+  right: 0;
   left: 0;
+  bottom: 0;
+  margin: auto;
+  overflow: auto;
   width: 100%;
   height: 100vh;
   background-color: rgba(146, 148, 146, 0.5);
