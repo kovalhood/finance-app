@@ -9,6 +9,7 @@ export const Header = () => {
   return (
     <header className={Desktop ? styles.DesktopHeader : styles.TabletHeader}>
       <Logo />
+      <button className={styles.btn}>fdgdfg</button>
     </header>
   );
 };
