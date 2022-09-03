@@ -22,6 +22,15 @@ const materialTheme = createTheme({
         // color: "white",
       },
     },
+
+    // Hover color for icon
+    MuiInput: {
+      root: {
+        "&:hover svg": {
+          fill: "#f88a46",
+        },
+      },
+    },
     MuiPickersDay: {
       day: {
         color: "#f88a46",
@@ -33,6 +42,16 @@ const materialTheme = createTheme({
         color: "#C7CCDC",
       },
       current: {
+        color: "#FF751D",
+      },
+    },
+    MuiButton: {
+      textPrimary: {
+        color: "#FF751D",
+      },
+    },
+    MuiTypography: {
+      colorPrimary: {
         color: "#FF751D",
       },
     },
