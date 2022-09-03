@@ -27,7 +27,7 @@ const materialTheme = createTheme({
     MuiInput: {
       root: {
         "&:hover svg": {
-          fill: "#f88a46",
+          fill: "#FF751D",
         },
       },
     },
