@@ -6,6 +6,7 @@ import PrivateRoute from "../Routes/PrivateRoute";
 
 import "../CSS/normilize.css";
 import "../CSS/fonts.css";
+import PublicRoute from "../Routes/PublicRoute";
 // import { Balance } from "./Balance/Balance";
 // import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
 
@@ -21,7 +22,6 @@ export const App = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/auth" element={<HomeView />} />
-
           <Route
             path="/expense"
             element={

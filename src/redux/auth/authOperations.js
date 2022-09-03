@@ -17,16 +17,9 @@ const token = {
 const register = createAsyncThunk("auth/register", async (credentials) => {
   try {
     const { data } = await axios.post("/api/auth/register", credentials);
-    data.user &&
-      Notify.success(
-        `Welcome ${
-          data.user.email.split("@")[0]
-        }!! You are successfully registered.`
-      );
-    token.set(data.token);
     return data;
   } catch (error) {
-    error?.response?.data?.name === "MongoError" &&
+    error?.response?.data?.email === "MongoError" &&
       Notify.failure(`User already exists.`);
   }
 });
@@ -118,14 +111,12 @@ const fetchCurrentUser = createAsyncThunk(
 //   }
 // };
 
-
-
 const operations = {
   register,
   logOut,
   logIn,
   fetchCurrentUser,
-   // getCurrentUser,
+  // getCurrentUser,
   // refreshSession,
 };
 export default operations;
