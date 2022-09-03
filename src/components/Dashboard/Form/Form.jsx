@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import Icon from "@mui/material/Icon";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -47,8 +46,24 @@ const materialTheme = createTheme({
 
 const Form = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDay, setSelectedDay] = useState('');
+  // const [selectedMonth, setSelectedMonth] = useState('');
+  // const [selectedYear, setSelectedYear] = useState('');
 
-  // console.log(selectedDate);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleQueryChange() {
+    // const dayQuery = new Date(selectedDate).getDate();
+    const monthQuery = new Date(selectedDate).getMonth() + 1;
+    const yearQuery = new Date(selectedDate).getFullYear();
+
+    navigate(`${location.pathname}?month=${monthQuery}&year=${yearQuery}`);
+  }
+
+  useEffect(() => {
+    handleQueryChange();
+  }, [selectedDate]);
 
   return (
     <>
