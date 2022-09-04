@@ -52,17 +52,19 @@
   cursor: pointer;
 
 }
+ 
 
-.text {
-  margin: 0;
-  margin-bottom: 20px;
-
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.14;
-  letter-spacing: 0.02em;
-  color: $basicTextColor;
+.closeModalBtn:hover,
+.closeModalBtn:focus{
+  cursor: pointer;
+    background-color: $orangeBasicColor;
+    border-radius: 5px;
+    fill: $whiteColor;
+    color: $whiteColor;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    
 }
+
 
 .btnContainer {
   display: flex;
@@ -78,6 +80,7 @@
   border-radius: 16px;
   cursor: pointer;
   background-color: transparent;
+  font-family: 'Roboto';
 
   font-weight: 700;
   font-size: 12px;
@@ -92,4 +95,15 @@
   border: none;
   background-color: $orangeBasicColor;
   color: $whiteColor;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.massage{
+  font-family: 'Roboto';
+  align-items: center;
+  font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.02em;
+   color: $basicTextColor;
 }
