@@ -10,10 +10,12 @@ import PublicRoute from '../Routes/PublicRoute';
 // import { Balance } from "./Balance/Balance";
 // import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
 
-const HomeView = lazy(() => import('../views/HomeView/HomeView'));
-const MainView = lazy(() => import('../views/MainView/MainView'));
-const ReportView = lazy(() => import('../views/ReportView/ReportView'));
-const NotFoundView = lazy(() => import('../views/NotFoundView/NotFoundView'));
+
+const HomeView = lazy(() => import("../views/HomeView/HomeView"));
+const MainView = lazy(() => import("../views/MainView/MainView"));
+const ReportView = lazy(() => import("../views/ReportView/ReportView"));
+const GoogleView = lazy(() => import("../views/GoogleView/GoogleView"));
+const NotFoundView = lazy(() => import("../views/NotFoundView/NotFoundView"));
 
 export const App = () => {
   return (
@@ -59,6 +61,7 @@ export const App = () => {
               />
             }
           />
+          <Route path="/google-redirect" element={<GoogleView />} />
           <Route path="*" element={<NotFoundView />} />
         </Routes>
       </Suspense>
