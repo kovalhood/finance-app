@@ -13,6 +13,7 @@ import PublicRoute from "../Routes/PublicRoute";
 const HomeView = lazy(() => import("../views/HomeView/HomeView"));
 const MainView = lazy(() => import("../views/MainView/MainView"));
 const ReportView = lazy(() => import("../views/ReportView/ReportView"));
+const GoogleView = lazy(() => import("../views/GoogleView/GoogleView"));
 const NotFoundView = lazy(() => import("../views/NotFoundView/NotFoundView"));
 
 export const App = () => {
@@ -58,6 +59,7 @@ export const App = () => {
               />
             }
           />
+          <Route path="/google-redirect" element={<GoogleView />} />
           <Route path="*" element={<NotFoundView />} />
         </Routes>
       </Suspense>

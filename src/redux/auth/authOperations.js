@@ -41,6 +41,18 @@ const logIn = createAsyncThunk("auth/login", async (credentials) => {
   }
 });
 
+const loginWithGoogle = createAsyncThunk("auth/login", async (googleToken) => {
+  token.set(googleToken);
+  try {
+    const { data } = await axios.get("/api/auth/current");
+
+    return data;
+  } catch (error) {
+    error?.response?.data &&
+      Notify.failure(`wrong login or password, try again`);
+  }
+});
+
 const logOut = createAsyncThunk("auth/logout", async () => {
   try {
     await axios.post("/api/auth/logout");
@@ -116,6 +128,7 @@ const operations = {
   logOut,
   logIn,
   fetchCurrentUser,
+  loginWithGoogle,
   // getCurrentUser,
   // refreshSession,
 };
