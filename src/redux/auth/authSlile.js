@@ -17,7 +17,14 @@ const authSlice = createSlice({
       state.user = action.payload.user;
     },
     [authOperations.logIn.fulfilled](state, action) {
-      state.user = { email: action.payload.email };
+      state.user.email = action.payload.email;
+      state.balance = action.payload.balance;
+      state.categories = [...action.payload.categories];
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [authOperations.loginWithGoogle.fulfilled](state, action) {
+      state.user.email = action.payload.email;
       state.balance = action.payload.balance;
       state.categories = [...action.payload.categories];
       state.token = action.payload.token;
