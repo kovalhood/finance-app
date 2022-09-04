@@ -1,19 +1,19 @@
-import { Loader } from "./Loader";
-import { Header } from "./Header/Header";
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import PrivateRoute from "../Routes/PrivateRoute";
-
-import "../CSS/normilize.css";
-import "../CSS/fonts.css";
-import PublicRoute from "../Routes/PublicRoute";
+import { Loader } from './Loader';
+import { Header } from './Header/Header';
+import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import PrivateRoute from '../Routes/PrivateRoute';
+import { LangSwitcher } from './LangSwitcher';
+import '../CSS/normilize.css';
+import '../CSS/fonts.css';
+import PublicRoute from '../Routes/PublicRoute';
 // import { Balance } from "./Balance/Balance";
 // import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
 
-const HomeView = lazy(() => import("../views/HomeView/HomeView"));
-const MainView = lazy(() => import("../views/MainView/MainView"));
-const ReportView = lazy(() => import("../views/ReportView/ReportView"));
-const NotFoundView = lazy(() => import("../views/NotFoundView/NotFoundView"));
+const HomeView = lazy(() => import('../views/HomeView/HomeView'));
+const MainView = lazy(() => import('../views/MainView/MainView'));
+const ReportView = lazy(() => import('../views/ReportView/ReportView'));
+const NotFoundView = lazy(() => import('../views/NotFoundView/NotFoundView'));
 
 export const App = () => {
   return (
@@ -52,6 +52,7 @@ export const App = () => {
               <PrivateRoute
                 component={
                   <Suspense fallback={<Loader />}>
+                    <LangSwitcher />
                     <ReportView />
                   </Suspense>
                 }
