@@ -65,6 +65,9 @@ const materialTheme = createTheme({
 
 const Form = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [sum, setSum] = useState("0.00");
   // const [selectedDay, setSelectedDay] = useState('');
   // const [selectedMonth, setSelectedMonth] = useState('');
   // const [selectedYear, setSelectedYear] = useState('');
@@ -73,8 +76,10 @@ const Form = () => {
   const location = useLocation();
 
   function handleQueryChange() {
-    // const dayQuery = new Date(selectedDate).getDate();
-    const monthQuery = new Date(selectedDate).getMonth() + 1;
+    // const dayQuery = (new Date(selectedDate).getDate()).toString().padStart(2, "0");
+    const monthQuery = (new Date(selectedDate).getMonth() + 1)
+      .toString()
+      .padStart(2, "0");
     const yearQuery = new Date(selectedDate).getFullYear();
 
     navigate(`${location.pathname}?month=${monthQuery}&year=${yearQuery}`);
@@ -82,10 +87,37 @@ const Form = () => {
 
   useEffect(() => {
     handleQueryChange();
-  }, [selectedDate]);
+  }, [selectedDate, location.pathname]);
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.currentTarget.value);
+  };
+  const handleCategoryChange = (event) => {
+    setCategory(event.currentTarget.value);
+  };
+  const handleSumChange = (event) => {
+    // setSum(Number(event.currentTarget.value).toFixed(2));
+    setSum(event.currentTarget.value);
+  };
+
+  function handleSumKeydown(event) {
+    ["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (description.trim() === "") {
+      setDescription("");
+      setSum("");
+
+      return console.log("Input your search query");
+    }
+    setDescription("");
+  };
 
   return (
-    <>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <ThemeProvider theme={materialTheme}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <DatePicker
@@ -104,7 +136,7 @@ const Form = () => {
                 <InputAdornment position={"start"}>
                   <Icon>
                     <svg
-                      className={styles.calendar__icon}
+                      className={styles.calendar_icon}
                       width="20"
                       height="20"
                     >
@@ -119,7 +151,53 @@ const Form = () => {
           />
         </MuiPickersUtilsProvider>
       </ThemeProvider>
-    </>
+
+      <div className={styles.inputs}>
+        <input
+          className={styles.description}
+          type="text"
+          autoComplete="off"
+          name="description"
+          placeholder="Description"
+          value={description}
+          onChange={handleDescriptionChange}
+        />
+        <input
+          className={styles.category}
+          type="text"
+          autoComplete="off"
+          name="categories"
+          placeholder="Category"
+          value={category}
+          onChange={handleCategoryChange}
+        />
+        <label className={styles.sum_label}>
+          <svg className={styles.sum_icon} width="20" height="20">
+            <use href={`${sprite}#calculator`}></use>
+          </svg>
+          <input
+            className={styles.sum}
+            type="number"
+            autoComplete="off"
+            name="sum"
+            pattern="d\+\.\d\d$"
+            placeholder="0.00"
+            value={sum}
+            onChange={handleSumChange}
+            onKeyPress={handleSumKeydown}
+          />
+        </label>
+      </div>
+
+      <div className={styles.buttons}>
+        <button type="submit" className={styles.button_input}>
+          Input
+        </button>
+        <button type="button" className={styles.button_clear}>
+          Clear
+        </button>
+      </div>
+    </form>
   );
 };
 

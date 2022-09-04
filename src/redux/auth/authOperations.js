@@ -55,7 +55,7 @@ const loginWithGoogle = createAsyncThunk("auth/login", async (googleToken) => {
 
 const logOut = createAsyncThunk("auth/logout", async () => {
   try {
-    await axios.post("/api/auth/logout");
+    await axios.get("/api/auth/logout");
     token.unset();
   } catch (error) {
     console.log(error);
