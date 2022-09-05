@@ -23,7 +23,7 @@
     margin-left: 0;
     padding: 8px 16px;
     // border-radius: 2px;
-    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     font-weight: 400;
     font-size: 12px;
@@ -49,9 +49,9 @@
     margin-left: 0;
     padding: 8px 16px;
     // border-radius: 10px;
-    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
-    font-weight: bold;
+    // font-weight: bold;
    
     font-size: 12px;
     line-height: 1.16;
@@ -77,7 +77,7 @@
 
 .button_logout:hover,
 .button_logout:focus {
-    cursor: pointer;
+    // cursor: pointer;
     // background-color: $orangeBasicColor;
     // border-radius: 10px;
     color: $orangeBasicColor;
@@ -99,7 +99,7 @@
     position: relative;
     display: none;
     margin-right: 40px;
-
+    padding-right: 8px;
     font-weight: normal;
     font-size: 12px;
     line-height: 1.16;
