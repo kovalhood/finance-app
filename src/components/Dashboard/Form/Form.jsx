@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -183,15 +184,17 @@ const Form = () => {
           value={description}
           onChange={handleDescriptionChange}
         />
-        <input
+        <CategoryInput
           className={styles.category}
-          type="text"
+          type="expenses"
+          categoryPick={category}
+          setCategory={setCategory}
           autoComplete="off"
           name="categories"
-          placeholder="Category"
           value={category}
           onChange={handleCategoryChange}
         />
+
         <label className={styles.sum_label}>
           <svg className={styles.sum_icon} width="20" height="20">
             <use href={`${sprite}#calculator`}></use>

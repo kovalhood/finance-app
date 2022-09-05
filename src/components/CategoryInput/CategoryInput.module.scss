@@ -30,7 +30,7 @@
 }
 
 .category_label {
-    padding: 9px 20px;
+    padding: 5px 20px;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -38,7 +38,7 @@
     line-height: 14px;
     color: $secondaryTextColor;
     height: 32px;
-    width: 188px;
+    width: 131px;
     display: inline-block;
     cursor: pointer;
     outline: none;
@@ -73,6 +73,7 @@
 
 .form_input_category {
     position: relative;
+    height: 38px;
     border-top: 2px solid $grayBackgroundColor;
     border-right: none;
     border-bottom: 2px solid $grayBackgroundColor;
@@ -86,7 +87,6 @@
 
     @include size(mobile-only) {
         width: 282px;
-        height: 44px;
         border: 2px solid $whiteColor;
         border-top: none;
         border-radius: 0px 0px 16px 16px;
@@ -95,7 +95,6 @@
 
     @include size(tablet) {
         width: 171px;
-        height: 44px;
     }
 
     @include size(desktop) {
