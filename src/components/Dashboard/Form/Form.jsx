@@ -11,7 +11,6 @@ import { CategoryInput } from '../../CategoryInput/CategoryInput';
 import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/auth';
-import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const materialTheme = createTheme({
