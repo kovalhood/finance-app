@@ -17,16 +17,9 @@ const token = {
 const register = createAsyncThunk("auth/register", async (credentials) => {
   try {
     const { data } = await axios.post("/api/auth/register", credentials);
-    data.user &&
-      Notify.success(
-        `Welcome ${
-          data.user.email.split("@")[0]
-        }!! You are successfully registered.`
-      );
-    token.set(data.token);
     return data;
   } catch (error) {
-    error?.response?.data?.name === "MongoError" &&
+    error?.response?.data?.email === "MongoError" &&
       Notify.failure(`User already exists.`);
   }
 });
@@ -48,9 +41,21 @@ const logIn = createAsyncThunk("auth/login", async (credentials) => {
   }
 });
 
+const loginWithGoogle = createAsyncThunk("auth/login", async (googleToken) => {
+  token.set(googleToken);
+  try {
+    const { data } = await axios.get("/api/auth/current");
+
+    return data;
+  } catch (error) {
+    error?.response?.data &&
+      Notify.failure(`wrong login or password, try again`);
+  }
+});
+
 const logOut = createAsyncThunk("auth/logout", async () => {
   try {
-    await axios.post("/api/auth/logout");
+    await axios.get("/api/auth/logout");
     token.unset();
   } catch (error) {
     console.log(error);
@@ -118,14 +123,13 @@ const fetchCurrentUser = createAsyncThunk(
 //   }
 // };
 
-
-
 const operations = {
   register,
   logOut,
   logIn,
   fetchCurrentUser,
-   // getCurrentUser,
+  loginWithGoogle,
+  // getCurrentUser,
   // refreshSession,
 };
 export default operations;

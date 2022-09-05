@@ -24,6 +24,8 @@ export const AuthForm = () => {
   };
   const [loaderState, setLoaderState] = useState(false);
   const [initialValues, setInitialValues] = useState(initState);
+  const [logEmail, setLogEmail] = useState("");
+  const [logPass, setLogPass] = useState("");
 
   const IsMobile = isMobile(useMediaQuery);
   const IsTablet = isTablet(useMediaQuery);
@@ -53,15 +55,31 @@ export const AuthForm = () => {
         console.log("wrong pass or login::");
       });
   };
+
   const onRegister = (data, e) => {
     e.preventDefault();
     setLoaderState(true);
     const { email, password } = data;
+    setLogEmail(email);
+    setLogPass(password);
+
     dispatch(authOperations.register({ email, password }))
-      .then((response) => {
-        setLoaderState(false);
-        resetAllFields();
-        navigate("/expense");
+      .then((res) => {
+        const { payload } = res;
+        const { user } = payload;
+
+        if (user.email === email) {
+          dispatch(authOperations.logIn({ email, password }))
+            .then((response) => {
+              setLoaderState(false);
+              resetAllFields();
+              navigate("/expense");
+            })
+            .catch(() => {
+              setLoaderState(false);
+              console.log("wrong pass or login::");
+            });
+        }
       })
       .catch(() => {
         setLoaderState(false);

@@ -1,5 +1,8 @@
 {
   "registrationGoogle": "Ви можете авторизуватись за допомогою Google Account",
   "registrationEmail": "Електронна пошта",
-  "registrationPassword": "Пароль"
+  "registrationPassword": "Пароль",
+  "reportsExpenses": "Витрати",
+  "reportsIncomes": "Доходи",
+  "hrn": "грн"
 }
