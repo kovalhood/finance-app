@@ -1,26 +1,22 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import svgSprite from '../../images/sprite.svg';
+import { IconSvg } from '../UI';
 import s from './Reports.module.scss';
-
-import svg from '../../images/sprite.svg';
-
-const IconSvg = ({ icon, ...props }) => {
-  console.log(props, 'props');
-  return (
-    <svg {...props}>
-      <use xlinkHref={`${svg}#${icon}`} />
-    </svg>
-  );
-};
 
 const Reports = ({ finance, categories }) => {
   const { t } = useTranslation();
 
   const [isExpenses, setIsExpenses] = useState(true);
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState(categories[0].name);
 
   const handleBtnClick = () => {
     setIsExpenses(prev => !prev);
+  };
+
+  const handleCategoryClick = value => {
+    setCategory(value);
+    console.log('click');
   };
 
   return (
@@ -51,7 +47,7 @@ const Reports = ({ finance, categories }) => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M6 1 2 6l4 5" stroke="#FF751D" stroke-width="2" />
+              <path d="M6 1 2 6l4 5" stroke="#FF751D" strokeWidth="2" />
             </svg>
           </button>
           <p className={s.switchTitle}>
@@ -70,29 +66,43 @@ const Reports = ({ finance, categories }) => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="m1 1 4 5-4 5" stroke="#FF751D" stroke-width="2" />
+              <path d="m1 1 4 5-4 5" stroke="#FF751D" strokeWidth="2" />
             </svg>
           </button>
         </div>
-      </div>
 
-      <ul className={s.categories}>
-        {categories.map(({ name, svg, value }) => {
-          return (
-            <li key={name} className={s.category}>
-              <p className={s.categoryValue}>{value}</p>
-              <button
-                type="button"
-                className={s.categoryBtn}
-                onClick={() => console.log('click')}
-              >
-                <IconSvg icon={svg} className={s.categoryIcon} />
-              </button>
-              <p className={s.categoryName}>{name}</p>
-            </li>
-          );
-        })}
-      </ul>
+        <ul className={s.categories}>
+          {categories.map(({ name, svg, value }) => {
+            return (
+              <li key={name} className={s.category}>
+                <p className={s.categoryValue}>{value}</p>
+                <button
+                  type="button"
+                  className={
+                    category === name ? s.categoryBtnActive : s.categoryBtn
+                  }
+                  onClick={() => handleCategoryClick(name)}
+                >
+                  <IconSvg
+                    sprite={svgSprite}
+                    icon={svg}
+                    className={s.categoryIcon}
+                  />
+                </button>
+                <span
+                  className={
+                    category === name
+                      ? s.categoryBackgroundActive
+                      : s.categoryBackground
+                  }
+                />
+                <p className={s.categoryName}>{name}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      {/* <>{!!category && categories[category].map()}</> */}
     </>
   );
 };
