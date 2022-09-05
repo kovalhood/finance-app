@@ -2,7 +2,7 @@ import {
   combineReducers,
   configureStore,
   getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+} from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -12,15 +12,15 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import { authReducer } from "./auth";
+import { authReducer } from './auth';
 
 const authPersistConfig = {
-  key: "auth",
+  key: 'auth',
   storage,
-  whitelist: ["token", "isLoggedIn", "user"],
+  whitelist: ['token', 'isLoggedIn', 'user', 'balance', 'categories'],
 };
 const middleware = [
   ...getDefaultMiddleware({
@@ -36,7 +36,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  devTools: process.env.NODE_ENV === "development",
+  devTools: process.env.NODE_ENV === 'development',
   middleware,
 });
 
