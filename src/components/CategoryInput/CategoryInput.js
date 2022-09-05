@@ -38,14 +38,14 @@ export const CategoryInput = ({ type, categoryPick, setCategory }) => {
         readOnly
         value={categoryPick}
         placeholder={
-          type === 'expenses' ? 'Категория товара' : 'Категория дохода'
+          type === 'expense' ? 'Категория товара' : 'Категория дохода'
         }
         onClick={handleClick}
         onFocus={handleClick}
       />
       {!isCategories || (
         <ul className={styles.form_category_list}>
-          {type === 'expenses'
+          {type === 'expense'
             ? expenseCategory.map((expense, index) => (
                 <li key={index}>
                   <label tabIndex={0} className={styles.category_label}>
@@ -98,3 +98,5 @@ export const CategoryInput = ({ type, categoryPick, setCategory }) => {
     </div>
   );
 };
+
+export default CategoryInput;
