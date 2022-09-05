@@ -1,14 +1,14 @@
-import styles from "./Header.module.scss";
-import React, { useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { isDesktop } from "../../utils/mediaQuery";
-import { Link } from "react-router-dom";
-import { Logo } from "../Logo/Logo";
-import { ReactComponent as Logout } from "./icons/logoutIcon.svg";
-import defaultAvatar from "./icons/user.png";
-import { useDispatch, useSelector } from "react-redux";
-import Modal from "../Modal";
-import { authSelectors, authOperations } from "../../redux/auth";
+import styles from './Header.module.scss';
+import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { isDesktop } from '../../utils/mediaQuery';
+import { Link } from 'react-router-dom';
+import { Logo } from '../Logo/Logo';
+import { ReactComponent as Logout } from './icons/logoutIcon.svg';
+import defaultAvatar from './icons/user.png';
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '../Modal';
+import { authSelectors, authOperations } from '../../redux/auth';
 
 export const Header = () => {
   const Desktop = isDesktop(useMediaQuery);
@@ -19,9 +19,9 @@ export const Header = () => {
   // const name = useSelector(authSelectors.getName);
   const userPicture = useSelector(authSelectors.getUserPicture);
   const dispatch = useDispatch();
-  const toggleModal = (e) => {
+  const toggleModal = e => {
     e.preventDefault();
-    setShowModal((prevShowModal) => !prevShowModal);
+    setShowModal(prevShowModal => !prevShowModal);
   };
 
   return (
@@ -37,7 +37,7 @@ export const Header = () => {
               alt="user avatar"
               className={styles.user__avatar}
             />
-            <span className={styles.user__name}>{name}</span>
+            <span className={styles.user__name}>{email}</span>
             {dropdown && (
               <div className={styles.dropdown}>
                 <span className={styles.user_mail} title={email}>
@@ -61,7 +61,7 @@ export const Header = () => {
               <Logout />
             </button>
             <a href="/" className={styles.button_logout} onClick={toggleModal}>
-              {" "}
+              {' '}
               Exit
             </a>
           </div>
@@ -70,7 +70,7 @@ export const Header = () => {
       {showModal && (
         <Modal
           onClick={toggleModal}
-          massage={"Do you really want to log out?"}
+          massage={'Do you really want to log out?'}
         />
       )}
     </div>

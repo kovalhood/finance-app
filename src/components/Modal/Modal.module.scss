@@ -7,13 +7,6 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(29, 29, 29, 0.6);
-  // transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), visibility 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-  //   &.is-hidden {
-  //     opacity: 0;
-  //     visibility: hidden;
-  //     pointer-events: none;
-  //   }
 }
 
 .modal {
@@ -33,36 +26,16 @@
   box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
   border-radius: 30px;
   padding: 20px;
-  // opacity: 1;
-  // pointer-events: none;
-  // transform: scale(1);
-  // transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-//   transform: scale(1);
-//   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-//   position: relative;
-
-// &.is-hidden {
-//   opacity: 0;
-//   transform: scale(0);
-// }
 }
 
  @media screen and (min-width: 768px) {
   .modal{
     width: 380px;
     
-    // transform: scale(1);
-    // transition: 0.5s;
-    // left: 35%;
   }
  }
 
-//  .modal.activ{
-//   opacity: 0;
-//   pointer-events: all;
-//   transition: 0.5s;
-  
-//  }
+
 
 .closeModalBtn {
   position: absolute;
@@ -89,7 +62,7 @@
 .closeModalBtn:hover,
 .closeModalBtn:focus{
   cursor: pointer;
-    // background-color: $orangeBasicColor;
+    
     border-radius: 5px;
     fill: $orangeBasicColor;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
