@@ -34,7 +34,7 @@ const dispatch = useDispatch();
       <img src={userPicture ? userPicture : defaultAvatar}
       alt="user avatar"
                 className={styles.user__avatar} />
-            <span className={styles.user__name}>{name}</span>
+            <span className={styles.user__name}>{email}</span>
             {dropdown &&
             <div className={styles.dropdown}>
                 <span className={styles.user_mail} title={email}>{email}</span>
