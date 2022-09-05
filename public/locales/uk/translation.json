@@ -4,5 +4,6 @@
   "registrationPassword": "Пароль",
   "reportsExpenses": "Витрати",
   "reportsIncomes": "Доходи",
-  "hrn": "грн"
+  "hrn": "грн",
+  "goBackBtn": "Повернутися на головну"
 }

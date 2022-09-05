@@ -4,5 +4,6 @@
   "registrationPassword": "Password",
   "reportsExpenses": "Expenses",
   "reportsIncomes": "Incomes",
-  "hrn": "hrn"
+  "hrn": "hrn",
+  "goBackBtn": "Go back to the main"
 }
