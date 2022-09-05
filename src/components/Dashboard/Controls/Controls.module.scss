@@ -26,9 +26,19 @@
 .button{
     color: $blackColor;
     background-color: $grayTab;
+    &:hover,
+    &:focus{
+        outline: none;
+        color: $orangeBasicColor;
+        background-color: $grayActiveTab;
+    }
 }
 
 .button__active {
     color: $orangeBasicColor;
     background-color: $grayActiveTab;
+    &:hover,
+    &:focus {
+        outline: none;
+    }
 }
