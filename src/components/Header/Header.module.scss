@@ -22,7 +22,7 @@
     display: inline-block;
     margin-left: 0;
     padding: 8px 16px;
-    border-radius: 2px;
+    // border-radius: 2px;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     font-weight: 400;
@@ -48,17 +48,20 @@
     display: inline-block;
     margin-left: 0;
     padding: 8px 16px;
-    border-radius: 10px;
+    // border-radius: 10px;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
-    font-weight: normal;
+    font-weight: bold;
+   
     font-size: 12px;
     line-height: 1.16;
     letter-spacing: 0.04em;
-    color: $basicTextColor;
+    // color: $basicTextColor;
     background-color: $whiteColor;
     border: 0;
     text-decoration: none;
+    color: #CBCCD0;
+    fill: #CBCCD0;
     cursor: pointer;
     /* text-decoration-line: underline; */
     font-family: inherit;
@@ -75,16 +78,20 @@
 .button_logout:hover,
 .button_logout:focus {
     cursor: pointer;
-    background-color: $orangeBasicColor;
-    border-radius: 10px;
-    color: $whiteColor;
+    // background-color: $orangeBasicColor;
+    // border-radius: 10px;
+    color: $orangeBasicColor;
+    font-weight: bold;
+    fill: $orangeBasicColor;
 }
 
 .button_logout_mobile:hover,
 .button_logout_mobile:focus {
     text-decoration: underline;
     cursor: pointer;
-    background-color: $orangeBasicColor;
+    // background-color: $orangeBasicColor;
+    color: $orangeBasicColor;
+    fill: $orangeBasicColor;
 }
 
 
