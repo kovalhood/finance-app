@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -186,7 +185,7 @@ const Form = () => {
         />
         <CategoryInput
           className={styles.category}
-          type="expenses"
+          type="expense"
           categoryPick={category}
           setCategory={setCategory}
           autoComplete="off"
