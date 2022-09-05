@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import DateFnsUtils from "@date-io/date-fns";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import InputAdornment from "@mui/material/InputAdornment";
-import Icon from "@mui/material/Icon";
-import { createTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import styles from "./Form.module.scss";
-import sprite from "../../../images/sprite.svg";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import DateFnsUtils from '@date-io/date-fns';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import InputAdornment from '@mui/material/InputAdornment';
+import Icon from '@mui/material/Icon';
+import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { CategoryInput } from '../../CategoryInput/CategoryInput';
+import styles from './Form.module.scss';
+import sprite from '../../../images/sprite.svg';
 
 const materialTheme = createTheme({
   overrides: {
     MuiPickersToolbar: {
       toolbar: {
-        backgroundColor: "#FF751D",
+        backgroundColor: '#FF751D',
       },
     },
     MuiPickersCalendarHeader: {
@@ -26,38 +27,38 @@ const materialTheme = createTheme({
     // Hover color for icon
     MuiInput: {
       root: {
-        "&:hover svg": {
-          fill: "#FF751D",
+        '&:hover svg': {
+          fill: '#FF751D',
         },
       },
     },
     MuiPickersDay: {
       day: {
-        color: "#f88a46",
+        color: '#f88a46',
       },
       daySelected: {
-        backgroundColor: "#FF751D",
+        backgroundColor: '#FF751D',
       },
       dayDisabled: {
-        color: "#C7CCDC",
+        color: '#C7CCDC',
       },
       current: {
-        color: "#FF751D",
+        color: '#FF751D',
       },
     },
     MuiButton: {
       textPrimary: {
-        color: "#FF751D",
+        color: '#FF751D',
       },
     },
     MuiTypography: {
       colorPrimary: {
-        color: "#FF751D",
+        color: '#FF751D',
       },
     },
     MuiInputBase: {
       input: {
-        cursor: "pointer",
+        cursor: 'pointer',
       },
     },
   },
@@ -65,9 +66,9 @@ const materialTheme = createTheme({
 
 const Form = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [sum, setSum] = useState("0.00");
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [sum, setSum] = useState('0.00');
   // const [selectedDay, setSelectedDay] = useState('');
   // const [selectedMonth, setSelectedMonth] = useState('');
   // const [selectedYear, setSelectedYear] = useState('');
@@ -79,7 +80,7 @@ const Form = () => {
     // const dayQuery = (new Date(selectedDate).getDate()).toString().padStart(2, "0");
     const monthQuery = (new Date(selectedDate).getMonth() + 1)
       .toString()
-      .padStart(2, "0");
+      .padStart(2, '0');
     const yearQuery = new Date(selectedDate).getFullYear();
 
     navigate(`${location.pathname}?month=${monthQuery}&year=${yearQuery}`);
@@ -87,33 +88,53 @@ const Form = () => {
 
   useEffect(() => {
     handleQueryChange();
+
+    setDescription('');
+    setCategory('');
+    setSum('');
   }, [selectedDate, location.pathname]);
 
-  const handleDescriptionChange = (event) => {
+  const handleDescriptionChange = event => {
     setDescription(event.currentTarget.value);
   };
-  const handleCategoryChange = (event) => {
+  const handleCategoryChange = event => {
     setCategory(event.currentTarget.value);
   };
-  const handleSumChange = (event) => {
+  const handleSumChange = event => {
     // setSum(Number(event.currentTarget.value).toFixed(2));
     setSum(event.currentTarget.value);
   };
 
   function handleSumKeydown(event) {
-    ["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
+    ['e', 'E', '+', '-'].includes(event.key) && event.preventDefault();
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    if (description.trim() === "") {
-      setDescription("");
-      setSum("");
-
-      return console.log("Input your search query");
+    if (description.trim() === '') {
+      setDescription('');
+      return console.log('Input description of transaction');
     }
-    setDescription("");
+
+    if (category.trim() === '') {
+      setCategory('');
+      return console.log('Input category of transaction');
+    }
+
+    if (sum.trim() === '') {
+      setSum('');
+      return console.log('Input sum of transaction');
+    }
+  };
+
+  const handleClear = event => {
+    event.preventDefault();
+
+    setSelectedDate(new Date());
+    setDescription('');
+    setCategory('');
+    setSum('');
   };
 
   return (
@@ -129,11 +150,11 @@ const Form = () => {
                 width: 100,
                 fontSize: 12,
                 fontWeight: 900,
-                color: "#52555F",
-                cursor: "pointer",
+                color: '#52555F',
+                cursor: 'pointer',
               },
               startAdornment: (
-                <InputAdornment position={"start"}>
+                <InputAdornment position={'start'}>
                   <Icon>
                     <svg
                       className={styles.calendar_icon}
@@ -190,10 +211,18 @@ const Form = () => {
       </div>
 
       <div className={styles.buttons}>
-        <button type="submit" className={styles.button_input}>
+        <button
+          type="submit"
+          className={styles.button_input}
+          onClick={handleSubmit}
+        >
           Input
         </button>
-        <button type="button" className={styles.button_clear}>
+        <button
+          type="button"
+          className={styles.button_clear}
+          onClick={handleClear}
+        >
           Clear
         </button>
       </div>
