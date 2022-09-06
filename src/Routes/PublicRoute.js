@@ -7,7 +7,7 @@ import HomeView from '../views/HomeView/HomeView';
 export const PublicRoute = ({ component }) => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
-  return isLoggedIn ? <Navigate to="/auth" /> : <HomeView />;
+  return isLoggedIn ? <Navigate to="/expense" /> : <HomeView />;
 };
 export default PublicRoute;
 

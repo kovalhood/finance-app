@@ -87,7 +87,7 @@ export const Balance = () => {
             </button>
           </div>
         </form>
-        {balance === '00.00 UAH' && (
+        {getBalance === null ? (
           <div className={s.popUpContainer}>
             <p className={s.popUpText}>
               Hello! To get started, enter the current balance of your account!
@@ -96,7 +96,7 @@ export const Balance = () => {
               You can't spend money until you have it &#128521;
             </p>
           </div>
-        )}
+        ) : null}
       </div>
     </>
   );
