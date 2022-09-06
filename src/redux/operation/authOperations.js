@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 axios.defaults.baseURL = 'https://finance-wallet.herokuapp.com';
@@ -64,14 +65,6 @@ const logOut = createAsyncThunk('operation/logout', async () => {
   }
 });
 
-const setBalance = createAsyncThunk('operation/balance', async balance => {
-  try {
-    const { data } = await axios.patch('/api/auth/balance', balance);
-    return data;
-  } catch (error) {
-    Notify.failure(`${error.message}`);
-  }
-});
 const fetchCurrentUser = createAsyncThunk(
   'operation/refresh',
   async (_, thunkAPI) => {
@@ -95,12 +88,18 @@ const fetchCurrentUser = createAsyncThunk(
 
 //===================================================
 
+const setBalance = createAsyncThunk('operation/balance', async balance => {
+  try {
+    const { data } = await axios.patch('/api/auth/balance', balance);
+    return data;
+  } catch (error) {
+    Notify.failure(`${error.message}`);
+  }
+});
+
 const addTransaction = createAsyncThunk(
   'transactions',
   async ({ transaction, type }) => {
-    // const state = thunkAPI.getState();
-    // const persistedToken = state.operation.token;
-    // token.set(persistedToken);
     try {
       const { data } = await axios.post(
         `api/transactions/${type}`,

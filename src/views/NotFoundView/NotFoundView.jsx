@@ -3,6 +3,7 @@ import { Background } from '../../components/UI/Background';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authOperations } from '../../redux/operation';
+import { useEffect } from 'react';
 
 const NotFoundView = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ const NotFoundView = () => {
     const { payload: data } = res;
     navigate('/expense');
   });
+  useEffect(() => {
+    navigate('/auth');
+  }, []);
 
   return (
     <>

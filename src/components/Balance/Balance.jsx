@@ -54,7 +54,7 @@ export const Balance = () => {
     <>
       <div className={s.formContainer}>
         <div className={s.reportContainer}>
-          <a href="report" className={s.reportLink} type="button">
+          <a href="reports" className={s.reportLink} type="button">
             Reports
             <Diagram className={s.reportSvg} />
           </a>

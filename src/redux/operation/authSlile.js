@@ -40,11 +40,11 @@ const authSlice = createSlice({
     [authOperations.setBalance.fulfilled](state, action) {
       state.balance = action.payload.balance;
     },
-    // [authOperations.addTransaction().fulfilled](state, action) {
-    //   state.balance = action.payload.balance;
-    // },
+    [authOperations.addTransaction.fulfilled](state, action) {
+      state.balance = action.payload.currentBalance;
+    },
     [authOperations.deleteTransaction.fulfilled](state, action) {
-      state.balance = action.payload.balance;
+      state.balance = action.payload.currentBalance;
     },
 
     [authOperations.fetchCurrentUser.pending](state) {

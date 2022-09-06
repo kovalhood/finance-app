@@ -119,8 +119,8 @@ const Form = () => {
     //============== Добавление Транзакции Income либо Expense
     const transaction = {
       // Объект transaction собрать из полей
-      value: 70,
-      categories: '  money-',
+      value: 14000,
+      categories: '  money+++',
       description: 'tax',
       day: '05',
       month: '09',
