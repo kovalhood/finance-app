@@ -1,8 +1,8 @@
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import authSelectors from "../redux/auth/authSelectors";
-import HomeView from "../views/HomeView/HomeView";
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import authSelectors from '../redux/operation/authSelectors';
+import HomeView from '../views/HomeView/HomeView';
 
 export const PublicRoute = ({ component }) => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);

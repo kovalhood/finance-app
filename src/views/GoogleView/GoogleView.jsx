@@ -1,8 +1,8 @@
-import styles from "./GoogleView.module.css";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { authOperations } from "../../redux/auth";
-import { Background } from "../../components/UI/Background";
+import styles from './GoogleView.module.css';
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { authOperations } from '../../redux/operation';
+import { Background } from '../../components/UI/Background';
 
 const GoogleView = () => {
   const dispatch = useDispatch();
@@ -10,8 +10,8 @@ const GoogleView = () => {
   const location = useLocation();
   const token = location.search.slice(7);
 
-  dispatch(authOperations.loginWithGoogle(token)).then((res) => {
-    navigate("/expense");
+  dispatch(authOperations.loginWithGoogle(token)).then(res => {
+    navigate('/expense');
   });
 
   return (

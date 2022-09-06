@@ -15,7 +15,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { authReducer } from './auth';
+import { authReducer } from './operation';
 
 const authPersistConfig = {
   key: 'auth',

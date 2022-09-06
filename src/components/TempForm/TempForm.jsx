@@ -1,6 +1,6 @@
 import styles from './TempForm.module.css';
 import { useDispatch } from 'react-redux';
-import { authOperations } from '../../redux/auth';
+import { authOperations } from '../../redux/operation';
 
 export const TempForm = () => {
   const dispatch = useDispatch();
