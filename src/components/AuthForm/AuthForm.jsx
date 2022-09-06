@@ -1,43 +1,43 @@
-import styles from "./AuthForm.module.css";
-import { useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { authOperations } from "../../redux/auth";
-import { useNavigate } from "react-router-dom";
+import styles from './AuthForm.module.css';
+import { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { authOperations } from '../../redux/operation';
+import { useNavigate } from 'react-router-dom';
 
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import * as Yup from "yup";
-import { Loader } from "../Loader";
-import { useMediaQuery } from "react-responsive";
-import { isMobile, isTablet } from "../../utils/mediaQuery";
-import { Google } from "../Google";
-import { Notify } from "notiflix/build/notiflix-notify-aio";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import * as Yup from 'yup';
+import { Loader } from '../Loader';
+import { useMediaQuery } from 'react-responsive';
+import { isMobile, isTablet } from '../../utils/mediaQuery';
+import { Google } from '../Google';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const AuthForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initState = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
   const [loaderState, setLoaderState] = useState(false);
   const [initialValues, setInitialValues] = useState(initState);
-  const [logEmail, setLogEmail] = useState("");
-  const [logPass, setLogPass] = useState("");
+  const [logEmail, setLogEmail] = useState('');
+  const [logPass, setLogPass] = useState('');
 
   const IsMobile = isMobile(useMediaQuery);
   const IsTablet = isTablet(useMediaQuery);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required("Дане поле є обовязковим")
-      .email("Email is invalid"),
+      .required('Дане поле є обовязковим')
+      .email('Email is invalid'),
     password: Yup.string()
-      .required("Дане поле є обовязковим")
-      .min(6, "Password must be at least 6 characters")
-      .max(40, "Password must not exceed 40 characters"),
+      .required('Дане поле є обовязковим')
+      .min(6, 'Password must be at least 6 characters')
+      .max(40, 'Password must not exceed 40 characters'),
   });
 
   const onSubmit = (data, e) => {
@@ -45,14 +45,14 @@ export const AuthForm = () => {
     setLoaderState(true);
     const { email, password } = data;
     dispatch(authOperations.logIn({ email, password }))
-      .then((response) => {
+      .then(response => {
         setLoaderState(false);
         resetAllFields();
-        navigate("/expense");
+        navigate('/expense');
       })
       .catch(() => {
         setLoaderState(false);
-        console.log("wrong pass or login::");
+        console.log('wrong pass or login::');
       });
   };
 
@@ -64,38 +64,38 @@ export const AuthForm = () => {
     setLogPass(password);
 
     dispatch(authOperations.register({ email, password }))
-      .then((res) => {
+      .then(res => {
         const { payload } = res;
         const { user } = payload;
 
         if (user.email === email) {
           dispatch(authOperations.logIn({ email, password }))
-            .then((response) => {
+            .then(response => {
               setLoaderState(false);
               resetAllFields();
-              navigate("/expense");
+              navigate('/expense');
             })
             .catch(() => {
               setLoaderState(false);
-              console.log("wrong pass or login::");
+              console.log('wrong pass or login::');
             });
         }
       })
       .catch(() => {
         setLoaderState(false);
         Notify.failure(`User already register/ Try another login`);
-        console.log("wong pass or email::");
+        console.log('wong pass or email::');
       });
 
     resetAllFields();
   };
 
-  const onError = (error) => {
-    console.log("ERROR:::", error);
+  const onError = error => {
+    console.log('ERROR:::', error);
   };
   const resetAllFields = () => {
-    resetField("email");
-    resetField("password");
+    resetField('email');
+    resetField('password');
   };
   const {
     register,
@@ -104,8 +104,8 @@ export const AuthForm = () => {
 
     formState: { errors },
   } = useForm({
-    mode: "onTouched",
-    reValidateMode: "onChange",
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
   });
@@ -130,10 +130,10 @@ export const AuthForm = () => {
             className={IsMobile ? styles.mobInput : styles.input}
             type="email"
             placeholder="Enter email"
-            {...register("email")}
+            {...register('email')}
           />
 
-          {errors.email && errors.email.type === "required" && (
+          {errors.email && errors.email.type === 'required' && (
             <Form.Text className={styles.tooltip}>
               <span className={styles.dotTooltip}>*</span>
               {errors.email.message}
@@ -148,9 +148,9 @@ export const AuthForm = () => {
             autoComplete="off"
             type="password"
             placeholder="Password"
-            {...register("password")}
+            {...register('password')}
           />
-          {errors.password && errors.password.type === "required" && (
+          {errors.password && errors.password.type === 'required' && (
             <Form.Text className={styles.tooltip}>
               <span className={styles.dotTooltip}>*</span>
               {errors.password.message}

@@ -8,7 +8,7 @@ import { ReactComponent as Logout } from './icons/logoutIcon.svg';
 import defaultAvatar from './icons/user.png';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal';
-import { authSelectors, authOperations } from '../../redux/auth';
+import { authSelectors, authOperations } from '../../redux/operation';
 
 export const Header = () => {
   const Desktop = isDesktop(useMediaQuery);

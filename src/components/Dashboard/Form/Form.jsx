@@ -10,7 +10,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { CategoryInput } from '../../CategoryInput/CategoryInput';
 import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
-import { authOperations } from '../../../redux/auth';
+import { authOperations } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const materialTheme = createTheme({
@@ -161,13 +161,34 @@ const Form = () => {
 
     const id = '63165843b34f6f28d0455e53';
 
-    dispatch(authOperations.deleteTransaction({ id }))
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        Notify.failure(`${error.message}`);
-      });
+    // dispatch(authOperations.deleteTransaction({id}))
+    //     .then(response => {
+    //       console.log(response);
+    //     })
+    //     .catch(error => {
+    //       Notify.failure(`${error.message}`);
+    //     });
+    const type = location.pathname.slice(1);
+    // Получение всех транзакций по типу
+    // const month = '09',
+    //     year = '2022'
+    //
+    //
+    // dispatch(authOperations.getTransactionListByType({type, month,year}))
+    //     .then(response => {
+    //         console.log(response.payload);
+    //     })
+    //     .catch(error => {
+    //         Notify.failure(`${error.message}`);
+    //     });
+    //Получение за месяц транзакции
+    //    dispatch(authOperations.getTransactionsByMonth({type}))
+    //        .then(response => {
+    //            console.log(response.payload);
+    //        })
+    //        .catch(error => {
+    //            Notify.failure(`${error.message}`);
+    //        });
 
     //==============================
 

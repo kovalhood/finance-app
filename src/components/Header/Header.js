@@ -8,7 +8,7 @@ import { ReactComponent as Logout } from './icons/logoutIcon.svg';
 import defaultAvatar from './icons/user.png';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal';
-import { authSelectors, authOperations } from '../../redux/auth';
+import { authSelectors, authOperations } from '../../redux/operation';
 export const Header = () => {
   const Desktop = isDesktop(useMediaQuery);
   // const loggedIn = useSelector(authSelectors.getIsLoggedIn);
@@ -45,32 +45,27 @@ export const Header = () => {
                     {email}
                   </span>
 
-                  <button
-                    type="button"
-                    className={styles.button}
-                    onClick={() => dispatch(authOperations.logOut())}
-                  >
-                    Log out
-                  </button>
-                </div>
-              )}
-              <button
-                type="button"
-                className={styles.button_logout_mobile}
-                onClick={toggleModal}
-              >
-                <Logout />
-              </button>
-              <a
-                href="/"
-                className={styles.button_logout}
-                onClick={toggleModal}
-              >
-                {' '}
-                Exit
-              </a>
-            </div>
-          )}
+                <button
+                  type="button"
+                  className={styles.button}
+                  onClick={() => dispatch(authOperations.logOut())}
+                >
+                  Log out
+                </button>
+              </div>
+            )}
+            <button
+              type="button"
+              className={styles.button_logout_mobile}
+              onClick={toggleModal}
+            >
+              <Logout />
+            </button>
+            <a href="/" className={styles.button_logout} onClick={toggleModal}>
+              {' '}
+              Exit
+            </a>
+          </div>
         </header>
       </div>
       {showModal && (
