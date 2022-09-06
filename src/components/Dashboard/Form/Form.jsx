@@ -7,7 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Icon from '@mui/material/Icon';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { CategoryInput } from '../../CategoryInput/CategoryInput';
+import CategoryInput from './CategoryInput';
 import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/operation';
@@ -245,7 +245,6 @@ const Form = () => {
           onChange={handleDescriptionChange}
         />
         <CategoryInput
-          className={styles.category}
           type="expenses"
           categoryPick={category}
           setCategory={setCategory}
