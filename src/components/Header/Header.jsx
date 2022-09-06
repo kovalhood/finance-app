@@ -11,12 +11,10 @@ import Modal from '../Modal';
 import { authSelectors, authOperations } from '../../redux/operation';
 
 export const Header = () => {
-  const Desktop = isDesktop(useMediaQuery);
   const loggedIn = useSelector(authSelectors.getIsLoggedIn);
   const [showModal, setShowModal] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const email = useSelector(authSelectors.getEmail);
-  // const name = useSelector(authSelectors.getName);
   const userPicture = useSelector(authSelectors.getUserPicture);
   const dispatch = useDispatch();
   const toggleModal = e => {
@@ -28,7 +26,7 @@ export const Header = () => {
     <div>
       <div className={styles.wrapper}>
         <header className={styles.header}>
-          <Link to="/main-page">
+          <Link to="/">
             <Logo />
           </Link>
           {loggedIn ? (

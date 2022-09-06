@@ -20,7 +20,18 @@ export const App = () => {
       <Header />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/auth" element={<HomeView />} />
+          <Route
+            path="/"
+            element={
+              <PublicRoute
+                component={
+                  <Suspense fallback={<Loader />}>
+                    <HomeView />
+                  </Suspense>
+                }
+              />
+            }
+          />
           <Route
             path="/expense"
             element={
@@ -62,11 +73,5 @@ export const App = () => {
         </Routes>
       </Suspense>
     </>
-    // <>
-    //   <Header />
-    //   <Balance />
-    //   <SummaryTrans />
-    //   <MainView />
-    // </>
   );
 };
