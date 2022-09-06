@@ -31,40 +31,46 @@ export const Header = () => {
           <Link to="/main-page">
             <Logo />
           </Link>
-          <div className={styles.user__menu}>
-            <img
-              src={userPicture ? userPicture : defaultAvatar}
-              alt="user avatar"
-              className={styles.user__avatar}
-            />
-            <span className={styles.user__name}>{email}</span>
-            {dropdown && (
-              <div className={styles.dropdown}>
-                <span className={styles.user_mail} title={email}>
-                  {email}
-                </span>
+          {loggedIn ? (
+            <div className={styles.user__menu}>
+              <img
+                src={userPicture ? userPicture : defaultAvatar}
+                alt="user avatar"
+                className={styles.user__avatar}
+              />
+              <span className={styles.user__name}>{email.split('@')[0]}</span>
+              {dropdown && (
+                <div className={styles.dropdown}>
+                  <span className={styles.user_mail} title={email}>
+                    {email}
+                  </span>
 
-                <button
-                  type="button"
-                  className={styles.button}
-                  onClick={() => dispatch(authOperations.logOut())}
-                >
-                  Log out
-                </button>
-              </div>
-            )}
-            <button
-              type="button"
-              className={styles.button_logout_mobile}
-              onClick={toggleModal}
-            >
-              <Logout />
-            </button>
-            <a href="/" className={styles.button_logout} onClick={toggleModal}>
-              {' '}
-              Exit
-            </a>
-          </div>
+                  <button
+                    type="button"
+                    className={styles.button}
+                    onClick={() => dispatch(authOperations.logOut())}
+                  >
+                    Log out
+                  </button>
+                </div>
+              )}
+              <button
+                type="button"
+                className={styles.button_logout_mobile}
+                onClick={toggleModal}
+              >
+                <Logout />
+              </button>
+              <a
+                href="/"
+                className={styles.button_logout}
+                onClick={toggleModal}
+              >
+                {' '}
+                Exit
+              </a>
+            </div>
+          ) : null}
         </header>
       </div>
       {showModal && (

@@ -1,28 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as Diagram } from '../../images/icons/Diagram.svg';
 import s from './Balance.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from '../../redux/operation';
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Balance = () => {
+  const getBalance = useSelector(authSelectors.getBalance);
   const [balance, setBalance] = useState('00.00 UAH');
   const [isDisabledBtn, setIsDisabledBtn] = useState(true);
+  const dispatch = useDispatch();
 
-  const handleChange = e => {
-    setBalance(e.target.value);
-    setIsDisabledBtn(false);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
+  useEffect(() => {
     setBalance(
-      Number(balance)
+      Number(getBalance)
         .toLocaleString('cs-CZ', {
           style: 'currency',
           currency: 'UAH',
         })
         .replace(',', '.')
     );
-    setIsDisabledBtn(true);
+  }, [getBalance]);
+
+  const handleChange = e => {
+    setBalance(e.target.value);
+    setIsDisabledBtn(false);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const balance = parseInt(event.target[0].value);
+
+    dispatch(authOperations.setBalance({ balance }))
+      .then(response => {
+        setBalance(
+          Number(balance)
+            .toLocaleString('cs-CZ', {
+              style: 'currency',
+              currency: 'UAH',
+            })
+            .replace(',', '.')
+        );
+        setIsDisabledBtn(true);
+        Notify.success(`Your balance updated successfully.`);
+      })
+      .catch(error => {
+        error?.response?.data && Notify.failure(error.message);
+      });
   };
 
   return (
@@ -50,6 +75,7 @@ export const Balance = () => {
               pattern="^[0-9]+$"
               title="Field may contain only numbers from 0 to 9"
               required
+              disabled={getBalance === null ? false : true}
               onFocus={() => setBalance('')}
             />
             <button
