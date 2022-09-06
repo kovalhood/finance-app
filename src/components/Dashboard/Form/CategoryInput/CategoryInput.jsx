@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authSelectors } from '../../../../redux/operation';
@@ -8,8 +8,11 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
   const [isCategories, setIsCategories] = useState(true);
   const categories = useSelector(authSelectors.getCategories);
 
-  const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    setIsCategories(true);
+  }, [location.pathname]);
 
   const handleClick = () => {
     setIsCategories(!isCategories);
