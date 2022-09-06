@@ -5,6 +5,7 @@ const getName = state => state.auth.user.name;
 const getIsFetchingCurrentUser = state => state.auth.isFetchingCurrentUser;
 const getUserPicture = state => state.auth.user.picture;
 const getCategories = state => state.auth.categories;
+const getBalance = state => state.auth.balance;
 const authSelectors = {
   getIsLoggedIn,
   getUserPicture,
@@ -12,5 +13,6 @@ const authSelectors = {
   getName,
   getIsFetchingCurrentUser,
   getCategories,
+  getBalance,
 };
 export default authSelectors;

@@ -11,7 +11,6 @@ const MainView = () => {
         <Background />
       </div>
       <Balance />
-      <TempForm />
       <Dashboard />
     </>
   );
