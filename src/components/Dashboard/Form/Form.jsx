@@ -81,13 +81,18 @@ const Form = () => {
   const dispatch = useDispatch();
 
   function handleQueryChange() {
-    // const dayQuery = (new Date(selectedDate).getDate()).toString().padStart(2, "0");
+    const dayQuery = new Date(selectedDate)
+      .getDate()
+      .toString()
+      .padStart(2, '0');
     const monthQuery = (new Date(selectedDate).getMonth() + 1)
       .toString()
       .padStart(2, '0');
     const yearQuery = new Date(selectedDate).getFullYear();
 
-    navigate(`${location.pathname}?month=${monthQuery}&year=${yearQuery}`);
+    navigate(
+      `${location.pathname}?day=${dayQuery}&month=${monthQuery}&year=${yearQuery}`
+    );
   }
 
   useEffect(() => {
@@ -115,16 +120,24 @@ const Form = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    const dayQuery = new Date(selectedDate)
+      .getDate()
+      .toString()
+      .padStart(2, '0');
+    const monthQuery = (new Date(selectedDate).getMonth() + 1)
+      .toString()
+      .padStart(2, '0');
+    const yearQuery = new Date(selectedDate).getFullYear();
 
     //============== Добавление Транзакции Income либо Expense
     const transaction = {
       // Объект transaction собрать из полей
-      value: 14000,
-      categories: '  money+++',
-      description: 'tax',
-      day: '05',
-      month: '09',
-      year: '2022',
+      value: parseInt(sum),
+      categories: category,
+      description: description,
+      day: dayQuery,
+      month: monthQuery,
+      year: String(yearQuery),
     };
     const type = location.pathname.slice(1); // Оставить
 
@@ -278,7 +291,7 @@ const Form = () => {
           className={styles.button_input}
           onClick={handleSubmit}
         >
-          Input
+          Add
         </button>
         <button
           type="button"
