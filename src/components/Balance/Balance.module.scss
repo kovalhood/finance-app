@@ -1,4 +1,4 @@
-@import url(../../globalStyles/_vars.scss);
+@import "../../globalStyles/vars";
 
 .container {
   display: block;
@@ -7,21 +7,35 @@
 @media screen and (min-width: 768px) {
   .container {
     display: flex;
+    position: relative;
+    align-items: baseline;
   }
 }
 
 .formContainer {
   position: relative;
+  width: 280px;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 768px) {
   .formContainer {
     display: flex;
     flex-direction: row-reverse;
-    align-items: baseline;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-between;
     padding-top: 40px;
-    //width: 634px;
+    width: 704px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .formContainer {
+    width: 1098px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -36,6 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 50px;
   }
 }
 
@@ -44,7 +59,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 12px;
   line-height: 1.17;
   letter-spacing: 0.02em;
@@ -56,12 +71,15 @@
     margin-right: 21px;
     margin-bottom: 0;
     font-weight: 500;
-    font-family: Roboto;
+    font-family: "Roboto";
     font-size: 12px;
   }
 }
 .reportSvg{
-  margin-left: 20px;
+  margin-left: 10px;
+}
+.reportSvg:hover{
+  fill: #FF751D;
 }
 
 .btnContainer {
@@ -71,12 +89,11 @@
 }
 
 .input {
-  width: 140px;
+  width: 120px;
   height: 44px;
-  border: 2px solid #ffffff;
-  background-color: #F5F6FB;
+  border: 2px solid $whiteColor;
+  background-color: $grayBackgroundColor;
   border-radius: 22px 0px 0px 22px;
- // padding: 12px 0;
   padding-right: 16px;
   text-align: right;
   outline: none;
@@ -85,11 +102,7 @@
   line-height: 1.17;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #000000;
-
-  &:hover{
-    background-color: #FF751D;
-  }
+  color: $blackColor;
 }
 
 @media screen and (min-width: 768px) {
@@ -98,6 +111,7 @@
     height: 37px;
     border-radius: 16px;
     padding-right: 20px;
+    position: relative;
   }
 
   .input:not(:last-child) {
@@ -106,44 +120,52 @@
 }
 
 .buttonDisabled {
-  width: 140px;
+  width: 142px;
   height: 50px;
   border-radius: 0px 22px 22px 0px;
-  border: 2px solid #ffffff;
+  border: 2px solid $whiteColor;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.17;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: rgba(82, 85, 95, 0.7);
-  background-color: #F5F6FB;
+  background-color: $grayBackgroundColor;
   cursor: pointer;
+}
+
+@media screen and (min-width: 768px){
+  .buttonDisabled{
+    border-radius: 16px;
+    width: 125px;
+    height: 44px;
+  }
 }
 
 .button {
   width: 142px;
-  height: 44px;
-  border-radius: 0px 22px 22px 0px;
-  border: 2px solid #ffffff;
-
+  height: 50px;
+  border-radius: 0px 22px 22px 0px;;
+  border: 2px solid $whiteColor;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.17;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: rgba(82, 85, 95, 0.7);
-  background-color: #f2f5fc;
+ background-color: $orangeBasicColor;
   cursor: pointer;
-  color: #fff;
+  color: $whiteColor;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media screen and (min-width: 768px) {
-  .buttonDisabled {
+  .button {
     width: 125px;
     height: 44px;
     border-radius: 16px;
     &:hover{
-    background-color: #FF751D;
+    background-color: $orangeBasicColor;
   }
   }
 }
@@ -151,12 +173,10 @@
 .popUpContainer {
   position: absolute;
   top: 100%;
-  left: 0;
-
   padding-top: 40px;
-  padding-left: 25px;
-  //width: 280px;
-  height: 163px;
+  padding-left: 20px;
+  width: 280px;
+  height: 152px;
   background-image: url('../../images/icons/PopUp.svg');
   background-repeat: no-repeat;
   background-position-x: center;
@@ -165,10 +185,10 @@
 
 @media screen and (min-width: 768px) {
   .popUpContainer {
-    left: 22%;
     padding-left: 29px;
     width: 288px;
     height: 163px;
+    left: 16%;
   }
 }
 
@@ -179,30 +199,36 @@
 }
 
 .popUpText {
-  margin: 0;
-  padding-top: 29px;
+  display: block;
+  width: 230px;
+  margin: 0 auto;
   padding: 0;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.43;
-  color: #ffffff;
+  color:$whiteColor;
+  font-family: "Roboto";
 }
 @media screen and (min-width: 768px){
 .popUpText {
   align-items: center;
+  padding-top: 15px;
   padding-left: 25px;
   padding-right: 25px;
 }
 }
 
 .popUpTextBottom {
-    margin: 0;
+  display: block;
+  width: 230px;
+  margin: 0 auto;
   padding: 0;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.43;
-  color: #ffffff;
+  color: $whiteColor;
   margin-top: 20px;
+  font-family: "Roboto";
   font-size: 12px;
   line-height: 1.33;
 }
@@ -222,15 +248,14 @@
 
 @media screen and (min-width: 768px) {
   .reportContainer {
-    margin-right: 37px;
     margin-bottom: 0;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .reportContainer {
-    margin-left: 100px;
-    margin-right: 91px;
+    position: absolute;
+    right: 0;
   }
 }
 
@@ -239,7 +264,7 @@
   text-decoration: none;
   font-weight: 500;
   font-size: 12px;
-  font-family: Roboto;
+  font-family: "Roboto";
   line-height: 1.17;
   letter-spacing: 0.04em;
   color: rgba(82, 85, 95, 0.7);
@@ -247,7 +272,7 @@
   background-color: transparent;
   border: none;
   &:hover{
-    color: #FF751D;
+    color: $orangeBasicColor
   }
 
 }

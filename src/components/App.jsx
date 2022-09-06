@@ -6,7 +6,6 @@ import PrivateRoute from '../Routes/PrivateRoute';
 import '../CSS/normilize.css';
 import '../CSS/fonts.css';
 import PublicRoute from '../Routes/PublicRoute';
-// import { Balance } from "./Balance/Balance";
 // import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
 
 const HomeView = lazy(() => import('../views/HomeView/HomeView'));

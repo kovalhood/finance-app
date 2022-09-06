@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { ReactComponent as Diagram } from "../../images/icons/Diagram.svg";
-import s from "./Balance.module.scss";
+import { useState } from 'react';
+import { ReactComponent as Diagram } from '../../images/icons/Diagram.svg';
+import s from './Balance.module.scss';
 
 export const Balance = () => {
-  const [balance, setBalance] = useState("00.00 UAH");
+  const [balance, setBalance] = useState('00.00 UAH');
   const [isDisabledBtn, setIsDisabledBtn] = useState(true);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setBalance(e.target.value);
     setIsDisabledBtn(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     setBalance(
       Number(balance)
-        .toLocaleString("cs-CZ", {
-          style: "currency",
-          currency: "UAH",
+        .toLocaleString('cs-CZ', {
+          style: 'currency',
+          currency: 'UAH',
         })
-        .replace(",", ".")
+        .replace(',', '.')
     );
     setIsDisabledBtn(true);
   };
@@ -50,7 +50,7 @@ export const Balance = () => {
               pattern="^[0-9]+$"
               title="Field may contain only numbers from 0 to 9"
               required
-              onFocus={() => setBalance("")}
+              onFocus={() => setBalance('')}
             />
             <button
               type="submit"
@@ -61,7 +61,7 @@ export const Balance = () => {
             </button>
           </div>
         </form>
-        {balance === "00.00 UAH" && (
+        {balance === '00.00 UAH' && (
           <div className={s.popUpContainer}>
             <p className={s.popUpText}>
               Hello! To get started, enter the current balance of your account!
@@ -75,5 +75,3 @@ export const Balance = () => {
     </>
   );
 };
-
-export default Balance;
