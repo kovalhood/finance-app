@@ -20,7 +20,9 @@ export const GoBackButton = () => {
     <button
       className={s.wrapper}
       type="button"
-      onClick={() => navigate(from ?? '/')}
+      onClick={() => {
+        window.history.back();
+      }}
     >
       <IconSvg sprite={svgSprite} icon="go_back" className={s.categoryIcon} />
     </button>
