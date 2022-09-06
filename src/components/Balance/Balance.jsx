@@ -1,28 +1,53 @@
-import { useState } from "react";
-import { ReactComponent as Diagram } from "../../images/icons/Diagram.svg";
-import s from "./Balance.module.scss";
+import { useEffect, useState } from 'react';
+import { ReactComponent as Diagram } from '../../images/icons/Diagram.svg';
+import s from './Balance.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from '../../redux/operation';
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Balance = () => {
-  const [balance, setBalance] = useState("00.00 UAH");
+  const getBalance = useSelector(authSelectors.getBalance);
+  const [balance, setBalance] = useState('00.00 UAH');
   const [isDisabledBtn, setIsDisabledBtn] = useState(true);
+  const dispatch = useDispatch();
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    setBalance(
+      Number(getBalance)
+        .toLocaleString('cs-CZ', {
+          style: 'currency',
+          currency: 'UAH',
+        })
+        .replace(',', '.')
+    );
+  }, [getBalance]);
+
+  const handleChange = e => {
     setBalance(e.target.value);
     setIsDisabledBtn(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
+    const balance = parseInt(event.target[0].value);
 
-    setBalance(
-      Number(balance)
-        .toLocaleString("cs-CZ", {
-          style: "currency",
-          currency: "UAH",
-        })
-        .replace(",", ".")
-    );
-    setIsDisabledBtn(true);
+    dispatch(authOperations.setBalance({ balance }))
+      .then(response => {
+        setBalance(
+          Number(balance)
+            .toLocaleString('cs-CZ', {
+              style: 'currency',
+              currency: 'UAH',
+            })
+            .replace(',', '.')
+        );
+        setIsDisabledBtn(true);
+        Notify.success(`Your balance updated successfully.`);
+      })
+      .catch(error => {
+        error?.response?.data && Notify.failure(error.message);
+      });
   };
 
   return (
@@ -50,7 +75,8 @@ export const Balance = () => {
               pattern="^[0-9]+$"
               title="Field may contain only numbers from 0 to 9"
               required
-              onFocus={() => setBalance("")}
+              disabled={getBalance === null ? false : true}
+              onFocus={() => setBalance('')}
             />
             <button
               type="submit"
@@ -61,7 +87,7 @@ export const Balance = () => {
             </button>
           </div>
         </form>
-        {balance === "00.00 UAH" && (
+        {balance === '00.00 UAH' && (
           <div className={s.popUpContainer}>
             <p className={s.popUpText}>
               Hello! To get started, enter the current balance of your account!
@@ -75,5 +101,3 @@ export const Balance = () => {
     </>
   );
 };
-
-export default Balance;

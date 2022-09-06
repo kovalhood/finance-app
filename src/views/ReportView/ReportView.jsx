@@ -1,7 +1,11 @@
-import { Background } from '../../components/UI/Background';
-import { Reports } from '../../components';
-import styles from './ReportView.module.css';
+import { useMediaQuery } from 'react-responsive';
+import { useTranslation } from 'react-i18next';
+// import { Background } from '../../components/UI/Background';
+import { GoBackButton, Reports } from '../../components';
+import styles from './ReportView.module.scss';
 import { Container } from '../../components/UI/Container';
+import { isMobile } from '../../utils/mediaQuery';
+import { LangSwitcher } from '../../components/LangSwitcher/';
 
 const finance = { expenses: 20000, incomes: 50000 };
 
@@ -20,10 +24,19 @@ const categories = [
 ];
 
 const ReportView = () => {
+  const { t } = useTranslation();
+
+  const Mobile = isMobile(useMediaQuery);
+
   return (
     <Container>
-      {/* <h6>GoBackButton</h6>
-      <h6>DatePicker</h6>
+      <LangSwitcher />
+
+      <div className={styles.btn}>
+        <GoBackButton />
+        {!Mobile && <p className={styles.btnLabel}>{t('goBackBtn')}</p>}
+      </div>
+      {/* <h6>DatePicker</h6>
       <h6>Balance</h6> */}
 
       <div className={styles.reportViewWrapper}>
