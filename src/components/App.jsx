@@ -3,7 +3,6 @@ import { Header } from './Header/Header';
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import PrivateRoute from '../Routes/PrivateRoute';
-import { LangSwitcher } from './LangSwitcher';
 import '../CSS/normilize.css';
 import '../CSS/fonts.css';
 import PublicRoute from '../Routes/PublicRoute';
@@ -52,7 +51,6 @@ export const App = () => {
               <PrivateRoute
                 component={
                   <Suspense fallback={<Loader />}>
-                    <LangSwitcher />
                     <ReportView />
                   </Suspense>
                 }

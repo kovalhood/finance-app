@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -9,6 +10,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import { CategoryInput } from '../../CategoryInput/CategoryInput';
 import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
+import { authOperations } from '../../../redux/operation';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const materialTheme = createTheme({
   overrides: {
@@ -75,6 +78,7 @@ const Form = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   function handleQueryChange() {
     // const dayQuery = (new Date(selectedDate).getDate()).toString().padStart(2, "0");
@@ -112,6 +116,28 @@ const Form = () => {
   const handleSubmit = event => {
     event.preventDefault();
 
+    //============== Добавление Транзакции Income либо Expense
+    const transaction = {
+      // Объект transaction собрать из полей
+      value: 70,
+      categories: '  money-',
+      description: 'tax',
+      day: '05',
+      month: '09',
+      year: '2022',
+    };
+    const type = location.pathname.slice(1); // Оставить
+
+    dispatch(authOperations.addTransaction({ type, transaction }))
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        Notify.failure(`${error.message}`);
+      });
+
+    //===============
+
     if (description.trim() === '') {
       setDescription('');
       return console.log('Input description of transaction');
@@ -130,6 +156,41 @@ const Form = () => {
 
   const handleClear = event => {
     event.preventDefault();
+
+    //===Проверка удаления транзакции
+
+    const id = '63165843b34f6f28d0455e53';
+
+    // dispatch(authOperations.deleteTransaction({id}))
+    //     .then(response => {
+    //       console.log(response);
+    //     })
+    //     .catch(error => {
+    //       Notify.failure(`${error.message}`);
+    //     });
+    const type = location.pathname.slice(1);
+    // Получение всех транзакций по типу
+    // const month = '09',
+    //     year = '2022'
+    //
+    //
+    // dispatch(authOperations.getTransactionListByType({type, month,year}))
+    //     .then(response => {
+    //         console.log(response.payload);
+    //     })
+    //     .catch(error => {
+    //         Notify.failure(`${error.message}`);
+    //     });
+    //Получение за месяц транзакции
+    //    dispatch(authOperations.getTransactionsByMonth({type}))
+    //        .then(response => {
+    //            console.log(response.payload);
+    //        })
+    //        .catch(error => {
+    //            Notify.failure(`${error.message}`);
+    //        });
+
+    //==============================
 
     setSelectedDate(new Date());
     setDescription('');
@@ -183,15 +244,17 @@ const Form = () => {
           value={description}
           onChange={handleDescriptionChange}
         />
-        <input
+        <CategoryInput
           className={styles.category}
-          type="text"
+          type="expenses"
+          categoryPick={category}
+          setCategory={setCategory}
           autoComplete="off"
           name="categories"
-          placeholder="Category"
           value={category}
           onChange={handleCategoryChange}
         />
+
         <label className={styles.sum_label}>
           <svg className={styles.sum_icon} width="20" height="20">
             <use href={`${sprite}#calculator`}></use>
