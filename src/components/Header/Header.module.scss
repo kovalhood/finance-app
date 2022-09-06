@@ -20,6 +20,7 @@
 
 .button_logout {
     display: inline-block;
+    position: relative;
     margin-left: 0;
     padding: 8px 16px;
     // border-radius: 2px;
@@ -105,13 +106,18 @@
     line-height: 1.16;
     letter-spacing: 0.04em;
     color: $basicTextColor;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100px;
+       
 }
 
-.user__name::after {
+.button_logout::before {
     content: ' ';
     position: absolute;
-    right: -20px;
-    top: -16px;
+    left: -20px;
+    top: -3px;
     display: block;
     height: 36px;
     width: 1px;
