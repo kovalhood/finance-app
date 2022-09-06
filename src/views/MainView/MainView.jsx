@@ -1,6 +1,7 @@
-import styles from "./MainView.module.css";
-import { Background } from "../../components/UI/Background";
-import { Dashboard } from "../../components/Dashboard";
+import styles from './MainView.module.css';
+import { Background } from '../../components/UI/Background';
+import { Dashboard } from '../../components/Dashboard';
+import { Balance } from '../../components/Balance';
 
 const MainView = () => {
   return (
@@ -8,6 +9,7 @@ const MainView = () => {
       <div className={styles.backgroundContainer}>
         <Background />
       </div>
+      <Balance />
       <Dashboard />
     </>
   );
