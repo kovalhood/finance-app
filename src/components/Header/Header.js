@@ -17,6 +17,7 @@ export const Header = () => {
   const email = useSelector(authSelectors.getEmail);
   const name = useSelector(authSelectors.getName);
   const userPicture = useSelector(authSelectors.getUserPicture);
+  const loggedIn = useSelector(authSelectors.getIsLoggedIn);
   const dispatch = useDispatch();
   const toggleModal = e => {
     e.preventDefault();
@@ -30,18 +31,19 @@ export const Header = () => {
           <Link to="/main-page">
             <Logo />
           </Link>
-          <div className={styles.user__menu}>
-            <img
-              src={userPicture ? userPicture : defaultAvatar}
-              alt="user avatar"
-              className={styles.user__avatar}
-            />
-            <span className={styles.user__name}>{email}</span>
-            {dropdown && (
-              <div className={styles.dropdown}>
-                <span className={styles.user_mail} title={email}>
-                  {email}
-                </span>
+          {loggedIn && (
+            <div className={styles.user__menu}>
+              <img
+                src={userPicture ? userPicture : defaultAvatar}
+                alt="user avatar"
+                className={styles.user__avatar}
+              />
+              <span className={styles.user__name}>{email}</span>
+              {dropdown && (
+                <div className={styles.dropdown}>
+                  <span className={styles.user_mail} title={email}>
+                    {email}
+                  </span>
 
                 <button
                   type="button"
