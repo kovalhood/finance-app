@@ -1,4 +1,4 @@
-@import "../../globalStyles/vars";
+@import '../../globalStyles/vars';
 
 .container {
   display: block;
@@ -28,17 +28,6 @@
   letter-spacing: 0.02em;
 }
 
-.titleCont {
-  display: flex;
-  min-width: 110px;
-  justify-content: flex-start;
-}
-
-.btnBlock {
-  display: flex;
-  align-items: center;
-  width: 30px;
-}
 .btn {
   border: none;
   background-color: transparent;

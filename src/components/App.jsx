@@ -6,7 +6,7 @@ import PrivateRoute from '../Routes/PrivateRoute';
 import '../CSS/normilize.css';
 import '../CSS/fonts.css';
 import PublicRoute from '../Routes/PublicRoute';
-// import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
+import { SummaryTrans } from './SummaryTrans/SummaryTrans';
 
 const HomeView = lazy(() => import('../views/HomeView/HomeView'));
 const MainView = lazy(() => import('../views/MainView/MainView'));
@@ -17,7 +17,7 @@ const NotFoundView = lazy(() => import('../views/NotFoundView/NotFoundView'));
 export const App = () => {
   return (
     <>
-      <Header />
+      {/* <Header />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/auth" element={<HomeView />} />
@@ -61,12 +61,8 @@ export const App = () => {
           <Route path="*" element={<NotFoundView />} />
         </Routes>
       </Suspense>
+    </> */}
+      <SummaryTrans />
     </>
-    // <>
-    //   <Header />
-    //   <Balance />
-    //   <SummaryTrans />
-    //   <MainView />
-    // </>
   );
 };
