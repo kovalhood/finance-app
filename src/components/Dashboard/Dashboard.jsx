@@ -1,5 +1,7 @@
 import Controls from './Controls';
 import Form from './Form';
+import { HeaderTable } from './Table/HeaderTable';
+import Table from './Table';
 import styles from './Dashboard.module.scss';
 
 export const Dashboard = () => {
@@ -13,6 +15,8 @@ export const Dashboard = () => {
           </div>
           <div className={styles.board}>
             <Form />
+            <HeaderTable />
+            <Table />
           </div>
         </div>
       </div>
