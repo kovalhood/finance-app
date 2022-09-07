@@ -28,6 +28,7 @@
 }
 
 .date {
+    
   @media screen and (min-width: 768px) {
     width: 84px;
     padding-left: 20px;
@@ -36,6 +37,7 @@
   @media screen and (min-width: 1280px) {
     padding-left: 0px;
     width: 115px;
+    text-align: center;
   }
 }
 
