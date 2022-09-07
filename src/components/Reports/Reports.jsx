@@ -1,23 +1,103 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import svgSprite from '../../images/sprite.svg';
 import { IconSvg } from '../UI';
+import { Loader } from '../Loader';
+import svgSprite from '../../images/sprite.svg';
+import {
+  getTransactions,
+  getType,
+  getData,
+  getError,
+  getDate,
+  getIsLoading,
+  updateType,
+} from '../../redux/reports';
 import s from './Reports.module.scss';
+import { Charts } from '../Charts';
 
-const Reports = ({ finance, categories }) => {
+const Reports = ({ finance }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const [isExpenses, setIsExpenses] = useState(true);
-  const [category, setCategory] = useState(categories[0].name);
+  const [currentCategory, setCurrentCategory] = useState([]);
+  const [chartsData, setChartsData] = useState([]);
+  const transactions = useSelector(getTransactions);
+  const type = useSelector(getType);
+  const date = useSelector(getDate);
+  const error = useSelector(getError);
+  const isLoading = useSelector(getIsLoading);
 
-  const handleBtnClick = () => {
-    setIsExpenses(prev => !prev);
+  const isExpenseCategory = type === 'expense' ? 'income' : 'expense';
+  const isExpenseTitle =
+    type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
+
+  // console.log(date, '---------------date');
+  // console.log(transactions, 'transactions');
+  // console.log(type, 'type');
+  console.log(chartsData, 'chartsData');
+
+  const map = chartsData.map(
+    ({ totalDescriptionSum, _id: { description } }) => {
+      console.log(totalDescriptionSum, description, '3333333333333333333');
+      return { sum: totalDescriptionSum, category: description };
+    }
+  );
+  console.log(map);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        if (Object.keys(date).length) {
+          const { year, month } = date;
+          const normalizeMonth =
+            month.toString().length === 1 ? '0' + month : month;
+
+          await dispatch(getData({ type, normalizeMonth, year })).unwrap();
+        }
+      } catch (error) {
+        console.log(error, 'error');
+      }
+    })();
+  }, [date, dispatch, type]);
+
+  useEffect(() => {
+    resetCategory();
+  }, [date]);
+
+  console.log(currentCategory, 'currentCategory');
+
+  // useEffect(() => {
+  //   if (transactions.length) {
+  //     setChartsData(transactions);
+  //   }
+  // }, [transactions]);
+
+  // * work
+  // const [category, setCategory] = useState(categories[0]._id);
+  // const [transactions, setTransactions] = useState();
+
+  // console.log(categories[0]._id, 'categories[0]._id');
+
+  const resetCategory = () => {
+    setChartsData([]);
+    setCurrentCategory([]);
   };
 
-  const handleCategoryClick = value => {
-    setCategory(value);
-    console.log('click');
+  const handleTypeChange = () => {
+    dispatch(updateType(isExpenseCategory));
+    resetCategory();
   };
+
+  const handleCategoryClick = (id, value) => {
+    setCurrentCategory(value);
+    setChartsData(transactions[id].report);
+    // console.log(categories[0]._id, 'setCurrentCategory(categories[0]._id)');
+    // console.log(categories[id].report, 'categories[id]');
+  };
+
+  // console.log(transactions, 'transactions');
+  // if (isLoading) return <h1>Loading</h1>;
 
   return (
     <>
@@ -37,7 +117,7 @@ const Reports = ({ finance, categories }) => {
         <div className={s.btnWrapper}>
           <button
             type="button"
-            onClick={handleBtnClick}
+            onClick={handleTypeChange}
             className={s.switchBtn}
           >
             {/* <IconSvg icon="smallArrowLeft" /> */}
@@ -50,12 +130,10 @@ const Reports = ({ finance, categories }) => {
               <path d="M6 1 2 6l4 5" stroke="#FF751D" strokeWidth="2" />
             </svg>
           </button>
-          <p className={s.switchTitle}>
-            {isExpenses ? t('reportsExpenses') : t('reportsIncomes')}
-          </p>
+          <p className={s.switchTitle}>{isExpenseTitle}</p>
           <button
             type="button"
-            onClick={handleBtnClick}
+            onClick={handleTypeChange}
             className={s.switchBtn}
           >
             {/* <IconSvg className="icon" icon="smallArrowRight" /> */}
@@ -71,38 +149,58 @@ const Reports = ({ finance, categories }) => {
           </button>
         </div>
 
-        <ul className={s.categories}>
-          {categories.map(({ name, svg, value }) => {
-            return (
-              <li key={name} className={s.category}>
-                <p className={s.categoryValue}>{value}</p>
-                <button
-                  type="button"
-                  className={
-                    category === name ? s.categoryBtnActive : s.categoryBtn
-                  }
-                  onClick={() => handleCategoryClick(name)}
-                >
-                  <IconSvg
-                    sprite={svgSprite}
-                    icon={svg}
-                    className={s.categoryIcon}
+        {!!error && <h2 className={s.error}>{t('noTransactions')}</h2>}
+        {isLoading ? (
+          <h2 className={s.loading}>{t('loading')}</h2>
+        ) : (
+          <ul className={s.categories}>
+            {transactions.map(({ totalCategoriesSum, _id: category }, id) => {
+              return (
+                <li key={category} className={s.category}>
+                  <p className={s.categoryValue}>{t(category)}</p>
+                  <button
+                    type="button"
+                    className={
+                      currentCategory === category
+                        ? s.categoryBtnActive
+                        : s.categoryBtn
+                    }
+                    onClick={() => handleCategoryClick(id, category)}
+                  >
+                    <IconSvg
+                      sprite={svgSprite}
+                      icon={category}
+                      className={s.categoryIcon}
+                    />
+                  </button>
+                  <span
+                    className={
+                      currentCategory === category
+                        ? s.categoryBackgroundActive
+                        : s.categoryBackground
+                    }
                   />
-                </button>
-                <span
-                  className={
-                    category === name
-                      ? s.categoryBackgroundActive
-                      : s.categoryBackground
-                  }
-                />
-                <p className={s.categoryName}>{name}</p>
-              </li>
-            );
-          })}
-        </ul>
+                  <p className={s.categoryName}>{totalCategoriesSum}</p>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
-      {/* <>{!!category && categories[category].map()}</> */}
+      <div className={s.chartsWrapper}>
+        <Charts />
+      </div>
+
+      {/* <ul>
+        {!!chartsData &&
+          chartsData.map(
+            ({ totalDescriptionSum: sum, _id: { description } }) => {
+              // console.log(sum, 'transactions totalDescriptionSum ');
+              // console.log(description, 'transactions totalDescriptionSum ');
+              return <li key={description}>{description + ' ' + sum}</li>;
+            }
+          )}
+      </ul> */}
     </>
   );
 };

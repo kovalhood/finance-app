@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../IconSvg';
-
 import svgSprite from '../../../images/sprite.svg';
-import s from './GoBackButton.module.scss';
+import { isMobile } from '../../../utils/mediaQuery';
+import styles from './GoBackButton.module.scss';
 
 export const GoBackButton = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [from, setFrom] = useState();
+
+  const Mobile = isMobile(useMediaQuery);
 
   useEffect(() => {
     if (location?.state?.from) {
@@ -18,13 +23,14 @@ export const GoBackButton = () => {
 
   return (
     <button
-      className={s.wrapper}
+      className={styles.btn}
       type="button"
-      onClick={() => {
-        window.history.back();
-      }}
+      onClick={() => navigate(from ?? '/')}
     >
-      <IconSvg sprite={svgSprite} icon="go_back" className={s.categoryIcon} />
+      <div className={styles.wrapper}>
+        <IconSvg sprite={svgSprite} icon="go_back" className={styles.icon} />
+        {!Mobile && <p className={styles.label}>{t('goBackBtn')}</p>}
+      </div>
     </button>
   );
 };
