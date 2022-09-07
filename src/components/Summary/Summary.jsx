@@ -2,30 +2,16 @@ import styles from './Summary.module.css';
 import { isMobile, isTablet } from '../../utils/mediaQuery';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { authOperations } from '../../redux/operation';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from '../../redux/operation';
 import { useLocation } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { formatSum } from '../../utils/formSum';
 import { month } from '../../utils/month';
 import { nanoid } from 'nanoid';
 
-const exampleSummary = [
-  { month: 0, sum: 10000.0 },
-  { month: 1, sum: 10000.0 },
-  { month: 2, sum: 100.0 },
-  { month: 3, sum: 10000.0 },
-  { month: 4, sum: 1000.0 },
-  { month: 5, sum: 10000.0 },
-  { month: 6, sum: 10000.0 },
-  { month: 7, sum: 10000.0 },
-  { month: 8, sum: 10000.0 },
-  { month: 9, sum: 10000.0 },
-  { month: 10, sum: 10000.0 },
-  { month: 11, sum: 10000.0 },
-];
-
 export const Summary = () => {
+  const getBalance = useSelector(authSelectors.getBalance);
   const IsMobile = isMobile(useMediaQuery);
   const IsTablet = isTablet(useMediaQuery);
   const dispatch = useDispatch();
@@ -53,7 +39,7 @@ export const Summary = () => {
       .catch(error => {
         Notify.failure(`${error.message}`);
       });
-  }, [type]);
+  }, [type, getBalance]);
 
   data.sort((x, y) => parseInt(x._id.month) - parseInt(y._id.month));
 
@@ -63,7 +49,7 @@ export const Summary = () => {
       <ul className={styles.list}>
         {data.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
-            <span>{month[parseInt(_id.month)]}</span>
+            <span>{month[parseInt(_id.month) - 1]}</span>
             <span>{formatSum(total)}</span>
           </li>
         ))}
