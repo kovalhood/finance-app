@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authSelectors } from '../../../../redux/operation';
 import styles from './CategoryInputMobile.module.scss';
@@ -30,7 +30,6 @@ const CategoryInputMobile = ({ type, categoryPick, setCategory }) => {
   const income = categories.filter(category => {
     return category.type === 'income';
   });
-  console.log(location.pathname);
 
   return (
     <div className={styles.wrapper}>

@@ -30,7 +30,6 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
   const income = categories.filter(category => {
     return category.type === 'income';
   });
-  console.log(location.pathname);
 
   return (
     <div className={styles.wrapper}>
