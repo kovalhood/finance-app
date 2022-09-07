@@ -37,6 +37,9 @@ export default function Table() {
     };
     dispatch(authOperations.getTransactionListByType(params)).then(
       res => {
+        if (res.payload === undefined) {
+          return setTransactions([]);
+        }
         const trans = res.payload;
         setTransactions(trans);
         dispatch(authOperations.fetchCurrentUser())
