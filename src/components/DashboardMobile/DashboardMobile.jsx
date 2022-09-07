@@ -8,7 +8,6 @@ export const DashboardMobile = () => {
     <>
       <div className={styles.container}>
         <FormMobile />
-        <p>Test</p>
       </div>
     </>
   );
