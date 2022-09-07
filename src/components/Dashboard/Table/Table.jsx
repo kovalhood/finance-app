@@ -1,65 +1,46 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import operations from '../../../redux/operation/authOperations';
+
 import { nanoid } from 'nanoid';
 import Transaction from './Transaction';
 
 import styles from './Table.module.scss';
 
 export default function Table() {
-  const transactions = [
-    {
-      _id: '6315d33a7a7659ec61c45447',
-      day: '02',
-      month: '06',
-      year: '2022',
-      description: 'My salary',
-      categories: 'Salary',
-      value: 70000,
-      income: false,
-      owner: '6315d0f27a7659ec61c4543f',
-    },
-    {
-      _id: '6315d3e77a7659ec61c45457',
-      day: '02',
-      month: '06',
-      year: '2022',
-      description: 'Deposit',
-      categories: 'Additional income',
-      value: 1000,
-      income: true,
-      owner: '6315d0f27a7659ec61c4543f',
-    },
-    {
-      _id: '6315d3e77a7659ec61c45487',
-      day: '02',
-      month: '06',
-      year: '2022',
-      description: 'Deposit',
-      categories: 'Additional income',
-      value: 1000,
-      income: true,
-      owner: '6315d0f27a7659ec61c4543f',
-    },
-    {
-      _id: '6315d3e77a7659ec61c45497',
-      day: '02',
-      month: '06',
-      year: '2022',
-      description: 'Deposit',
-      categories: 'Additional income',
-      value: 1000,
-      income: true,
-      owner: '6315d0f27a7659ec61c4543f',
-    },
-  ];
-  transactions.map(item => {
+  const [transactions, setTransactions] = useState([]);
+  const dispatch = useDispatch();
+
+  const location = useLocation();
+  const date = location.search;
+  const day = date.slice(5, 7);
+  const month = date.slice(14, 16);
+  const year = date.slice(22, 26);
+  const type = location.pathname.slice(1);
+  useEffect(() => {
+    dispatch(
+      operations.getTransactionListByType({ type, day, month, year })
+    ).then(res => {
+      const trans = res.payload;
+      setTransactions(trans);
+    });
+  }, [day, dispatch, month, type, year]);
+  const trans = transactions.map(item => {
     const day = item.day;
     const month = item.month;
     const year = item.year;
-    const date = `${day}.${month}.${year}`;
-    item.date = date;
+    if (day === '' && month === '' && year === '') {
+      return;
+    } else {
+      const date = `${day}.${month}.${year}`;
+      item.date = date;
+    }
   });
+  console.log(transactions);
 
-  const arrayLength = transactions.length;
+  const arrayLength = trans.length;
 
   function creatTableOfNineRows(length) {
     if (length >= 16) {
@@ -70,11 +51,14 @@ export default function Table() {
       transactions.push({
         _id: `${id}`,
         date: '',
+        day: '',
+        month: '',
+        year: '',
         description: '',
         categories: '',
         value: null,
         income: true,
-        owner: '6315d0f27a7659ec61c4543f',
+        // owner: '6315d0f27a7659ec61c4543f',
       });
       const newArrayLength = transactions.length;
       creatTableOfNineRows(newArrayLength);
@@ -82,7 +66,7 @@ export default function Table() {
   }
 
   creatTableOfNineRows(arrayLength);
-  console.log(transactions);
+  // // console.log(transactions);
 
   return (
     <>
