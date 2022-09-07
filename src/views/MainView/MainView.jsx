@@ -29,17 +29,18 @@ const MainView = () => {
       <div className={styles.backgroundContainer}>
         <Background />
       </div>
-      <Balance />
 
       <Mobile>
         <DashboardMobile />
       </Mobile>
 
       <Tablet>
+        <Balance />
         <Dashboard />
       </Tablet>
 
       <Desktop>
+        <Balance />
         <Dashboard />
       </Desktop>
     </>

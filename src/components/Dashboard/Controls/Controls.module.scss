@@ -37,6 +37,8 @@
 .button__active {
     color: $orangeBasicColor;
     background-color: $grayActiveTab;
+    pointer-events: none;
+    
     &:hover,
     &:focus {
         outline: none;
