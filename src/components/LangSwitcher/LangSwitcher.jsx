@@ -4,7 +4,7 @@ import styles from './LangSwitcher.module.scss';
 const languages = { en: 'English', uk: 'Ukrainian' };
 
 const LangSwitcher = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
@@ -18,7 +18,7 @@ const LangSwitcher = () => {
             }}
             disabled={i18n.resolvedLanguage === lng}
           >
-            {lng}
+            {t(lng)}
           </button>
         );
       })}
