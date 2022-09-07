@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../UI';
-import { Loader } from '../Loader';
+import { Charts } from '../Charts';
 import svgSprite from '../../images/sprite.svg';
 import {
   getTransactions,
@@ -14,7 +14,6 @@ import {
   updateType,
 } from '../../redux/reports';
 import s from './Reports.module.scss';
-import { Charts } from '../Charts';
 import { formatSum } from '../../utils/formSum';
 
 const Reports = ({ finance }) => {
@@ -38,14 +37,6 @@ const Reports = ({ finance }) => {
   // console.log(type, 'type');
   console.log(chartsData, 'chartsData');
 
-  const map = chartsData.map(
-    ({ totalDescriptionSum, _id: { description } }) => {
-      console.log(totalDescriptionSum, description, '3333333333333333333');
-      return { sum: totalDescriptionSum, category: description };
-    }
-  );
-  console.log(map);
-
   useEffect(() => {
     (async function () {
       try {
@@ -68,18 +59,6 @@ const Reports = ({ finance }) => {
 
   console.log(currentCategory, 'currentCategory');
 
-  // useEffect(() => {
-  //   if (transactions.length) {
-  //     setChartsData(transactions);
-  //   }
-  // }, [transactions]);
-
-  // * work
-  // const [category, setCategory] = useState(categories[0]._id);
-  // const [transactions, setTransactions] = useState();
-
-  // console.log(categories[0]._id, 'categories[0]._id');
-
   const resetCategory = () => {
     setChartsData([]);
     setCurrentCategory([]);
@@ -92,13 +71,19 @@ const Reports = ({ finance }) => {
 
   const handleCategoryClick = (id, value) => {
     setCurrentCategory(value);
-    setChartsData(transactions[id].report);
+
+    const list = transactions[id]?.report.map(
+      ({ totalDescriptionSum, _id: { description } }) => {
+        return { sum: totalDescriptionSum, category: description };
+      }
+    );
+
+    setChartsData(list);
     // console.log(categories[0]._id, 'setCurrentCategory(categories[0]._id)');
     // console.log(categories[id].report, 'categories[id]');
   };
 
   // console.log(transactions, 'transactions');
-  // if (isLoading) return <h1>Loading</h1>;
 
   return (
     <>
@@ -190,20 +175,13 @@ const Reports = ({ finance }) => {
           </ul>
         )}
       </div>
-      <div className={s.chartsWrapper}>
-        <Charts />
-      </div>
-
-      {/* <ul>
-        {!!chartsData &&
-          chartsData.map(
-            ({ totalDescriptionSum: sum, _id: { description } }) => {
-              // console.log(sum, 'transactions totalDescriptionSum ');
-              // console.log(description, 'transactions totalDescriptionSum ');
-              return <li key={description}>{description + ' ' + sum}</li>;
-            }
-          )}
-      </ul> */}
+      {/* <>
+        {!!chartsData.length && (
+          <div className={s.chartsWrapper}>
+            <Charts data={chartsData} />
+          </div>
+        )}
+      </> */}
     </>
   );
 };
