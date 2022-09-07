@@ -5,8 +5,11 @@ import { useLocation } from 'react-router-dom';
 import operations from '../../../redux/operation/authOperations';
 
 import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import Transaction from './Transaction';
-
+// import getAllTransactions from '../../../redux/operation/authOperations';
+import operations from '../../../redux/operation/authOperations';
 import styles from './Table.module.scss';
 
 export default function Table() {
@@ -27,6 +30,7 @@ export default function Table() {
       setTransactions(trans);
     });
   }, [day, dispatch, month, type, year]);
+
   const trans = transactions.map(item => {
     const day = item.day;
     const month = item.month;
@@ -86,7 +90,8 @@ export default function Table() {
             <tbody>
               {transactions.map(item => (
                 <Transaction
-                  key={item.id}
+                  key={item._id}
+                  id={item._id}
                   date={item.date}
                   description={item.description}
                   category={item.categories}

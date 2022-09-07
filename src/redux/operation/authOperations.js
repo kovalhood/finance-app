@@ -151,6 +151,7 @@ const getAllTransactions = createAsyncThunk(
       const { data } = await axios.get(
         `api/transactions/?day=${day}&month=${month}&year=${year}`
       );
+
       return data;
     } catch (error) {
       Notify.failure(`${error.message}`);
