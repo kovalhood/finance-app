@@ -8,7 +8,9 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Balance = () => {
   const getBalance = useSelector(authSelectors.getBalance);
-  const [balance, setBalance] = useState('00.00 UAH');
+  const [balance, setBalance] = useState(
+    getBalance === null ? '00.00 UAH' : getBalance
+  );
   const [isDisabledBtn, setIsDisabledBtn] = useState(true);
   const dispatch = useDispatch();
 

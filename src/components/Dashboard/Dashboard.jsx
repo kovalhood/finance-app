@@ -3,8 +3,10 @@ import Form from './Form';
 import { HeaderTable } from './Table/HeaderTable';
 import Table from './Table';
 import styles from './Dashboard.module.scss';
+import { Summary } from '../Summary';
 
 export const Dashboard = () => {
+  console.log('tablet');
   return (
     <>
       <div className={styles.container}>
@@ -18,6 +20,7 @@ export const Dashboard = () => {
             <HeaderTable />
             <Table />
           </div>
+          <Summary />
         </div>
       </div>
     </>

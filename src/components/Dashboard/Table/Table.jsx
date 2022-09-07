@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import operations from '../../../redux/operation/authOperations';
+
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -10,6 +15,7 @@ import styles from './Table.module.scss';
 export default function Table() {
   const [transactions, setTransactions] = useState([]);
   const dispatch = useDispatch();
+
   const location = useLocation();
   const date = location.search;
   const day = date.slice(5, 7);
@@ -36,6 +42,7 @@ export default function Table() {
       item.date = date;
     }
   });
+  console.log(transactions);
 
   const arrayLength = trans.length;
 
@@ -55,7 +62,7 @@ export default function Table() {
         categories: '',
         value: null,
         income: true,
-        owner: '6315d0f27a7659ec61c4543f',
+        // owner: '6315d0f27a7659ec61c4543f',
       });
       const newArrayLength = transactions.length;
       creatTableOfNineRows(newArrayLength);
@@ -63,7 +70,7 @@ export default function Table() {
   }
 
   creatTableOfNineRows(arrayLength);
-  console.log(transactions);
+  // // console.log(transactions);
 
   return (
     <>

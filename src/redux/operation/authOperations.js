@@ -134,7 +134,7 @@ const getTransactionListByType = createAsyncThunk(
   }
 );
 const getTransactionsByMonth = createAsyncThunk(
-  'transactions',
+  'transactions/ByMonth',
   async ({ type }) => {
     try {
       const { data } = await axios.get(`api/transactions/summary/${type}`);

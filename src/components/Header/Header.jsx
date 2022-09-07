@@ -21,7 +21,7 @@ export const Header = () => {
     e.preventDefault();
     setShowModal(prevShowModal => !prevShowModal);
   };
-
+  const leter = email?.split('');
   return (
     <div>
       <div className={styles.wrapper}>
@@ -31,11 +31,9 @@ export const Header = () => {
           </Link>
           {loggedIn ? (
             <div className={styles.user__menu}>
-              <img
-                src={userPicture ? userPicture : defaultAvatar}
-                alt="user avatar"
-                className={styles.user__avatar}
-              />
+              <div className={styles.user__avatar}>
+                <span>{leter[0]}</span>
+              </div>
               <span className={styles.user__name}>{email.split('@')[0]}</span>
               {dropdown && (
                 <div className={styles.dropdown}>

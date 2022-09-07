@@ -7,8 +7,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Icon from '@mui/material/Icon';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import CategoryInput from './CategoryInput';
-import styles from './Form.module.scss';
+import CategoryInputMobile from './CategoryInputMobile';
+import styles from './FormMobile.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -67,7 +67,7 @@ const materialTheme = createTheme({
   },
 });
 
-const Form = () => {
+const FormMobile = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -91,7 +91,7 @@ const Form = () => {
     const yearQuery = new Date(selectedDate).getFullYear();
 
     navigate(
-      `${location.pathname}?day=${dayQuery}&month=${monthQuery}&year=${yearQuery}`
+      `${location.pathname}?day=${dayQuery}&month=${monthQuery}&year=${yearQuery}&transactions=all`
     );
   }
 
@@ -266,7 +266,7 @@ const Form = () => {
             value={description}
             onChange={handleDescriptionChange}
           />
-          <CategoryInput
+          <CategoryInputMobile
             type="expenses"
             categoryPick={category}
             setCategory={setCategory}
@@ -315,4 +315,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormMobile;
