@@ -51,8 +51,12 @@ const authSlice = createSlice({
       state.isFetchingCurrentUser = true;
     },
     [authOperations.fetchCurrentUser.fulfilled](state, action) {
-      state.user = action.payload;
+      state.user.email = action.payload.email;
+      state.balance = action.payload.balance;
+      state.categories = [...action.payload.categories];
+      state.token = action.payload.token;
       state.isLoggedIn = true;
+
       state.isFetchingCurrentUser = false;
     },
     [authOperations.fetchCurrentUser.rejected](state) {

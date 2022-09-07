@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/operation';
 import { useEffect } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Summary } from '../../components/Summary';
 import { useMediaQuery } from 'react-responsive';
 import { Mobile, Tablet, Desktop } from '../../utils/mediaQuery';
 

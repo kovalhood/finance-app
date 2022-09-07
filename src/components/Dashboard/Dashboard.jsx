@@ -3,6 +3,7 @@ import Form from './Form';
 import { HeaderTable } from './Table/HeaderTable';
 import Table from './Table';
 import styles from './Dashboard.module.scss';
+import { Summary } from '../Summary';
 
 export const Dashboard = () => {
   console.log('tablet');
@@ -19,6 +20,7 @@ export const Dashboard = () => {
             <HeaderTable />
             <Table />
           </div>
+          <Summary />
         </div>
       </div>
     </>
