@@ -1,156 +1,155 @@
 @import '../../globalStyles/vars';
 
 .header {
-    height: 56px;
-    background-color: $whiteColor;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'Roboto', sans-serif;
-    height: 56px;
-    align-items: center;
-    max-width: 1280px;
-    margin: 0 auto;
+  height: 56px;
+  background-color: $whiteColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Roboto', sans-serif;
+  height: 56px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 .wrapper {
-    width: 100%;
-    height: 56px;
-    background-color: $whiteColor;
+  width: 100%;
+  height: 56px;
+  background-color: $whiteColor;
 }
 
 .button_logout {
-    display: inline-block;
-    position: relative;
-    margin-left: 0;
-    padding: 8px 16px;
-    // border-radius: 2px;
-    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: center;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.16;
-    letter-spacing: 0.04em;
-    color: $basicTextColor;
-    border: 0;
-    text-decoration: underline;
-    cursor: pointer;
-    /* text-decoration-line: underline; */
-    font-family: inherit;
-    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    }
+  display: inline-block;
+  position: relative;
+  margin-left: 0;
+  padding: 8px 16px;
+  // border-radius: 2px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.16;
+  letter-spacing: 0.04em;
+  color: $basicTextColor;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  /* text-decoration-line: underline; */
+  font-family: inherit;
+  // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+  //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
 @media screen and (max-width: 767px) {
-      .button_logout {
-        display: none;
-      }
-} 
+  .button_logout {
+    display: none;
+  }
+}
 
 .button_logout_mobile {
-    display: inline-block;
-    margin-left: 0;
-    padding: 8px 16px;
-    // border-radius: 10px;
-    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: center;
-    // font-weight: bold;
-   
-    font-size: 12px;
-    line-height: 1.16;
-    letter-spacing: 0.04em;
-    // color: $basicTextColor;
-    background-color: $whiteColor;
-    border: 0;
-    text-decoration: none;
-    color: #CBCCD0;
-    fill: #CBCCD0;
-    cursor: pointer;
-    /* text-decoration-line: underline; */
-    font-family: inherit;
-    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-}
-    @media screen and (min-width: 767px) {
-        .button_logout_mobile {
-            display: none;
-        }
-    }
+  display: inline-block;
+  margin-left: 0;
+  padding: 8px 16px;
+  // border-radius: 10px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  // font-weight: bold;
 
+  font-size: 12px;
+  line-height: 1.16;
+  letter-spacing: 0.04em;
+  // color: $basicTextColor;
+  background-color: $whiteColor;
+  border: 0;
+  text-decoration: none;
+  color: #cbccd0;
+  fill: #cbccd0;
+  cursor: pointer;
+  /* text-decoration-line: underline; */
+  font-family: inherit;
+  // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+  //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+@media screen and (min-width: 767px) {
+  .button_logout_mobile {
+    display: none;
+  }
+}
 
 .button_logout:hover,
 .button_logout:focus {
-    // cursor: pointer;
-    // background-color: $orangeBasicColor;
-    // border-radius: 10px;
-    color: $orangeBasicColor;
-    // font-weight: bold;
-    fill: $orangeBasicColor;
+  // cursor: pointer;
+  // background-color: $orangeBasicColor;
+  // border-radius: 10px;
+  color: $orangeBasicColor;
+  // font-weight: bold;
+  fill: $orangeBasicColor;
 }
 
 .button_logout_mobile:hover,
 .button_logout_mobile:focus {
-    text-decoration: underline;
-    cursor: pointer;
-    // background-color: $orangeBasicColor;
-    color: $orangeBasicColor;
-    fill: $orangeBasicColor;
+  text-decoration: underline;
+  cursor: pointer;
+  // background-color: $orangeBasicColor;
+  color: $orangeBasicColor;
+  fill: $orangeBasicColor;
 }
 
-
 .user__name {
-    position: relative;
-    display: none;
-    margin-right: 40px;
-    padding-right: 15px;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 1.16;
-    letter-spacing: 0.04em;
-    color: $basicTextColor;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100px;
-       
+  position: relative;
+  display: none;
+  margin-right: 40px;
+  padding-right: 15px;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.16;
+  letter-spacing: 0.04em;
+  color: $basicTextColor;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100px;
 }
 
 .button_logout::before {
-    content: ' ';
-    position: absolute;
-    left: -20px;
-    top: -3px;
-    display: block;
-    height: 36px;
-    width: 1px;
-    background-color: #E0E5EB;
+  content: ' ';
+  position: absolute;
+  left: -20px;
+  top: -3px;
+  display: block;
+  height: 36px;
+  width: 1px;
+  background-color: #e0e5eb;
 }
 
 @media screen and (min-width: 767px) {
-
-    .user__name {
-        display: inline-block;
-    }
+  .user__name {
+    display: inline-block;
+  }
 }
 
 .user__menu {
-    display: flex;
-    align-items: center;
-    color: $basicTextColor;
-    padding: 12px;
+  display: flex;
+  align-items: center;
+  color: $basicTextColor;
+  padding: 12px;
 }
 
 .user__avatar {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-
-    margin-right: 15px;
-    margin-left: auto;
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 50%;
-    background-color: $whiteColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: $orangeBasicColor;
+  color: $whiteColor;
+  text-transform: uppercase;
+@media screen and (min-width: 1280px) {
+    margin-right: 12px;
+}
 }
 
 // .backgroundLoggedIn::after {
@@ -181,35 +180,32 @@
 //     background: none;
 // }
 
-
 .DesktopHeader {
-    min-width: 1279px;
-    // composes: header;
-    padding-left: 36px;
-    padding-right: 62px;
+  min-width: 1279px;
+  // composes: header;
+  padding-left: 36px;
+  padding-right: 62px;
 }
 
 .TabletHeader {
-    // composes: header;
-    padding-left: 20px;
-    padding-right: 20px;
+  // composes: header;
+  padding-left: 20px;
+  padding-right: 20px;
 }
-
-
 
 .dropdown {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    top: 56px;
-    right: 0;
-    width: 230px;
-    text-align: center;
-    border-radius: 0 0 5px 5px;
-    background-color: $whiteColor;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  top: 56px;
+  right: 0;
+  width: 230px;
+  text-align: center;
+  border-radius: 0 0 5px 5px;
+  background-color: $whiteColor;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 .user_mail {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
