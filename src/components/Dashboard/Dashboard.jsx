@@ -5,6 +5,7 @@ import Table from './Table';
 import styles from './Dashboard.module.scss';
 
 export const Dashboard = () => {
+  console.log('tablet');
   return (
     <>
       <div className={styles.container}>
