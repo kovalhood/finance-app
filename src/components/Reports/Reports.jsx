@@ -15,6 +15,7 @@ import {
 } from '../../redux/reports';
 import s from './Reports.module.scss';
 import { Charts } from '../Charts';
+import { formatSum } from '../../utils/formSum';
 
 const Reports = ({ finance }) => {
   const { t } = useTranslation();
@@ -180,7 +181,9 @@ const Reports = ({ finance }) => {
                         : s.categoryBackground
                     }
                   />
-                  <p className={s.categoryName}>{totalCategoriesSum}</p>
+                  <p className={s.categoryName}>
+                    {formatSum(totalCategoriesSum)}
+                  </p>
                 </li>
               );
             })}
