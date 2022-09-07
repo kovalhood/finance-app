@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { formatSum } from '../../utils/formSum';
 import { month } from '../../utils/month';
+import { nanoid } from 'nanoid';
 
 const exampleSummary = [
   { month: 0, sum: 10000.0 },
@@ -30,11 +31,10 @@ export const Summary = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   // const [type, setType] = useState('');
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const type = location.pathname.slice(1);
 
   useEffect(() => {
-    console.log(type, '  ___TYPE');
     dispatch(authOperations.getTransactionsByMonth({ type }))
       .then(response => {
         const { transactions } = response.payload;
@@ -54,6 +54,7 @@ export const Summary = () => {
         Notify.failure(`${error.message}`);
       });
   }, [type]);
+
   data.sort((x, y) => parseInt(x._id.month) - parseInt(y._id.month));
 
   return (
@@ -61,7 +62,7 @@ export const Summary = () => {
       <h4 className={styles.title}>СВОДКА</h4>
       <ul className={styles.list}>
         {data.map(({ _id, total }) => (
-          <li className={styles.item}>
+          <li key={nanoid()} className={styles.item}>
             <span>{month[parseInt(_id.month)]}</span>
             <span>{formatSum(total)}</span>
           </li>
