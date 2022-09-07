@@ -3,13 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import operations from '../../../redux/operation/authOperations';
-
 import { nanoid } from 'nanoid';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import Transaction from './Transaction';
 // import getAllTransactions from '../../../redux/operation/authOperations';
-import operations from '../../../redux/operation/authOperations';
 import styles from './Table.module.scss';
 
 export default function Table() {
@@ -46,7 +42,7 @@ export default function Table() {
 
   const arrayLength = trans.length;
 
-  function creatTableOfNineRows(length) {
+  function createTableOfNineRows(length) {
     if (length >= 16) {
       return;
     }
@@ -65,11 +61,11 @@ export default function Table() {
         // owner: '6315d0f27a7659ec61c4543f',
       });
       const newArrayLength = transactions.length;
-      creatTableOfNineRows(newArrayLength);
+      createTableOfNineRows(newArrayLength);
     }
   }
 
-  creatTableOfNineRows(arrayLength);
+  createTableOfNineRows(arrayLength);
   // // console.log(transactions);
 
   return (
