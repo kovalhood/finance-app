@@ -21,7 +21,7 @@ export const Header = () => {
     e.preventDefault();
     setShowModal(prevShowModal => !prevShowModal);
   };
-  const leter = email.split('');
+  const leter = email?.split('');
   return (
     <div>
       <div className={styles.wrapper}>
