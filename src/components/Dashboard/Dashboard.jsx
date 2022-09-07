@@ -6,7 +6,6 @@ import styles from './Dashboard.module.scss';
 import { Summary } from '../Summary';
 
 export const Dashboard = () => {
-  console.log('tablet');
   return (
     <>
       <div className={styles.container}>

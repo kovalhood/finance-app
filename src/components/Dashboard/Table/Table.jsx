@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import operations from '../../../redux/operation/authOperations';
@@ -7,6 +7,9 @@ import { nanoid } from 'nanoid';
 import Transaction from './Transaction';
 // import getAllTransactions from '../../../redux/operation/authOperations';
 import styles from './Table.module.scss';
+import { authOperations, authSelectors } from '../../../redux/operation';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { commonDate } from '../../../utils/date';
 
 export default function Table() {
   const [transactions, setTransactions] = useState([]);
@@ -14,18 +17,46 @@ export default function Table() {
 
   const location = useLocation();
   const date = location.search;
-  const day = date.slice(5, 7);
-  const month = date.slice(14, 16);
-  const year = date.slice(22, 26);
+  const day = location.search.slice(5, 7);
+  const month = location.search.slice(14, 16);
+  const year = location.search.slice(22, 26);
+  const getBalance = useSelector(authSelectors.getBalance);
   const type = location.pathname.slice(1);
+
   useEffect(() => {
-    dispatch(
-      operations.getTransactionListByType({ type, day, month, year })
-    ).then(res => {
-      const trans = res.payload;
-      setTransactions(trans);
-    });
-  }, [day, dispatch, month, type, year]);
+    const dayQuery = new Date().getDate().toString().padStart(2, '0');
+    const monthQuery = (new Date().getMonth() + 1).toString().padStart(2, '0');
+    const yearQuery = new Date().getFullYear();
+    const date = commonDate(new Date());
+
+    const params = {
+      type,
+      day: date.day,
+      month: date.month,
+      year: date.year,
+    };
+    dispatch(authOperations.getTransactionListByType(params)).then(
+      res => {
+        if (res.payload === undefined) {
+          return setTransactions([]);
+        }
+        const trans = res.payload;
+        setTransactions(trans);
+        dispatch(authOperations.fetchCurrentUser())
+          .unwrap()
+          .catch(() => {
+            Notify.warning(
+              'Sorry, your authorization token expired, please re-login',
+              {}
+            );
+            dispatch(authOperations.logOut());
+          });
+      },
+      () => {
+        setTransactions([]);
+      }
+    );
+  }, [type, getBalance]);
 
   const trans = transactions.map(item => {
     const day = item.day;
@@ -38,7 +69,6 @@ export default function Table() {
       item.date = date;
     }
   });
-  console.log(transactions);
 
   const arrayLength = trans.length;
 
@@ -66,8 +96,6 @@ export default function Table() {
   }
 
   createTableOfNineRows(arrayLength);
-  // // console.log(transactions);
-
   return (
     <>
       <div className={styles.scroll}>
@@ -84,17 +112,18 @@ export default function Table() {
             </thead> */}
 
             <tbody>
-              {transactions.map(item => (
-                <Transaction
-                  key={item._id}
-                  id={item._id}
-                  date={item.date}
-                  description={item.description}
-                  category={item.categories}
-                  sum={item.value}
-                  income={item.income}
-                />
-              ))}
+              {transactions &&
+                transactions.map(item => (
+                  <Transaction
+                    key={item._id}
+                    id={item._id}
+                    date={item.date}
+                    description={item.description}
+                    category={item.categories}
+                    sum={item.value}
+                    income={item.income}
+                  />
+                ))}
             </tbody>
           </table>
         </div>

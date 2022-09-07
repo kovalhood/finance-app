@@ -1,11 +1,14 @@
 import { Loader } from './Loader';
 import { Header } from './Header/Header';
 import { Routes, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import PrivateRoute from '../Routes/PrivateRoute';
 import '../CSS/normilize.css';
 import '../CSS/fonts.css';
 import PublicRoute from '../Routes/PublicRoute';
+import { useSelector } from 'react-redux';
+import { authSelectors } from '../redux/operation';
+import axios from 'axios';
 // import { SummaryTrans } from "./SummaryTrans/SummaryTrans";
 
 const HomeView = lazy(() => import('../views/HomeView/HomeView'));
@@ -15,6 +18,9 @@ const GoogleView = lazy(() => import('../views/GoogleView/GoogleView'));
 const NotFoundView = lazy(() => import('../views/NotFoundView/NotFoundView'));
 
 export const App = () => {
+  const authToken = useSelector(authSelectors.getToken);
+  axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
+
   return (
     <>
       <Header />

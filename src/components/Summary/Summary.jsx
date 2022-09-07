@@ -13,10 +13,8 @@ import { nanoid } from 'nanoid';
 export const Summary = () => {
   const getBalance = useSelector(authSelectors.getBalance);
   const IsMobile = isMobile(useMediaQuery);
-  const IsTablet = isTablet(useMediaQuery);
   const dispatch = useDispatch();
   const location = useLocation();
-  // const [type, setType] = useState('');
   const [data, setData] = useState([]);
   const type = location.pathname.slice(1);
 
@@ -25,7 +23,6 @@ export const Summary = () => {
       .then(response => {
         const { transactions } = response.payload;
         setData(transactions);
-        console.log(transactions);
         dispatch(authOperations.fetchCurrentUser())
           .unwrap()
           .catch(() => {
