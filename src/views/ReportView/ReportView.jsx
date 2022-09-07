@@ -21,7 +21,7 @@ const ReportView = () => {
       <div className={styles.btn}>
         <GoBackButton />
       </div>
-      <Balance></Balance>
+      {/* <Balance></Balance> */}
       <MonthPicker />
 
       <div className={styles.reportViewWrapper}>
