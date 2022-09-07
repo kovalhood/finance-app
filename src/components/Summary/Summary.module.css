@@ -1,0 +1,35 @@
+.mobContainer {
+  display: none;
+}
+.container {
+  font-family: Roboto;
+  height: 238px;
+  display: block;
+  background-color: #f5f6fb;
+  border-radius: 20px;
+  width: 213px;
+}
+.title {
+  text-align: center;
+  font-weight: 700;
+  padding: 10px;
+  background-color: #f4f6fb;
+  border-bottom: 1px solid white;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.list {
+  background-color: #f4f6fb;
+}
+.list:last-child {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid white;
+}

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/operation';
 import { useEffect } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Summary } from '../../components/Summary';
 
 const MainView = () => {
   const dispatch = useDispatch();
