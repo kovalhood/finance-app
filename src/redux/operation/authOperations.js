@@ -124,15 +124,12 @@ const getTransactionListByType = createAsyncThunk(
   'transactions/listByType',
   async ({ type, day, month, year }) => {
     try {
-      console.log('___________', type, day, month, year);
       const { data } = await axios.get(
         `api/transactions/${type}?day=${day}&month=${month}&year=${year}`
       );
 
       return data;
-    } catch (error) {
-      Notify.failure(`${error.message}`);
-    }
+    } catch (error) {}
   }
 );
 const getTransactionsByMonth = createAsyncThunk(
