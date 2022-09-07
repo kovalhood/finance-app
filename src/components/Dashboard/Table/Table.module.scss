@@ -9,17 +9,14 @@
   height: 342px;
   @media screen and (min-width: 768px) {
     width: 624px;
-    
   }
   @media screen and (min-width: 1280px) {
     width: 746px;
-    
   }
 }
 
 .window::-webkit-scrollbar {
   width: 6px;
-  
 }
 .window::-webkit-scrollbar-track {
   background: $grayBackgroundColor;
@@ -33,7 +30,6 @@
 .transactionHistory {
   width: 100%;
   height: 380px;
-  
 }
 
 // thead {
@@ -99,39 +95,36 @@ td {
 }
 
 td:nth-child(1) {
-  
   border-left: 2px solid $grayBackgroundColor;
   @media screen and (min-width: 768px) {
     width: 84px;
     padding-left: 20px;
+    text-align: left;
   }
   @media screen and (min-width: 1280px) {
     padding-left: 0px;
     width: 110px;
-    
   }
 }
 
 td:nth-child(2) {
-   text-align: left;
+  text-align: left;
+  padding-left: 20px;
   @media screen and (min-width: 768px) {
-    padding-left: 20px;
+    width: 168px;
+    padding-left: 25px;
   }
   @media screen and (min-width: 1280px) {
     width: 180px;
-    
   }
 }
 
 td:nth-child(3) {
-    @media screen and (min-width: 768px) {
-        width: 124px;
-      }
-      @media screen and (min-width: 1280px) {
-        width: 180px;
-        
-      }
-  
+  width: 124px;
+
+  @media screen and (min-width: 1280px) {
+    width: 180px;
+  }
 }
 
 td:nth-child(4) {
@@ -142,20 +135,20 @@ td:nth-child(4) {
   line-height: 14px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  
+
   @media screen and (min-width: 768px) {
     width: 104px;
     text-align: right;
   }
   @media screen and (min-width: 1280px) {
-    width: 100px;
-    padding-left: 20px;
+    width: 135px;
+    // padding-left: 20px;
     text-align: center;
   }
 }
 
 td:nth-child(5) {
-  width: 100px;
+  width: 80px;
   border-right: 2px solid $grayBackgroundColor;
   padding: 2px;
 }
@@ -184,4 +177,3 @@ td:nth-child(5) {
 .red_color {
   color: $redСolorInTable;
 }
-

@@ -102,7 +102,7 @@ export default function Table() {
             <tbody>
               {transactions.map(item => (
                 <Transaction
-                  key={item.id}
+                  key={item._id}
                   date={item.date}
                   description={item.description}
                   category={item.categories}

@@ -11,7 +11,7 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
   if (value) {
     if (isIncome) {
       return (
-        <tr key={id}>
+        <tr>
           <td>{date}</td>
           <td>{description}</td>
           <td>{category}</td>
