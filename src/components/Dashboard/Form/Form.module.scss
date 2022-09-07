@@ -9,10 +9,35 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+    @media screen and (min-width: 768px) {
+        flex-direction: column;
+    }
+    
+    @media screen and (min-width: 1280px) {
+        flex-direction: row;
+    }
 }
+
+.input_wrapper{
+    display: flex;
+    align-items: center;
+    width: 624px;
+    justify-content: space-between;
+
+    @media screen and (min-width: 1280px) {
+        width: auto;
+    }
+}
+
 .inputs{
     display: flex;
+
+    @media screen and (min-width: 1280px) {
+        margin-left: 28px;
+    }
 }
+
 .description{
     display: flex;
     align-items: center;
@@ -39,6 +64,14 @@
         outline: none;
         color: #26272b;
         background-color: #f7f8ff;
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 184px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        width: 290px;
     }
 }
 
@@ -105,6 +138,14 @@
         color: #26272b;
         background-color: #f7f8ff;
     }
+
+    @media screen and (min-width: 768px) {
+        width: 110px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        width: 130px;
+    }
 }
 
 .sum_icon {
@@ -136,6 +177,14 @@ input[type=number] {
 
 .buttons{
     display: flex;
+
+    @media screen and (min-width: 768px) {
+        margin-top: 32px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        margin-top: 0;
+    }
 }
 
 .button_input,

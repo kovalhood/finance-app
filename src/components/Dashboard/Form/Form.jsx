@@ -97,11 +97,15 @@ const Form = () => {
 
   useEffect(() => {
     handleQueryChange();
+  }, [selectedDate]);
+
+  useEffect(() => {
+    handleQueryChange();
 
     setDescription('');
     setCategory('');
     setSum('');
-  }, [selectedDate, location.pathname]);
+  }, [location.pathname]);
 
   const handleDescriptionChange = event => {
     setDescription(event.currentTarget.value);
@@ -120,6 +124,22 @@ const Form = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (description.trim() === '') {
+      setDescription('');
+      return console.log('Input description of transaction');
+    }
+
+    if (category.trim() === '') {
+      setCategory('');
+      return console.log('Input category of transaction');
+    }
+
+    if (sum.trim() === '') {
+      setSum('');
+      return console.log('Input sum of transaction');
+    }
+
     const dayQuery = new Date(selectedDate)
       .getDate()
       .toString()
@@ -151,20 +171,8 @@ const Form = () => {
 
     //===============
 
-    if (description.trim() === '') {
-      setDescription('');
-      return console.log('Input description of transaction');
-    }
-
-    if (category.trim() === '') {
-      setCategory('');
-      return console.log('Input category of transaction');
-    }
-
-    if (sum.trim() === '') {
-      setSum('');
-      return console.log('Input sum of transaction');
-    }
+    setDescription('');
+    setSum('');
   };
 
   const handleClear = event => {
@@ -213,76 +221,78 @@ const Form = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <ThemeProvider theme={materialTheme}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <DatePicker
-            disableFuture
-            format="dd.MM.yyyy"
-            InputProps={{
-              disableUnderline: true,
-              style: {
-                width: 100,
-                fontSize: 12,
-                fontWeight: 900,
-                color: '#52555F',
-                cursor: 'pointer',
-              },
-              startAdornment: (
-                <InputAdornment position={'start'}>
-                  <Icon>
-                    <svg
-                      className={styles.calendar_icon}
-                      width="20"
-                      height="20"
-                    >
-                      <use href={`${sprite}#calendar`}></use>
-                    </svg>
-                  </Icon>
-                </InputAdornment>
-              ),
-            }}
-            value={selectedDate}
-            onChange={setSelectedDate}
-          />
-        </MuiPickersUtilsProvider>
-      </ThemeProvider>
+      <div className={styles.input_wrapper}>
+        <ThemeProvider theme={materialTheme}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker
+              disableFuture
+              format="dd.MM.yyyy"
+              InputProps={{
+                disableUnderline: true,
+                style: {
+                  width: 100,
+                  fontSize: 12,
+                  fontWeight: 900,
+                  color: '#52555F',
+                  cursor: 'pointer',
+                },
+                startAdornment: (
+                  <InputAdornment position={'start'}>
+                    <Icon>
+                      <svg
+                        className={styles.calendar_icon}
+                        width="20"
+                        height="20"
+                      >
+                        <use href={`${sprite}#calendar`}></use>
+                      </svg>
+                    </Icon>
+                  </InputAdornment>
+                ),
+              }}
+              value={selectedDate}
+              onChange={setSelectedDate}
+            />
+          </MuiPickersUtilsProvider>
+        </ThemeProvider>
 
-      <div className={styles.inputs}>
-        <input
-          className={styles.description}
-          type="text"
-          autoComplete="off"
-          name="description"
-          placeholder="Description"
-          value={description}
-          onChange={handleDescriptionChange}
-        />
-        <CategoryInput
-          type="expenses"
-          categoryPick={category}
-          setCategory={setCategory}
-          autoComplete="off"
-          name="categories"
-          value={category}
-          onChange={handleCategoryChange}
-        />
-
-        <label className={styles.sum_label}>
-          <svg className={styles.sum_icon} width="20" height="20">
-            <use href={`${sprite}#calculator`}></use>
-          </svg>
+        <div className={styles.inputs}>
           <input
-            className={styles.sum}
-            type="number"
+            className={styles.description}
+            type="text"
             autoComplete="off"
-            name="sum"
-            pattern="d\+\.\d\d$"
-            placeholder="0.00"
-            value={sum}
-            onChange={handleSumChange}
-            onKeyPress={handleSumKeydown}
+            name="description"
+            placeholder="Description"
+            value={description}
+            onChange={handleDescriptionChange}
           />
-        </label>
+          <CategoryInput
+            type="expenses"
+            categoryPick={category}
+            setCategory={setCategory}
+            autoComplete="off"
+            name="categories"
+            value={category}
+            onChange={handleCategoryChange}
+          />
+
+          <label className={styles.sum_label}>
+            <svg className={styles.sum_icon} width="20" height="20">
+              <use href={`${sprite}#calculator`}></use>
+            </svg>
+            <input
+              className={styles.sum}
+              type="number"
+              autoComplete="off"
+              name="sum"
+              pattern="d\+\.\d\d$"
+              placeholder="0.00"
+              value={sum}
+              onChange={handleSumChange}
+              onKeyPress={handleSumKeydown}
+            />
+          </label>
+        </div>
       </div>
 
       <div className={styles.buttons}>
