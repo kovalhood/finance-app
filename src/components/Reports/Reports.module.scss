@@ -163,6 +163,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 25px;
+  // width: 12%;
 
   // border-bottom: 1px solid #e0e5eb;
 
@@ -292,4 +293,24 @@
 
   position: absolute;
   z-index: -1;
+}
+
+.error,
+.loading {
+  font-family: 'Roboto';
+  font-style: normal;
+  // font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  // text-transform: uppercase;
+  color: #000000;
+}
+
+.chartsWrapper {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  width: 100%;
+  margin: 0 auto;
 }
