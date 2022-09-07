@@ -129,7 +129,7 @@ const getTransactionListByType = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      Notify.failure(`${error.message}`);
+      Notify.failure(`${error.response.data.message}`);
     }
   }
 );

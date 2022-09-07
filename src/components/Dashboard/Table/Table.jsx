@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import operations from '../../../redux/operation/authOperations';
 import { nanoid } from 'nanoid';
 import Transaction from './Transaction';
-// import getAllTransactions from '../../../redux/operation/authOperations';
 import styles from './Table.module.scss';
 
 export default function Table() {
@@ -19,12 +18,12 @@ export default function Table() {
   const year = date.slice(22, 26);
   const type = location.pathname.slice(1);
   useEffect(() => {
-    dispatch(
-      operations.getTransactionListByType({ type, day, month, year })
-    ).then(res => {
-      const trans = res.payload;
-      setTransactions(trans);
-    });
+    dispatch(operations.getTransactionListByType({ type, day, month, year }))
+      .then(res => {
+        const trans = res.payload;
+        setTransactions(trans);
+      })
+      .catch(err => console.log(err));
   }, [day, dispatch, month, type, year]);
 
   const trans = transactions.map(item => {
@@ -58,7 +57,6 @@ export default function Table() {
         categories: '',
         value: null,
         income: true,
-        // owner: '6315d0f27a7659ec61c4543f',
       });
       const newArrayLength = transactions.length;
       createTableOfNineRows(newArrayLength);
