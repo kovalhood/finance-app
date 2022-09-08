@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -6,8 +6,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Icon from '@mui/material/Icon';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import styles from './CalendarMobile.module.scss';
-import sprite from '../../../images/sprite.svg';
+import styles from './Calendar.module.scss';
+import sprite from '../../images/sprite.svg';
+import GlobalContext from '../../context/GlobalContext';
 
 const materialTheme = createTheme({
   overrides: {
@@ -63,8 +64,20 @@ const materialTheme = createTheme({
   },
 });
 
-const CalendarMobile = props => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+const Calendar = props => {
+  const { daySelected, setDaySelected } = useContext(GlobalContext);
+  const [selectedDate, setSelectedDate] = useState(
+    daySelected === null ? new Date() : new Date(daySelected)
+  );
+
+  console.log(new Date(daySelected));
+  // useEffect(() => {
+  //   handleQueryChange();
+  //   setDaySelected(selectedDate);
+  // }, []);
+
+  // console.log(`cache:${daySelected}`);
+  // console.log(`date:${selectedDate}`);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,12 +93,13 @@ const CalendarMobile = props => {
     const yearQuery = new Date(selectedDate).getFullYear();
 
     navigate(
-      `${location.pathname}?day=${dayQuery}&month=${monthQuery}&year=${yearQuery}&transactions=all`
+      `${location.pathname}?day=${dayQuery}&month=${monthQuery}&year=${yearQuery}`
     );
   }
 
   useEffect(() => {
     handleQueryChange();
+    setDaySelected(selectedDate);
     props.dateHandler(selectedDate);
   }, [selectedDate, location.pathname]);
 
@@ -122,4 +136,4 @@ const CalendarMobile = props => {
   );
 };
 
-export default CalendarMobile;
+export default Calendar;

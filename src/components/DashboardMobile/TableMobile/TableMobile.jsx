@@ -20,7 +20,7 @@ export default function TableMobile() {
   const { daySelected } = useContext(GlobalContext);
 
   useEffect(() => {
-    const date = commonDate(new Date());
+    const date = commonDate(daySelected);
 
     const params = {
       day: date.day,
@@ -48,7 +48,7 @@ export default function TableMobile() {
         setTransactions([]);
       }
     );
-  }, [type, getBalance]);
+  }, [type, getBalance, daySelected]);
 
   const trans = transactions.map(item => {
     const day = item.day;
