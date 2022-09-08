@@ -10,7 +10,7 @@ const initialState = {
   year: new Date(Date.now()).getFullYear(),
 };
 
-const MONTH_NAMES = {
+const MONTH_LIST = {
   1: 'january',
   2: 'february',
   3: 'march',
@@ -28,21 +28,27 @@ const MONTH_NAMES = {
 const MonthPicker = () => {
   const dispatch = useDispatch();
 
-  const [date, setDate] = useState(initialState);
-  const dateRedux = useSelector(getDate);
+  const [pickedDate, setPickedDate] = useState(initialState);
+  const reduxDate = useSelector(getDate);
 
-  const currentDate = t(MONTH_NAMES[dateRedux.month]) + ' ' + dateRedux.year;
-  const currentMonth = useRef(date.month);
-  const isDisabledBtn = dateRedux?.month >= currentMonth.current;
+  const currentDate = t(MONTH_LIST[reduxDate.month]) + ' ' + reduxDate.year;
+  const initialDate = useRef({
+    month: pickedDate.month,
+    year: pickedDate.year,
+  });
+
+  const isDisabledBtn =
+    reduxDate?.month >= initialDate.current.month &&
+    reduxDate?.year >= initialDate.current.year;
 
   useEffect(() => {
-    dispatch(updateDate(date));
-  }, [date, dispatch]);
+    dispatch(updateDate(pickedDate));
+  }, [pickedDate, dispatch]);
 
   const handleMonthDecrement = () => {
-    setDate(prev => {
+    setPickedDate(prev => {
       if (prev.month === 1) {
-        return { year: prev.year - 1, month: (prev.month = 12) };
+        return { year: prev.year - 1, month: prev.month + 11 };
       }
 
       return { ...prev, month: prev.month - 1 };
@@ -50,9 +56,9 @@ const MonthPicker = () => {
   };
 
   const handleMonthIncrement = () => {
-    setDate(prev => {
+    setPickedDate(prev => {
       if (prev.month === 12) {
-        return { year: prev.year + 1, month: (prev.month = 1) };
+        return { year: prev.year + 1, month: prev.month - 11 };
       }
 
       return { ...prev, month: prev.month + 1 };
