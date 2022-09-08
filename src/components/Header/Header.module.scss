@@ -50,26 +50,20 @@
   display: inline-block;
   margin-left: 0;
   padding: 8px 16px;
-  // border-radius: 10px;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
-  // font-weight: bold;
 
   font-size: 12px;
   line-height: 1.16;
   letter-spacing: 0.04em;
-  // color: $basicTextColor;
   background-color: $whiteColor;
   border: 0;
   text-decoration: none;
   color: #cbccd0;
   fill: #cbccd0;
   cursor: pointer;
-  /* text-decoration-line: underline; */
   font-family: inherit;
-  // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-  //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 @media screen and (min-width: 767px) {
   .button_logout_mobile {
@@ -79,11 +73,7 @@
 
 .button_logout:hover,
 .button_logout:focus {
-  // cursor: pointer;
-  // background-color: $orangeBasicColor;
-  // border-radius: 10px;
   color: $orangeBasicColor;
-  // font-weight: bold;
   fill: $orangeBasicColor;
 }
 
@@ -116,10 +106,12 @@
   content: ' ';
   position: absolute;
   left: -20px;
-  top: -3px;
+  top: 50%;
+  transform: translateY(-50%);
   display: block;
   height: 36px;
   width: 1px;
+  pointer-events: none;
   background-color: #e0e5eb;
 }
 
@@ -147,6 +139,7 @@
   background-color: $orangeBasicColor;
   color: $whiteColor;
   text-transform: uppercase;
+  pointer-events: none;
 @media screen and (min-width: 1280px) {
     margin-right: 12px;
 }
