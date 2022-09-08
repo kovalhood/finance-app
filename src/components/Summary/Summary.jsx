@@ -1,5 +1,5 @@
 import styles from './Summary.module.scss';
-import { isMobile, isTablet } from '../../utils/mediaQuery';
+import { isMobile } from '../../utils/mediaQuery';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
