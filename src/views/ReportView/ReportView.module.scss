@@ -1,8 +1,14 @@
-.reportViewWrapper {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
+.wrapper {
+  margin-top: 16px;
+  margin-bottom: 32px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 40px;
+  }
 }
 
 .backgroundContainer {
@@ -42,15 +48,14 @@
 .btn {
   display: flex;
   align-items: center;
-  margin-bottom: 16px;
 
-  @media screen and (min-width: 768px) {
-    margin-bottom: 32px;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 16px;
   }
 
-  @media screen and (min-width: 1280px) {
-    margin-bottom: 42px;
-  }
+  // @media screen and (min-width: 1280px) {
+  //   margin-bottom: 42px;
+  // }
 
   &Label {
     font-family: 'Roboto';
@@ -62,5 +67,11 @@
     letter-spacing: 0.04em;
     color: rgba(82, 85, 95, 0.7);
     margin-left: 10px;
+  }
+}
+
+.balance {
+  @media screen and (max-width: 768px) {
+    margin-bottom: 32px;
   }
 }

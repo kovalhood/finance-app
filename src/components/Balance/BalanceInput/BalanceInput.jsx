@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 import s from './BalanceInput.module.scss';
 
-export const BalanceInput = () => {
+export const BalanceInput = ({ isReportsVariant }) => {
   const getBalance = useSelector(authSelectors.getBalance);
   const [balance, setBalance] = useState(
     getBalance === null ? '00.00 UAH' : getBalance
@@ -72,13 +71,15 @@ export const BalanceInput = () => {
             disabled={getBalance === null ? false : true}
             onFocus={() => setBalance('')}
           />
-          <button
-            type="submit"
-            className={!isDisabledBtn ? s.button : s.buttonDisabled}
-            disabled={isDisabledBtn}
-          >
-            Confirm
-          </button>
+          {!isReportsVariant && (
+            <button
+              type="submit"
+              className={!isDisabledBtn ? s.button : s.buttonDisabled}
+              disabled={isDisabledBtn}
+            >
+              Confirm
+            </button>
+          )}
         </div>
       </form>
       {getBalance === null ? (

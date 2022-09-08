@@ -1,27 +1,28 @@
-// import { useMediaQuery } from 'react-responsive';
-// import { useTranslation } from 'react-i18next';
 // import { Background } from '../../components/UI/Background';
 import { GoBackButton, MonthPicker, Reports } from '../../components';
 import styles from './ReportView.module.scss';
 import { Container } from '../../components/UI/Container';
-// import { isMobile } from '../../utils/mediaQuery';
+import { isTablet } from '../../utils/mediaQuery';
 import { LangSwitcher } from '../../components/LangSwitcher/';
 import { BalanceInput } from '../../components/Balance/BalanceInput';
+import { useMediaQuery } from 'react-responsive';
 
 const ReportView = () => {
-  // const { t } = useTranslation();
-  // const Mobile = isMobile(useMediaQuery);
+  const Tablet = isTablet(useMediaQuery);
 
   return (
     <Container>
-      <LangSwitcher />
+      {/* <LangSwitcher /> */}
+      <div className={styles.wrapper}>
+        <div className={styles.btn}>
+          <GoBackButton />
+        </div>
+        <div className={styles.balance}>
+          <BalanceInput isReportsVariant={Tablet} />
+        </div>
 
-      <div className={styles.btn}>
-        <GoBackButton />
+        <MonthPicker />
       </div>
-
-      <BalanceInput />
-      <MonthPicker />
 
       <div className={styles.reportViewWrapper}>
         {/* <div className={styles.backgroundContainer}>
