@@ -1,18 +1,16 @@
-import { useMediaQuery } from 'react-responsive';
-import { useTranslation } from 'react-i18next';
+// import { useMediaQuery } from 'react-responsive';
+// import { useTranslation } from 'react-i18next';
 // import { Background } from '../../components/UI/Background';
-import { Charts, GoBackButton, MonthPicker, Reports } from '../../components';
+import { GoBackButton, MonthPicker, Reports } from '../../components';
 import styles from './ReportView.module.scss';
 import { Container } from '../../components/UI/Container';
-import { isMobile } from '../../utils/mediaQuery';
+// import { isMobile } from '../../utils/mediaQuery';
 import { LangSwitcher } from '../../components/LangSwitcher/';
-import { Balance } from '../../components/Balance';
-
-const finance = { expenses: 20000, incomes: 50000 };
+import { BalanceInput } from '../../components/Balance/BalanceInput';
 
 const ReportView = () => {
-  const { t } = useTranslation();
-  const Mobile = isMobile(useMediaQuery);
+  // const { t } = useTranslation();
+  // const Mobile = isMobile(useMediaQuery);
 
   return (
     <Container>
@@ -21,7 +19,8 @@ const ReportView = () => {
       <div className={styles.btn}>
         <GoBackButton />
       </div>
-      {/* <Balance></Balance> */}
+
+      <BalanceInput />
       <MonthPicker />
 
       <div className={styles.reportViewWrapper}>
@@ -29,14 +28,7 @@ const ReportView = () => {
         <Background />
       </div> */}
 
-        <Reports
-          finance={finance}
-
-          // // categories={categories}
-          // handleTypeChange={handleTypeChange}
-          // type={type}
-          // transactions={transactions}
-        />
+        <Reports />
       </div>
     </Container>
   );
