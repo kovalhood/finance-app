@@ -158,15 +158,18 @@ td:nth-child(5) {
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  padding-top: 3px;
+  padding-left: 7px;
   border: none;
-  padding-top: 4px;
-  padding-bottom: 3px;
   background-color: $grayBackgroundColor;
   fill: $basicTextColor;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-.button:hover {
-  cursor: pointer;
+.button:hover,
+.button:focus {
+  outline: none;
   fill: white;
   background-color: $orangeBasicColor;
 }
