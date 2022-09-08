@@ -4,6 +4,7 @@ import { Balance } from '../Balance';
 import CalendarMobile from './CalendarMobile/CalendarMobile';
 import ControlsMobile from './ControlsMobile';
 import FormMobile from './FormMobile';
+import TableMobile from './TableMobile';
 import styles from './DashboardMobile.module.scss';
 import sprite from '../../images/sprite.svg';
 
@@ -60,7 +61,7 @@ export const DashboardMobile = () => {
               <CalendarMobile dateHandler={setTransactionDate} />
             </div>
 
-            {/* Тут надо поставить компонент списка транзакций */}
+            <TableMobile date={transactionDate} />
 
             <div className={styles.controls} onClick={handleControlsClick}>
               <ControlsMobile link={'/expense'} title={'Expense'} />
