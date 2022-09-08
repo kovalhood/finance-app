@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -8,23 +8,18 @@ import Transaction from './Transaction';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
 import styles from './TableMobile.module.scss';
+import GlobalContext from '../../../context/GlobalContext';
 
 export default function TableMobile() {
   const [transactions, setTransactions] = useState([]);
   const dispatch = useDispatch();
 
   const location = useLocation();
-  const date = location.search;
-  const day = location.search.slice(5, 7);
-  const month = location.search.slice(14, 16);
-  const year = location.search.slice(22, 26);
   const getBalance = useSelector(authSelectors.getBalance);
   const type = location.pathname.slice(1);
+  const { daySelected } = useContext(GlobalContext);
 
   useEffect(() => {
-    const dayQuery = new Date().getDate().toString().padStart(2, '0');
-    const monthQuery = (new Date().getMonth() + 1).toString().padStart(2, '0');
-    const yearQuery = new Date().getFullYear();
     const date = commonDate(new Date());
 
     const params = {
