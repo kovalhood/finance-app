@@ -1,0 +1,47 @@
+@import '../../../globalStyles/vars';
+
+.transaction{
+    border-bottom: 1px solid $grayBackgroundColor;;
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+letter-spacing: 0.04em;
+}
+
+.transaction_description{
+
+}
+
+.flex{
+    display: flex;
+    font-weight: 400;
+font-size: 8px;
+line-height: 9px;
+}
+
+.button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    padding-top: 4px;
+    padding-bottom: 3px;
+    background-color: $grayBackgroundColor;
+    fill: $basicTextColor;
+  }
+
+  .button:hover {
+    cursor: pointer;
+    fill: white;
+    background-color: $orangeBasicColor;
+  }
+
+  .green_color {
+    color: $green-color;
+  }
+
+  .red_color {
+    color: $redСolorInTable;
+  }
