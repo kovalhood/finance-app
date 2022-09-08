@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../UI';
@@ -34,29 +34,40 @@ const Reports = () => {
   const isExpenseTitle =
     type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
 
+  const memoTransactions = useMemo(() => {
+    return [...transactions].sort((a, b) => {
+      return b.totalCategoriesSum - a.totalCategoriesSum;
+    });
+    // return transactions.sort((a, b) => {
+    //   return b.totalCategoriesSum - a.totalCategoriesSum;
+    // });
+  }, [transactions]);
+
+  // console.log(memoTransactions, '-------memo');
+  // console.log(transactions, 'transactions');
+
   // console.log(date, '---------------date');
-  console.log(transactions, 'transactions');
+  // console.log(transactions, 'transactions');
   // console.log(type, 'type');
   // console.log(chartsData, 'chartsData');
   // console.log(currentCategory, 'currentCategory');
-  // console.log(transactions, 'transactions');
 
   const getTransactionsData = useCallback(async () => {
-    if (Object.keys(date).length) {
-      const { year, month } = date;
-      const normalizeMonth =
-        month.toString().length === 1 ? '0' + month : month;
+    try {
+      if (Object.keys(date).length) {
+        const { year, month } = date;
+        const normalizeMonth =
+          month.toString().length === 1 ? '0' + month : month;
 
-      await dispatch(getData({ type, normalizeMonth, year })).unwrap();
+        await dispatch(getData({ type, normalizeMonth, year })).unwrap();
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [date, dispatch, type]);
 
   useEffect(() => {
-    try {
-      getTransactionsData();
-    } catch (error) {
-      console.log(error);
-    }
+    getTransactionsData();
   }, [getTransactionsData]);
 
   useEffect(() => {
@@ -142,48 +153,50 @@ const Reports = () => {
           <p className={s.loading}>{t('loading')}</p>
         ) : (
           <ul className={s.categories}>
-            {transactions.map(({ totalCategoriesSum, _id: category }, id) => {
-              return (
-                <li key={category} className={s.category}>
-                  <p className={s.categoryValue}>{t(category)}</p>
-                  <button
-                    type="button"
-                    className={
-                      currentCategory === category
-                        ? s.categoryBtnActive
-                        : s.categoryBtn
-                    }
-                    onClick={() => handleCategoryClick(id, category)}
-                  >
-                    <IconSvg
-                      sprite={svgSprite}
-                      icon={category}
-                      className={s.categoryIcon}
+            {memoTransactions?.map(
+              ({ totalCategoriesSum, _id: category }, id) => {
+                return (
+                  <li key={category} className={s.category}>
+                    <p className={s.categoryValue}>{t(category)}</p>
+                    <button
+                      type="button"
+                      className={
+                        currentCategory === category
+                          ? s.categoryBtnActive
+                          : s.categoryBtn
+                      }
+                      onClick={() => handleCategoryClick(id, category)}
+                    >
+                      <IconSvg
+                        sprite={svgSprite}
+                        icon={category}
+                        className={s.categoryIcon}
+                      />
+                    </button>
+                    <span
+                      className={
+                        currentCategory === category
+                          ? s.categoryBackgroundActive
+                          : s.categoryBackground
+                      }
                     />
-                  </button>
-                  <span
-                    className={
-                      currentCategory === category
-                        ? s.categoryBackgroundActive
-                        : s.categoryBackground
-                    }
-                  />
-                  <p className={s.categoryName}>
-                    {formatSum(totalCategoriesSum)}
-                  </p>
-                </li>
-              );
-            })}
+                    <p className={s.categoryName}>
+                      {formatSum(totalCategoriesSum)}
+                    </p>
+                  </li>
+                );
+              }
+            )}
           </ul>
         )}
       </div>
-      <>
+      {/* <>
         {!!chartsData.length && (
           <div className={s.chartsWrapper}>
             <Charts data={chartsData} />
           </div>
         )}
-      </>
+      </> */}
     </>
   );
 };
