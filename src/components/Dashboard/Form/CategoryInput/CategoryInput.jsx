@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authSelectors } from '../../../../redux/operation';
@@ -31,8 +31,12 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
     return category.type === 'income';
   });
 
+  // Closing categories on outside click
+  const ref = useRef();
+  useOnClickOutside(ref, () => setIsCategories(true));
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={ref}>
       <div className={styles.form_input_category_parent} onClick={handleClick}>
         <input
           className={styles.form_input_category}
@@ -92,5 +96,23 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
     </div>
   );
 };
+
+function useOnClickOutside(ref, handler) {
+  useEffect(() => {
+    const listener = event => {
+      // Do nothing if clicking ref's element or descendent elements
+      if (!ref.current || ref.current.contains(event.target)) {
+        return;
+      }
+      handler(event);
+    };
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+    return () => {
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler]);
+}
 
 export default CategoryInput;
