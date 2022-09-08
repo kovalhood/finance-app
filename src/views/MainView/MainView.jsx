@@ -1,7 +1,7 @@
 import styles from './MainView.module.css';
 import { Background } from '../../components/UI/Background';
 import { Dashboard } from '../../components/Dashboard';
-import { DashboardMobile } from '../../components/DashboardMobile';
+import { DashboardMobile } from '../../components/DashboardMobile/DashboardMobile';
 import { Balance } from '../../components/Balance';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/operation';

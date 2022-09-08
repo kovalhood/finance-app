@@ -5,9 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { nanoid } from 'nanoid';
 import Transaction from './Transaction';
-import styles from './TableMobile.module.scss';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
+import styles from './TableMobile.module.scss';
 
 export default function TableMobile() {
   const [transactions, setTransactions] = useState([]);
