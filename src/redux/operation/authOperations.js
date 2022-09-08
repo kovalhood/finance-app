@@ -152,9 +152,7 @@ const getAllTransactions = createAsyncThunk(
       );
 
       return data;
-    } catch (error) {
-      Notify.failure(`${error.message}`);
-    }
+    } catch (error) {}
   }
 );
 

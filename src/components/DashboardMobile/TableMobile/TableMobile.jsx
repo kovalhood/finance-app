@@ -29,6 +29,7 @@ export default function TableMobile() {
     };
     dispatch(authOperations.getAllTransactions(params)).then(
       res => {
+        console.log(res);
         if (res.payload.allTransactions === undefined) {
           return setTransactions([]);
         }
