@@ -1,4 +1,4 @@
-import styles from './Summary.module.css';
+import styles from './Summary.module.scss';
 import { isMobile, isTablet } from '../../utils/mediaQuery';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
