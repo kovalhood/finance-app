@@ -18,8 +18,8 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
           <p className={styles.transaction_date}>{date}</p>
           <p className={styles.transaction_category}>{category}</p>
         </div>
-        {isIncome && <li className={styles.green_color}>{sum}.00 uah</li>}
-        {!isIncome && <li className={styles.red_color}>-{sum}.00 uah</li>}
+        {isIncome && <p className={styles.green_color}>{sum}.00 uah</p>}
+        {!isIncome && <p className={styles.red_color}>-{sum}.00 uah</p>}
 
         <button
           type="button"
