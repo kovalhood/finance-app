@@ -144,7 +144,7 @@ const getTransactionsByMonth = createAsyncThunk(
   }
 );
 const getAllTransactions = createAsyncThunk(
-  'transactions',
+  'transactions/all',
   async ({ day, month, year }) => {
     try {
       const { data } = await axios.get(
