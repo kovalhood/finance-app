@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
@@ -12,6 +12,8 @@ import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import GlobalContext from '../../../context/GlobalContext';
+import { commonDate } from '../../../utils/date';
 
 const materialTheme = createTheme({
   overrides: {
@@ -75,6 +77,9 @@ const Form = () => {
   // const [selectedDay, setSelectedDay] = useState('');
   // const [selectedMonth, setSelectedMonth] = useState('');
   // const [selectedYear, setSelectedYear] = useState('');
+
+  const { daySelected, setDaySelected } = useContext(GlobalContext);
+  setDaySelected(selectedDate);
 
   const navigate = useNavigate();
   const location = useLocation();
