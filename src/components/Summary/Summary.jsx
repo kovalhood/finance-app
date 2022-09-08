@@ -38,13 +38,15 @@ export const Summary = () => {
       });
   }, [type, getBalance]);
 
-  data.sort((x, y) => parseInt(x._id.month) - parseInt(y._id.month));
+  const dataList = data
+    .sort((x, y) => parseInt(y._id.month) - parseInt(x._id.month))
+    .slice(0, 5);
 
   return (
     <div className={IsMobile ? styles.mobContainer : styles.container}>
       <h4 className={styles.title}>СВОДКА</h4>
       <ul className={styles.list}>
-        {data.map(({ _id, total }) => (
+        {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
             <span>{month[parseInt(_id.month) - 1]}</span>
             <span>{formatSum(total)}</span>
