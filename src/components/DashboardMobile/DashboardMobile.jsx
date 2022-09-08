@@ -4,7 +4,7 @@ import { Balance } from '../Balance';
 import CalendarMobile from './CalendarMobile/CalendarMobile';
 import ControlsMobile from './ControlsMobile';
 import FormMobile from './FormMobile';
-import TableMobile from './TableMobile';
+import TableMobile from './TableMob';
 import styles from './DashboardMobile.module.scss';
 import sprite from '../../images/sprite.svg';
 
