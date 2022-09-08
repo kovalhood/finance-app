@@ -40,7 +40,7 @@ export const Summary = () => {
 
   const dataList = data
     .sort((x, y) => parseInt(y._id.month) - parseInt(x._id.month))
-    .slice(0, 5);
+    .slice(0, 6);
 
   return (
     <div className={IsMobile ? styles.mobContainer : styles.container}>
