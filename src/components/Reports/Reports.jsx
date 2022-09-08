@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../UI';
@@ -13,10 +13,12 @@ import {
   getIsLoading,
   updateType,
 } from '../../redux/reports';
-import s from './Reports.module.scss';
 import { formatSum } from '../../utils/formSum';
+import s from './Reports.module.scss';
 
-const Reports = ({ finance }) => {
+const finance = { expenses: 20000, incomes: 50000 };
+
+const Reports = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -33,31 +35,33 @@ const Reports = ({ finance }) => {
     type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
 
   // console.log(date, '---------------date');
-  // console.log(transactions, 'transactions');
+  console.log(transactions, 'transactions');
   // console.log(type, 'type');
-  console.log(chartsData, 'chartsData');
+  // console.log(chartsData, 'chartsData');
+  // console.log(currentCategory, 'currentCategory');
+  // console.log(transactions, 'transactions');
+
+  const getTransactionsData = useCallback(async () => {
+    if (Object.keys(date).length) {
+      const { year, month } = date;
+      const normalizeMonth =
+        month.toString().length === 1 ? '0' + month : month;
+
+      await dispatch(getData({ type, normalizeMonth, year })).unwrap();
+    }
+  }, [date, dispatch, type]);
 
   useEffect(() => {
-    (async function () {
-      try {
-        if (Object.keys(date).length) {
-          const { year, month } = date;
-          const normalizeMonth =
-            month.toString().length === 1 ? '0' + month : month;
-
-          await dispatch(getData({ type, normalizeMonth, year })).unwrap();
-        }
-      } catch (error) {
-        console.log(error, 'error');
-      }
-    })();
-  }, [date, dispatch, type]);
+    try {
+      getTransactionsData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [getTransactionsData]);
 
   useEffect(() => {
     resetCategory();
   }, [date]);
-
-  console.log(currentCategory, 'currentCategory');
 
   const resetCategory = () => {
     setChartsData([]);
@@ -82,8 +86,6 @@ const Reports = ({ finance }) => {
     // console.log(categories[0]._id, 'setCurrentCategory(categories[0]._id)');
     // console.log(categories[id].report, 'categories[id]');
   };
-
-  // console.log(transactions, 'transactions');
 
   return (
     <>
@@ -135,9 +137,9 @@ const Reports = ({ finance }) => {
           </button>
         </div>
 
-        {!!error && <h2 className={s.error}>{t('noTransactions')}</h2>}
+        {!!error && <p className={s.error}>{t('noTransactions')}</p>}
         {isLoading ? (
-          <h2 className={s.loading}>{t('loading')}</h2>
+          <p className={s.loading}>{t('loading')}</p>
         ) : (
           <ul className={s.categories}>
             {transactions.map(({ totalCategoriesSum, _id: category }, id) => {
@@ -175,13 +177,13 @@ const Reports = ({ finance }) => {
           </ul>
         )}
       </div>
-      {/* <>
+      <>
         {!!chartsData.length && (
           <div className={s.chartsWrapper}>
             <Charts data={chartsData} />
           </div>
         )}
-      </> */}
+      </>
     </>
   );
 };
