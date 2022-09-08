@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Balance } from '../Balance';
-import CalendarMobile from './CalendarMobile/CalendarMobile';
+import Calendar from '../Calendar';
 import ControlsMobile from './ControlsMobile';
 import FormMobile from './FormMobile';
 import TableMobile from './TableMobile';
@@ -9,7 +9,7 @@ import styles from './DashboardMobile.module.scss';
 import sprite from '../../images/sprite.svg';
 
 export const DashboardMobile = () => {
-  const [transactionDate, setTransactionDate] = useState(new Date());
+  const [transactionDate, setTransactionDate] = useState('');
   const [addTransaction, setAddTransaction] = useState(false);
 
   const handleControlsClick = () => {
@@ -58,7 +58,7 @@ export const DashboardMobile = () => {
           <>
             <Balance />
             <div className={styles.calendar_wrapper}>
-              <CalendarMobile dateHandler={setTransactionDate} />
+              <Calendar dateHandler={setTransactionDate} />
             </div>
 
             <TableMobile date={transactionDate} />
