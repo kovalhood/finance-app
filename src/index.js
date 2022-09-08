@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { persistor, store } from './redux/store';
 import './i18n';
+import ContextWrapper from './context/ContextWrapper';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,9 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <App />
+          <ContextWrapper>
+            <App />
+          </ContextWrapper>
         </BrowserRouter>
       </PersistGate>
     </Provider>
