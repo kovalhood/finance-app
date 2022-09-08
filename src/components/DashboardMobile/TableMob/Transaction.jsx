@@ -13,21 +13,25 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
   if (value) {
     return (
       <li className={styles.transaction}>
-        <p className={styles.transaction_description}>{description}</p>
-        <div className={styles.flex}>
-          <p className={styles.transaction_date}>{date}</p>
-          <p className={styles.transaction_category}>{category}</p>
+        <div className={styles.left_group}>
+          <p className={styles.transaction_description}>{description}</p>
+          <div className={styles.flex}>
+            <p className={styles.transaction_date}>{date}</p>
+            <p className={styles.transaction_category}>{category}</p>
+          </div>
         </div>
-        {isIncome && <p className={styles.green_color}>{sum}.00 uah</p>}
-        {!isIncome && <p className={styles.red_color}>-{sum}.00 uah</p>}
+        <div className={styles.rigth_group}>
+          {isIncome && <p className={styles.green_color}>{sum}.00 uah</p>}
+          {!isIncome && <p className={styles.red_color}>-{sum}.00 uah</p>}
 
-        <button
-          type="button"
-          onClick={() => dispatch(operation.deleteTransaction({ id }))}
-          className={styles.button}
-        >
-          <RedactSvgSelector id="delete" />
-        </button>
+          <button
+            type="button"
+            onClick={() => dispatch(operation.deleteTransaction({ id }))}
+            className={styles.button}
+          >
+            <RedactSvgSelector id="delete" />
+          </button>
+        </div>
       </li>
     );
   }

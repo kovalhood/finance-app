@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import operations from '../../../redux/operation/authOperations';
 import { nanoid } from 'nanoid';
 import Transaction from './Transaction';
 import styles from './Table.module.scss';

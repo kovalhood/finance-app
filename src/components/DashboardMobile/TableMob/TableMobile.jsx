@@ -67,33 +67,33 @@ export default function TableMobile() {
     }
   });
 
-  //   const arrayLength = trans.length;
+  const arrayLength = trans.length;
 
-  //   function createTableOfNineRows(length) {
-  //     if (length >= 16) {
-  //       return;
-  //     }
-  //     if (length < 16) {
-  //       const id = nanoid();
-  //       transactions.push({
-  //         _id: `${id}`,
-  //         date: '',
-  //         day: '',
-  //         month: '',
-  //         year: '',
-  //         description: '',
-  //         categories: '',
-  //         value: null,
-  //         income: true,
-  //         // owner: '6315d0f27a7659ec61c4543f',
-  //       });
-  //       const newArrayLength = transactions.length;
-  //       createTableOfNineRows(newArrayLength);
-  //     }
-  //   }
+  function createTableOfNineRows(length) {
+    if (length >= 16) {
+      return;
+    }
+    if (length < 16) {
+      const id = nanoid();
+      transactions.push({
+        _id: `${id}`,
+        date: '',
+        day: '',
+        month: '',
+        year: '',
+        description: '',
+        categories: '',
+        value: null,
+        income: true,
+        // owner: '6315d0f27a7659ec61c4543f',
+      });
+      const newArrayLength = transactions.length;
+      createTableOfNineRows(newArrayLength);
+    }
+  }
 
-  //   createTableOfNineRows(arrayLength);
-  // // console.log(transactions);
+  createTableOfNineRows(arrayLength);
+  // console.log(transactions);
 
   return (
     <>
