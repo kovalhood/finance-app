@@ -26,8 +26,8 @@ export const reportsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
 
-      console.log('payload', payload);
-      console.log('payload.transactions', payload.transactions);
+      // console.log('payload', payload);
+      // console.log('payload.transactions', payload.transactions);
     },
     [getData.pending]: state => {
       state.isLoading = true;

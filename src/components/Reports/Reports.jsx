@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../UI';
@@ -13,10 +13,12 @@ import {
   getIsLoading,
   updateType,
 } from '../../redux/reports';
-import s from './Reports.module.scss';
 import { formatSum } from '../../utils/formSum';
+import s from './Reports.module.scss';
 
-const Reports = ({ finance }) => {
+const finance = { expenses: 20000, incomes: 50000 };
+
+const Reports = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -32,32 +34,45 @@ const Reports = ({ finance }) => {
   const isExpenseTitle =
     type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
 
+  const memoTransactions = useMemo(() => {
+    return [...transactions].sort((a, b) => {
+      return b.totalCategoriesSum - a.totalCategoriesSum;
+    });
+    // return transactions.sort((a, b) => {
+    //   return b.totalCategoriesSum - a.totalCategoriesSum;
+    // });
+  }, [transactions]);
+
+  // console.log(memoTransactions, '-------memo');
+  // console.log(transactions, 'transactions');
+
   // console.log(date, '---------------date');
   // console.log(transactions, 'transactions');
   // console.log(type, 'type');
-  console.log(chartsData, 'chartsData');
+  // console.log(chartsData, 'chartsData');
+  // console.log(currentCategory, 'currentCategory');
+
+  const getTransactionsData = useCallback(async () => {
+    try {
+      if (Object.keys(date).length) {
+        const { year, month } = date;
+        const normalizeMonth =
+          month.toString().length === 1 ? '0' + month : month;
+
+        await dispatch(getData({ type, normalizeMonth, year })).unwrap();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [date, dispatch, type]);
 
   useEffect(() => {
-    (async function () {
-      try {
-        if (Object.keys(date).length) {
-          const { year, month } = date;
-          const normalizeMonth =
-            month.toString().length === 1 ? '0' + month : month;
-
-          await dispatch(getData({ type, normalizeMonth, year })).unwrap();
-        }
-      } catch (error) {
-        console.log(error, 'error');
-      }
-    })();
-  }, [date, dispatch, type]);
+    getTransactionsData();
+  }, [getTransactionsData]);
 
   useEffect(() => {
     resetCategory();
   }, [date]);
-
-  console.log(currentCategory, 'currentCategory');
 
   const resetCategory = () => {
     setChartsData([]);
@@ -82,8 +97,6 @@ const Reports = ({ finance }) => {
     // console.log(categories[0]._id, 'setCurrentCategory(categories[0]._id)');
     // console.log(categories[id].report, 'categories[id]');
   };
-
-  // console.log(transactions, 'transactions');
 
   return (
     <>
@@ -135,43 +148,45 @@ const Reports = ({ finance }) => {
           </button>
         </div>
 
-        {!!error && <h2 className={s.error}>{t('noTransactions')}</h2>}
+        {!!error && <p className={s.error}>{t('noTransactions')}</p>}
         {isLoading ? (
-          <h2 className={s.loading}>{t('loading')}</h2>
+          <p className={s.loading}>{t('loading')}</p>
         ) : (
           <ul className={s.categories}>
-            {transactions.map(({ totalCategoriesSum, _id: category }, id) => {
-              return (
-                <li key={category} className={s.category}>
-                  <p className={s.categoryValue}>{t(category)}</p>
-                  <button
-                    type="button"
-                    className={
-                      currentCategory === category
-                        ? s.categoryBtnActive
-                        : s.categoryBtn
-                    }
-                    onClick={() => handleCategoryClick(id, category)}
-                  >
-                    <IconSvg
-                      sprite={svgSprite}
-                      icon={category}
-                      className={s.categoryIcon}
+            {memoTransactions?.map(
+              ({ totalCategoriesSum, _id: category }, id) => {
+                return (
+                  <li key={category} className={s.category}>
+                    <p className={s.categoryValue}>{t(category)}</p>
+                    <button
+                      type="button"
+                      className={
+                        currentCategory === category
+                          ? s.categoryBtnActive
+                          : s.categoryBtn
+                      }
+                      onClick={() => handleCategoryClick(id, category)}
+                    >
+                      <IconSvg
+                        sprite={svgSprite}
+                        icon={category}
+                        className={s.categoryIcon}
+                      />
+                    </button>
+                    <span
+                      className={
+                        currentCategory === category
+                          ? s.categoryBackgroundActive
+                          : s.categoryBackground
+                      }
                     />
-                  </button>
-                  <span
-                    className={
-                      currentCategory === category
-                        ? s.categoryBackgroundActive
-                        : s.categoryBackground
-                    }
-                  />
-                  <p className={s.categoryName}>
-                    {formatSum(totalCategoriesSum)}
-                  </p>
-                </li>
-              );
-            })}
+                    <p className={s.categoryName}>
+                      {formatSum(totalCategoriesSum)}
+                    </p>
+                  </li>
+                );
+              }
+            )}
           </ul>
         )}
       </div>
