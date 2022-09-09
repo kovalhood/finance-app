@@ -4,12 +4,14 @@ import { RedactSvgSelector } from './RedactSvgSelector.jsx';
 import { useDispatch } from 'react-redux';
 import Modal from '../../Modal';
 import { authOperations } from '../../../redux/operation';
+import { useTranslation } from 'react-i18next';
+import { formatSum } from '../../../utils/formSum';
 import styles from './Table.module.scss';
 
 const Transaction = ({ id, date, description, category, sum, income }) => {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-
   const value = sum;
   const isIncome = income;
 
@@ -34,15 +36,17 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
   };
 
   if (value) {
+    const newSum = formatSum(sum);
+
     if (isIncome) {
       return (
         <>
           <tr>
             <td>{date}</td>
-            <td>{description}</td>
-            <td>{category}</td>
+            <td>{t(`${description}`)}</td>
+            <td>{t(`${category}`)}</td>
             <td className={styles.green_color}>
-              {handleDigitAfterDot(sum)} uah
+              {handleDigitAfterDot(newSum)} {t('hrn')}
             </td>
             <td>
               <button
@@ -71,9 +75,11 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
       <>
         <tr>
           <td>{date}</td>
-          <td>{description}</td>
-          <td>{category}</td>
-          <td className={styles.red_color}>- {handleDigitAfterDot(sum)} uah</td>
+          <td>{t(`${description}`)}</td>
+          <td>{t(`${category}`)}</td>
+          <td className={styles.red_color}>
+            - {handleDigitAfterDot(newSum)} {t('hrn')}
+          </td>
           <td>
             <button
               type="button"
