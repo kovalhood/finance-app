@@ -2,15 +2,13 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactComponent as CloseModal } from '../../images/closeIcon.svg';
 import styles from './Modal.module.scss';
-import { authOperations } from '../../redux/operation';
-import { useDispatch } from 'react-redux';
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ massage, onClick }) => {
+const Modal = ({ message, onNoClick, onYesClick }) => {
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
-        onClick();
+        onNoClick();
       }
     };
 
@@ -19,25 +17,23 @@ const Modal = ({ massage, onClick }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClick]);
+  }, [onNoClick]);
 
   const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      onClick(e);
+      onNoClick(e);
     }
   };
 
-  const dispatch = useDispatch();
-
-  const onLogout = e => {
-    dispatch(authOperations.logOut());
-    onClick(e);
+  const handleYesClick = e => {
+    onYesClick();
+    onNoClick(e);
   };
 
   useEffect(() => {
     const close = e => {
       if (e.key === 'Escape') {
-        onClick(e);
+        onNoClick(e);
       }
     };
     window.addEventListener('keydown', close);
@@ -50,16 +46,24 @@ const Modal = ({ massage, onClick }) => {
         <button
           type="button"
           className={styles.closeModalBtn}
-          onClick={onClick}
+          onClick={onNoClick}
         >
           <CloseModal />
         </button>
-        <p className={styles.massage}>{massage}</p>
+        <p className={styles.message}>{message}</p>
         <div className={styles.btnContainer}>
-          <button className={styles.btn} type="button" onClick={onLogout}>
+          <button
+            className={styles.btn_open}
+            type="button"
+            onClick={handleYesClick}
+          >
             Yes
           </button>
-          <button className={styles.btn} type="button" onClick={onClick}>
+          <button
+            className={styles.btn_close}
+            type="button"
+            onClick={onNoClick}
+          >
             No
           </button>
         </div>
