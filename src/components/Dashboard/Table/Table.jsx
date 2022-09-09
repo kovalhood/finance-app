@@ -8,6 +8,7 @@ import styles from './Table.module.scss';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
+import { formatSum } from '../../../utils/formSum';
 import GlobalContext from '../../../context/GlobalContext';
 
 export default function Table() {
@@ -51,19 +52,24 @@ export default function Table() {
   }, [type, getBalance, daySelected]);
 
   const trans = transactions.map(item => {
+    const sum = item.value;
     const day = item.day;
     const month = item.month;
     const year = item.year;
-    if (day === '' && month === '' && year === '') {
+    if (day === '' && month === '' && year === '' && sum === '') {
       return;
     } else {
       const date = `${day}.${month}.${year}`;
       item.date = date;
+      // console.log(item.value)
+      // const newSum = formatSum(item.value);
+      // console.log(newSum, "после форматир")
+      // item.value = newSum;
     }
   });
 
   const arrayLength = trans.length;
-
+  console.log(transactions);
   function createTableOfNineRows(length) {
     if (length >= 16) {
       return;
@@ -80,7 +86,6 @@ export default function Table() {
         categories: '',
         value: null,
         income: true,
-        // owner: '6315d0f27a7659ec61c4543f',
       });
       const newArrayLength = transactions.length;
       createTableOfNineRows(newArrayLength);
@@ -93,16 +98,6 @@ export default function Table() {
       <div className={styles.scroll}>
         <div className={styles.window}>
           <table className={styles.transactionHistory}>
-            {/* <thead className={styles.thead}>
-              <tr>
-                <th>DATE</th>
-                <th>DESCRIPTION</th>
-                <th>CATEGORY</th>
-                <th>SUM</th>
-                <th></th>
-              </tr>
-            </thead> */}
-
             <tbody>
               {transactions &&
                 transactions.map(item => (
