@@ -70,7 +70,7 @@ const Calendar = props => {
     daySelected === null ? new Date() : new Date(daySelected)
   );
 
-  console.log(new Date(daySelected));
+  // console.log(new Date(daySelected));
   // useEffect(() => {
   //   handleQueryChange();
   //   setDaySelected(selectedDate);
