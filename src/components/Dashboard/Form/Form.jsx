@@ -163,7 +163,7 @@ const Form = () => {
     //============== Добавление Транзакции Income либо Expense
     const transaction = {
       // Объект transaction собрать из полей
-      value: parseInt(sum),
+      value: Number(sum),
       categories: category,
       description: description,
       day: dayQuery,
