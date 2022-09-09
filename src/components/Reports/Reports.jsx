@@ -12,6 +12,8 @@ import {
   getDate,
   getIsLoading,
   updateType,
+  getTotalSumValue,
+  getTotalSum,
 } from '../../redux/reports';
 import { formatSum } from '../../utils/formSum';
 import s from './Reports.module.scss';
@@ -28,11 +30,13 @@ const Reports = () => {
   const type = useSelector(getType);
   const date = useSelector(getDate);
   const error = useSelector(getError);
+  const totalSumValue = useSelector(getTotalSumValue);
   const isLoading = useSelector(getIsLoading);
 
   const isExpenseCategory = type === 'expense' ? 'income' : 'expense';
   const isExpenseTitle =
     type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
+  const isDateExist = Object.keys(date).length;
 
   const memoTransactions = useMemo(() => {
     return [...transactions].sort((a, b) => {
@@ -51,6 +55,7 @@ const Reports = () => {
   // console.log(type, 'type');
   // console.log(chartsData, 'chartsData');
   // console.log(currentCategory, 'currentCategory');
+  console.log(totalSumValue, 'totalSumValue');
 
   const getTransactionsData = useCallback(async () => {
     try {
@@ -66,9 +71,26 @@ const Reports = () => {
     }
   }, [date, dispatch, type]);
 
+  const getTotalSumData = useCallback(async () => {
+    try {
+      if (Object.keys(date).length) {
+        const { year, month } = date;
+        const normalizeMonth =
+          month.toString().length === 1 ? '0' + month : month;
+        dispatch(getTotalSum({ normalizeMonth, year }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [date, dispatch]);
+
   useEffect(() => {
     getTransactionsData();
   }, [getTransactionsData]);
+
+  useEffect(() => {
+    getTotalSumData();
+  }, [getTotalSumData]);
 
   useEffect(() => {
     resetCategory();
@@ -98,9 +120,41 @@ const Reports = () => {
     // console.log(categories[id].report, 'categories[id]');
   };
 
+  const arr = [
+    { _id: false, totalSum: 666135 },
+    { _id: true, totalSum: 717655 },
+  ];
+
+  // const ojb = arr.map(item => {
+  //   return Object.values(item);
+  // });
+  // console.log(ojb, 'ojb');
+
+  // const totalExpenses = totalSumValue[0]._id
+  //   ? totalSumValue[0].totalSum
+  //   : totalSumValue[1].totalSum;
+  console.log(!!totalSumValue.length, 'totalSumValue.length');
   return (
     <>
       <div className={s.financeWrapper}>
+        {/* <div className={s.expensesWrapper}>
+          <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
+          {!!totalSumValue.length ? (
+            <p className={s.expenses}>{`- ${
+              totalSumValue[0]._id
+                ? totalSumValue[0].totalSum
+                : totalSumValue[1].totalSum
+            } ${t('hrn')}`}</p>
+          ) : (
+            <p className={s.expenses}>{`No expenses`}</p>
+          )}
+        </div>
+        <span className={s.divider} />
+        <div className={s.incomesWrapper}>
+          <p className={s.financeTitle}>{`${t('reportsIncomes') + ':'}`}</p>
+          <p className={s.incomes}>{`+ ${finance.incomes} ${t('hrn')}`}</p>
+        </div> */}
+
         <div className={s.expensesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
           <p className={s.expenses}>{`- ${finance.expenses} ${t('hrn')}`}</p>

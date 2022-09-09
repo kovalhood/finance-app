@@ -23,3 +23,26 @@ export const getData = createAsyncThunk(
     }
   }
 );
+
+export const getTotalSum = createAsyncThunk(
+  'totalSum',
+  async (props, { rejectWithValue, getState }) => {
+    const { normalizeMonth: month, year } = props;
+    const state = getState();
+    const persistedToken = state.auth.token;
+
+    if (persistedToken === null) {
+      return state;
+    }
+    axios.defaults.headers.common.Authorization = `Bearer ${persistedToken}`;
+
+    try {
+      const { data } = await axios.get(
+        `api/totalSum/?month=${month}&year=${year}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
