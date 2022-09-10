@@ -32,7 +32,7 @@ export default function TableMobile() {
     dispatch(authOperations.getAllTransactions(params)).then(
       res => {
         console.log(res);
-        if (res.payload.allTransactions === undefined) {
+        if (res.payload === undefined) {
           return setTransactions([]);
         }
         const trans = res.payload.allTransactions;
@@ -68,7 +68,7 @@ export default function TableMobile() {
   const arrayLength = trans.length;
 
   if (arrayLength === 0) {
-    return <p>{t('noTransactions')}</p>;
+    return <p className={styles.message}>{t('noTransactions')}</p>;
   }
   // function createTableOfNineRows(length) {
   //   if (length >= 16) {
