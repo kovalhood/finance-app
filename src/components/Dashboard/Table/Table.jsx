@@ -8,7 +8,7 @@ import styles from './Table.module.scss';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
-import { formatSum } from '../../../utils/formSum';
+
 import GlobalContext from '../../../context/GlobalContext';
 
 export default function Table() {
@@ -69,8 +69,8 @@ export default function Table() {
   });
 
   const arrayLength = trans.length;
-  console.log(transactions);
-  function createTableOfNineRows(length) {
+
+  function createTableOfSixteenRows(length) {
     if (length >= 16) {
       return;
     }
@@ -88,11 +88,11 @@ export default function Table() {
         income: true,
       });
       const newArrayLength = transactions.length;
-      createTableOfNineRows(newArrayLength);
+      createTableOfSixteenRows(newArrayLength);
     }
   }
 
-  createTableOfNineRows(arrayLength);
+  createTableOfSixteenRows(arrayLength);
   return (
     <>
       <div className={styles.scroll}>

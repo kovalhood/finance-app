@@ -59,8 +59,6 @@ line-height: 9px;
     height: 18px;
     border: none;
     padding: 0;
-    // padding-top: 4px;
-    // padding-bottom: 3px;
     background-color: transparent;
 
     fill: $basicTextColor;
@@ -82,3 +80,13 @@ line-height: 9px;
     color: $redСolorInTable;
     text-transform: uppercase;
   }
+
+  .error {
+  font-family: 'Roboto';
+  font-style: normal;
+  // font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  color: $basicTextColor;
+}
