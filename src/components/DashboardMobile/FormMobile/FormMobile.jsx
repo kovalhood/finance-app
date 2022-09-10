@@ -132,7 +132,7 @@ const FormMobile = ({ date, goBack }) => {
     const yearQuery = new Date(date).getFullYear();
 
     const transaction = {
-      value: parseInt(sum),
+      value: Number(sum),
       categories: category,
       description: description,
       day: dayQuery,
