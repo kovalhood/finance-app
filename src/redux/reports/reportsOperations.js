@@ -4,7 +4,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const getData = createAsyncThunk(
   'transactions/report',
   async (props, { rejectWithValue, getState }) => {
-    const { type, normalizeMonth: month, year } = props;
+    console.log(props, '--------props');
+    const { type, month, year } = props;
     const state = getState();
     const persistedToken = state.auth.token;
 
@@ -27,7 +28,7 @@ export const getData = createAsyncThunk(
 export const getTotalSum = createAsyncThunk(
   'totalSum',
   async (props, { rejectWithValue, getState }) => {
-    const { normalizeMonth: month, year } = props;
+    const { month, year } = props;
     const state = getState();
     const persistedToken = state.auth.token;
 

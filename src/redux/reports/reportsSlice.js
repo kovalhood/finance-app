@@ -41,7 +41,7 @@ export const reportsSlice = createSlice({
       // console.log(payload.data);
       state.totalSum = payload.data;
       // state.totalSum = { ...payload.data };
-      state.isLoading = false;
+      // state.isLoading = false;
       state.error = null;
     },
     [getTotalSum.pending]: state => {
@@ -49,7 +49,7 @@ export const reportsSlice = createSlice({
       state.error = null;
     },
     [getTotalSum.rejected]: (state, { payload }) => {
-      state.isLoading = false;
+      // state.isLoading = false;
       state.error = payload;
     },
   },
