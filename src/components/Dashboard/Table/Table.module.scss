@@ -102,8 +102,6 @@ td:nth-child(4) {
   }
   @media screen and (min-width: 1280px) {
     width: 135px;
-    // padding-left: 20px;
-    // text-align: center;
   }
 }
 
@@ -118,7 +116,6 @@ td:nth-child(5) {
   height: 32px;
   border-radius: 50%;
   padding-top: 3px;
-  padding-left: 7px;
   border: none;
   background-color: $grayBackgroundColor;
   fill: $basicTextColor;
