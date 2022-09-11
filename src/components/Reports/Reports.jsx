@@ -8,15 +8,14 @@ import {
   getTransactions,
   getType,
   getData,
-  getError,
   getDate,
   getIsLoading,
   updateType,
+  getTotalSumValue,
+  getTotalSum,
 } from '../../redux/reports';
-import { formatSum } from '../../utils/formSum';
+import { formatSum, normalizeMonth } from '../../utils/';
 import s from './Reports.module.scss';
-
-const finance = { expenses: 20000, incomes: 50000 };
 
 const Reports = () => {
   const { t } = useTranslation();
@@ -27,12 +26,13 @@ const Reports = () => {
   const transactions = useSelector(getTransactions);
   const type = useSelector(getType);
   const date = useSelector(getDate);
-  const error = useSelector(getError);
+  const totalSumValue = useSelector(getTotalSumValue);
   const isLoading = useSelector(getIsLoading);
 
   const isExpenseCategory = type === 'expense' ? 'income' : 'expense';
   const isExpenseTitle =
     type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
+  const isDateExist = Object.keys(date).length;
 
   const memoTransactions = useMemo(() => {
     return [...transactions].sort((a, b) => {
@@ -43,6 +43,22 @@ const Reports = () => {
     // });
   }, [transactions]);
 
+  const memoSumExpense = useMemo(() => {
+    if (totalSumValue.length) {
+      return totalSumValue.find(({ _id: category }) => {
+        return !category;
+      });
+    }
+  }, [totalSumValue]);
+
+  const memoSumIncomes = useMemo(() => {
+    if (totalSumValue.length) {
+      return totalSumValue.find(({ _id: category }) => {
+        return category;
+      });
+    }
+  }, [totalSumValue]);
+
   // console.log(memoTransactions, '-------memo');
   // console.log(transactions, 'transactions');
 
@@ -51,24 +67,37 @@ const Reports = () => {
   // console.log(type, 'type');
   // console.log(chartsData, 'chartsData');
   // console.log(currentCategory, 'currentCategory');
+  // console.log(totalSumValue, 'totalSumValue');
 
   const getTransactionsData = useCallback(async () => {
     try {
-      if (Object.keys(date).length) {
-        const { year, month } = date;
-        const normalizeMonth =
-          month.toString().length === 1 ? '0' + month : month;
-
-        await dispatch(getData({ type, normalizeMonth, year })).unwrap();
+      if (isDateExist) {
+        const normalizedMonth = normalizeMonth(date.month);
+        dispatch(getData({ type, month: normalizedMonth, year: date.year }));
       }
     } catch (error) {
       console.log(error);
     }
-  }, [date, dispatch, type]);
+  }, [isDateExist, date, dispatch, type]);
+
+  const getTotalSumData = useCallback(async () => {
+    try {
+      if (isDateExist) {
+        const normalizedMonth = normalizeMonth(date.month);
+        dispatch(getTotalSum({ month: normalizedMonth, year: date.year }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, date, isDateExist]);
 
   useEffect(() => {
     getTransactionsData();
   }, [getTransactionsData]);
+
+  useEffect(() => {
+    getTotalSumData();
+  }, [getTotalSumData]);
 
   useEffect(() => {
     resetCategory();
@@ -94,8 +123,6 @@ const Reports = () => {
     );
 
     setChartsData(list);
-    // console.log(categories[0]._id, 'setCurrentCategory(categories[0]._id)');
-    // console.log(categories[id].report, 'categories[id]');
   };
 
   return (
@@ -103,12 +130,24 @@ const Reports = () => {
       <div className={s.financeWrapper}>
         <div className={s.expensesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
-          <p className={s.expenses}>{`- ${finance.expenses} ${t('hrn')}`}</p>
+          {memoSumExpense?.totalSum ? (
+            <p className={s.expenses}>{`- ${memoSumExpense?.totalSum} ${t(
+              'hrn'
+            )}`}</p>
+          ) : (
+            <p className={s.expenses}>{t('noExpenses')}</p>
+          )}
         </div>
         <span className={s.divider} />
         <div className={s.incomesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsIncomes') + ':'}`}</p>
-          <p className={s.incomes}>{`+ ${finance.incomes} ${t('hrn')}`}</p>
+          {memoSumIncomes?.totalSum ? (
+            <p className={s.incomes}>{`+ ${memoSumIncomes?.totalSum} ${t(
+              'hrn'
+            )}`}</p>
+          ) : (
+            <p className={s.incomes}>{t('noIncomes')}</p>
+          )}
         </div>
       </div>
 
@@ -148,7 +187,10 @@ const Reports = () => {
           </button>
         </div>
 
-        {!!error && <p className={s.error}>{t('noTransactions')}</p>}
+        {!isLoading && !memoTransactions.length && (
+          <p className={s.error}>{t('noTransactions')}</p>
+        )}
+
         {isLoading ? (
           <p className={s.loading}>{t('loading')}</p>
         ) : (

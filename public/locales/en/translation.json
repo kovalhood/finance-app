@@ -31,5 +31,7 @@
   "november": "november",
   "december": "december",
   "noTransactions": "No transactions for this period",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "noExpenses": "No expenses",
+  "noIncomes": "No incomes"
 }
