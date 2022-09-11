@@ -5,7 +5,7 @@ import { t } from 'i18next';
 import { updateDate, getDate } from '../../redux/reports';
 import styles from './MonthPicker.module.scss';
 
-const initialState = {
+const INITIAL_STATE = {
   month: new Date(Date.now()).getMonth() + 1,
   year: new Date(Date.now()).getFullYear(),
 };
@@ -28,7 +28,7 @@ const MONTH_LIST = {
 const MonthPicker = () => {
   const dispatch = useDispatch();
 
-  const [pickedDate, setPickedDate] = useState(initialState);
+  const [pickedDate, setPickedDate] = useState(INITIAL_STATE);
   const reduxDate = useSelector(getDate);
 
   const currentDate = t(MONTH_LIST[reduxDate.month]) + ' ' + reduxDate.year;
