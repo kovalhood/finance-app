@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { authOperations, authSelectors } from '../../../redux/operation';
-// import { nanoid } from 'nanoid';
 import Transaction from './Transaction';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
@@ -31,7 +30,6 @@ export default function TableMobile() {
     };
     dispatch(authOperations.getAllTransactions(params)).then(
       res => {
-        console.log(res);
         if (res.payload === undefined) {
           return setTransactions([]);
         }
@@ -70,31 +68,6 @@ export default function TableMobile() {
   if (arrayLength === 0) {
     return <p className={styles.message}>{t('noTransactions')}</p>;
   }
-  // function createTableOfNineRows(length) {
-  //   if (length >= 16) {
-  //     return;
-  //   }
-  //   if (length < 16) {
-  //     const id = nanoid();
-  //     transactions.push({
-  //       _id: `${id}`,
-  //       date: '',
-  //       day: '',
-  //       month: '',
-  //       year: '',
-  //       description: '',
-  //       categories: '',
-  //       value: null,
-  //       income: true,
-  //       // owner: '6315d0f27a7659ec61c4543f',
-  //     });
-  //     const newArrayLength = transactions.length;
-  //     createTableOfNineRows(newArrayLength);
-  //   }
-  // }
-
-  // createTableOfNineRows(arrayLength);
-  // // console.log(transactions);
 
   return (
     <>

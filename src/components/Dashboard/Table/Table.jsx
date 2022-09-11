@@ -33,7 +33,7 @@ export default function Table() {
         if (res.payload === undefined) {
           return setTransactions([]);
         }
-        const trans = res.payload;
+        const trans = res.payload.result;
         setTransactions(trans);
         dispatch(authOperations.fetchCurrentUser())
           .unwrap()
@@ -61,10 +61,6 @@ export default function Table() {
     } else {
       const date = `${day}.${month}.${year}`;
       item.date = date;
-      // console.log(item.value)
-      // const newSum = formatSum(item.value);
-      // console.log(newSum, "после форматир")
-      // item.value = newSum;
     }
   });
 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { authSelectors } from '../../redux/operation';
 import { Balance } from '../Balance';
 import Calendar from '../Calendar';
 import ControlsMobile from './ControlsMobile';
@@ -11,6 +13,8 @@ import sprite from '../../images/sprite.svg';
 export const DashboardMobile = () => {
   const [transactionDate, setTransactionDate] = useState('');
   const [addTransaction, setAddTransaction] = useState(false);
+
+  const getBalance = useSelector(authSelectors.getBalance);
 
   const handleControlsClick = () => {
     setAddTransaction(!addTransaction);
@@ -57,13 +61,23 @@ export const DashboardMobile = () => {
         ) : (
           <>
             <Balance />
-            <div className={styles.calendar_wrapper}>
+            <div
+              className={styles.calendar_wrapper}
+              style={getBalance === null ? { pointerEvents: 'none' } : {}}
+            >
               <Calendar dateHandler={setTransactionDate} />
             </div>
 
-            <TableMobile date={transactionDate} />
+            <TableMobile
+              date={transactionDate}
+              style={getBalance === null ? { pointerEvents: 'none' } : {}}
+            />
 
-            <div className={styles.controls} onClick={handleControlsClick}>
+            <div
+              className={styles.controls}
+              onClick={handleControlsClick}
+              style={getBalance === null ? { pointerEvents: 'none' } : {}}
+            >
               <ControlsMobile link={'/expense'} title={'Expense'} />
               <ControlsMobile link={'/income'} title={'Income'} />
             </div>
