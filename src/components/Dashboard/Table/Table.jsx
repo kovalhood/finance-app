@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import { HeaderTable } from './HeaderTable.jsx';
 import Transaction from './Transaction';
 import styles from './Table.module.scss';
 import { authOperations, authSelectors } from '../../../redux/operation';
@@ -13,7 +14,16 @@ import GlobalContext from '../../../context/GlobalContext';
 
 export default function Table() {
   const [transactions, setTransactions] = useState([]);
+  const [dateSort, setDateSort] = useState('');
+  const [descriptionSort, setDescriptionSort] = useState('');
+  const [categorySort, setCategorySort] = useState('');
+  const [valueSort, setValueSort] = useState('');
   const dispatch = useDispatch();
+
+  // console.log(dateSort)
+  // console.log(descriptionSort)
+  // console.log(categorySort)
+  // console.log(valueSort)
 
   const location = useLocation();
   const getBalance = useSelector(authSelectors.getBalance);
@@ -34,6 +44,80 @@ export default function Table() {
           return setTransactions([]);
         }
         const trans = res.payload.result;
+
+        // Setting first date sorting rule
+        trans.reverse();
+
+        // Date sorting handler
+        if (
+          dateSort === true &&
+          descriptionSort === '' &&
+          categorySort === '' &&
+          valueSort === ''
+        ) {
+          trans.reverse();
+        }
+
+        // Description descending
+        if (
+          dateSort === '' &&
+          descriptionSort === true &&
+          categorySort === '' &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => a.description.localeCompare(b.description));
+        }
+
+        // Description ascending
+        if (
+          dateSort === '' &&
+          descriptionSort === false &&
+          categorySort === '' &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => b.description.localeCompare(a.description));
+        }
+
+        // Category descending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === true &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => a.categories.localeCompare(b.categories));
+        }
+
+        // Category ascending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === false &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => b.categories.localeCompare(a.categories));
+        }
+
+        // Value descending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === '' &&
+          valueSort === true
+        ) {
+          trans.sort((a, b) => b.value - a.value);
+        }
+
+        // Value ascending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === '' &&
+          valueSort === false
+        ) {
+          trans.sort((a, b) => a.value - b.value);
+        }
+
         setTransactions(trans);
         dispatch(authOperations.fetchCurrentUser())
           .unwrap()
@@ -49,8 +133,17 @@ export default function Table() {
         setTransactions([]);
       }
     );
-  }, [type, getBalance, daySelected]);
+  }, [
+    type,
+    getBalance,
+    daySelected,
+    dateSort,
+    descriptionSort,
+    categorySort,
+    valueSort,
+  ]);
 
+  // console.log(transactions);
   const trans = transactions.map(item => {
     const sum = item.value;
     const day = item.day;
@@ -91,6 +184,12 @@ export default function Table() {
   createTableOfSixteenRows(arrayLength);
   return (
     <>
+      <HeaderTable
+        handleDateSort={setDateSort}
+        handleDescriptionSort={setDescriptionSort}
+        handleCategorySort={setCategorySort}
+        handleValueSort={setValueSort}
+      />
       <div className={styles.scroll}>
         <div className={styles.window}>
           <table className={styles.transactionHistory}>

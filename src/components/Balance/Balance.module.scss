@@ -66,7 +66,7 @@
 }
 
 .reportLink {
-  padding-top: 47px;
+  margin-top: 47px;
   text-decoration: none;
   font-weight: 500;
   font-size: 12px;
@@ -89,8 +89,7 @@
 }
 @media screen and (min-width: 768px) {
   .reportLink {
-  margin-left: 181px;
-  padding: 0;
+  margin:0;
 }
 }
 

@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { authSelectors } from '../../redux/operation';
 import Controls from './Controls';
 import Form from './Form';
-import { HeaderTable } from './Table/HeaderTable';
 import Table from './Table';
 import styles from './Dashboard.module.scss';
 import { Summary } from '../Summary';
@@ -23,7 +22,6 @@ export const Dashboard = () => {
           </div>
           <div className={styles.board}>
             <Form />
-            <HeaderTable />
             <Table />
           </div>
           <Summary />

@@ -51,7 +51,13 @@ export default function TableMobile() {
     );
   }, [type, getBalance, daySelected]);
 
-  const trans = transactions.map(item => {
+  const arrayLength = transactions.length;
+
+  if (arrayLength === 0) {
+    return <p className={styles.message}>{t('noTransactions')}</p>;
+  }
+
+  transactions.map(item => {
     const day = item.day;
     const month = item.month;
     const year = item.year;
@@ -62,12 +68,6 @@ export default function TableMobile() {
       item.date = date;
     }
   });
-
-  const arrayLength = trans.length;
-
-  if (arrayLength === 0) {
-    return <p className={styles.message}>{t('noTransactions')}</p>;
-  }
 
   return (
     <>
