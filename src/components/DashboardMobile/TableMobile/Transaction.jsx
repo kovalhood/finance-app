@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Modal from '../../Modal';
 import { authOperations } from '../../../redux/operation';
-
+import { formatSum } from '../../../utils/formSum';
 import operation from '../../../redux/operation/authOperations';
 
 import styles from './TableMobile.module.scss';
@@ -23,6 +23,7 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
   };
 
   if (value) {
+    const newSum = formatSum(sum);
     return (
       <>
         <li className={styles.transaction}>
@@ -38,12 +39,12 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
           <div className={styles.rigth_group}>
             {isIncome && (
               <p className={styles.green_color}>
-                {sum}.00 {t('hrn')}
+                {newSum} {t('hrn')}
               </p>
             )}
             {!isIncome && (
               <p className={styles.red_color}>
-                -{sum}.00 {t('hrn')}
+                -{newSum} {t('hrn')}
               </p>
             )}
 

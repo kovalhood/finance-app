@@ -20,21 +20,6 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
     setShowModal(prevShowModal => !prevShowModal);
   };
 
-  const handleDigitAfterDot = amount => {
-    if (!String(amount).includes('.')) {
-      return amount + '.00';
-    }
-
-    if (
-      String(amount).includes('.') &&
-      String(amount).split('.')[1].length === 1
-    ) {
-      return amount + '0';
-    }
-
-    return amount;
-  };
-
   if (value) {
     const newSum = formatSum(sum);
 
@@ -46,7 +31,7 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
             <td>{t(`${description}`)}</td>
             <td>{t(`${category}`)}</td>
             <td className={styles.green_color}>
-              {handleDigitAfterDot(newSum)} {t('hrn')}
+              {newSum} {t('hrn')}
             </td>
             <td>
               <button
@@ -78,7 +63,7 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
           <td>{t(`${description}`)}</td>
           <td>{t(`${category}`)}</td>
           <td className={styles.red_color}>
-            - {handleDigitAfterDot(newSum)} {t('hrn')}
+            - {newSum} {t('hrn')}
           </td>
           <td>
             <button
