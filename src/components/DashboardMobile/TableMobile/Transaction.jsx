@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next';
 import Modal from '../../Modal';
 import { authOperations } from '../../../redux/operation';
 import { formatSum } from '../../../utils/formSum';
-import operation from '../../../redux/operation/authOperations';
-
 import styles from './TableMobile.module.scss';
 
 const Transaction = ({ id, date, description, category, sum, income }) => {
