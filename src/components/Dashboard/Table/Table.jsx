@@ -20,11 +20,6 @@ export default function Table() {
   const [valueSort, setValueSort] = useState('');
   const dispatch = useDispatch();
 
-  // console.log(dateSort)
-  // console.log(descriptionSort)
-  // console.log(categorySort)
-  // console.log(valueSort)
-
   const location = useLocation();
   const getBalance = useSelector(authSelectors.getBalance);
   const type = location.pathname.slice(1);
@@ -145,11 +140,10 @@ export default function Table() {
 
   // console.log(transactions);
   const trans = transactions.map(item => {
-    const sum = item.value;
     const day = item.day;
     const month = item.month;
     const year = item.year;
-    if (day === '' && month === '' && year === '' && sum === '') {
+    if (day === '' && month === '' && year === '') {
       return;
     } else {
       const date = `${day}.${month}.${year}`;
