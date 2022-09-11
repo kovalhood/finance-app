@@ -37,7 +37,7 @@ const logIn = createAsyncThunk('operation/login', async credentials => {
     return data;
   } catch (error) {
     error?.response?.data &&
-      Notify.failure(`wrong login or password, try again`);
+      Notify.failure(`Невірний логін або пароль, повторіть спробу`);
   }
 });
 
