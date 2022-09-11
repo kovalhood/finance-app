@@ -34,6 +34,7 @@ export default function TableMobile() {
           return setTransactions([]);
         }
         const trans = res.payload.allTransactions;
+        console.log(trans);
         setTransactions(trans);
         dispatch(authOperations.fetchCurrentUser())
           .unwrap()
