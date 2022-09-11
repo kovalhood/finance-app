@@ -31,26 +31,98 @@ const FormMobile = ({ date, goBack }) => {
     setSum(event.currentTarget.value);
   };
 
+  // Rules for Description input keydown events
+  function handleDescriptionKeydown(event) {
+    const inputDescription = event.currentTarget.value;
+    if (inputDescription.length === 19) {
+      Notify.warning('Description length must be less than 20 characters');
+    }
+  }
+
+  // Rules for Sum input keydown events
   function handleSumKeydown(event) {
-    ['e', 'E', '+', '-'].includes(event.key) && event.preventDefault();
+    const inputSum = event.currentTarget.value;
+    if (inputSum === '') {
+      ['e', 'E', '+', '-', '.', '0'].includes(event.key) &&
+        event.preventDefault();
+    }
+    if (inputSum !== '') {
+      ['e', 'E', '+', '-'].includes(event.key) && event.preventDefault();
+    }
+    // Rule for not letting enter more than two digits after the dot
+    if (inputSum.includes('.') && String(inputSum).split('.')[1].length === 2) {
+      [
+        'e',
+        'E',
+        '+',
+        '-',
+        '.',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+      ].includes(event.key) && event.preventDefault();
+    }
   }
 
   const handleSubmit = event => {
     event.preventDefault();
 
+    // Form fields rules
+    if (
+      description.trim() === '' &&
+      category.trim() === '' &&
+      sum.trim() === ''
+    ) {
+      setDescription('');
+      setCategory('');
+      setSum('');
+      return Notify.warning('Enter transaction info');
+    }
+
+    if (description.trim() === '' && category.trim() === '') {
+      setDescription('');
+      setCategory('');
+      return Notify.warning('Enter transaction description and category');
+    }
+
+    if (description.trim() === '' && sum.trim() === '') {
+      setDescription('');
+      setSum('');
+      return Notify.warning('Enter transaction description and sum');
+    }
+
+    if (category.trim() === '' && sum.trim() === '') {
+      setCategory('');
+      setSum('');
+      return Notify.warning('Enter transaction category and sum');
+    }
+
     if (description.trim() === '') {
       setDescription('');
-      return console.log('Input description of transaction');
+      return Notify.warning('Enter transaction description');
     }
 
     if (category.trim() === '') {
       setCategory('');
-      return console.log('Input category of transaction');
+      return Notify.warning('Enter transaction category');
     }
 
     if (sum.trim() === '') {
       setSum('');
-      return console.log('Input sum of transaction');
+      return Notify.warning('Enter transaction sum');
+    }
+
+    if (description.length < 3) {
+      return Notify.warning(
+        'Description length must be more than 2 characters'
+      );
     }
 
     const dayQuery = new Date(date).getDate().toString().padStart(2, '0');
@@ -60,7 +132,7 @@ const FormMobile = ({ date, goBack }) => {
     const yearQuery = new Date(date).getFullYear();
 
     const transaction = {
-      value: parseInt(sum),
+      value: Number(sum),
       categories: category,
       description: description,
       day: dayQuery,
@@ -77,6 +149,7 @@ const FormMobile = ({ date, goBack }) => {
         Notify.failure(`${error.message}`);
       });
 
+    Notify.success('Transaction added');
     setDescription('');
     setSum('');
 
@@ -98,10 +171,12 @@ const FormMobile = ({ date, goBack }) => {
           className={styles.description}
           type="text"
           autoComplete="off"
+          maxLength="20"
           name="description"
           placeholder="Description"
           value={description}
           onChange={handleDescriptionChange}
+          onKeyPress={handleDescriptionKeydown}
         />
         <CategoryInputMobile
           type="expenses"

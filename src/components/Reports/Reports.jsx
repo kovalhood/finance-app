@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../UI';
@@ -8,15 +8,16 @@ import {
   getTransactions,
   getType,
   getData,
-  getError,
   getDate,
   getIsLoading,
   updateType,
+  getTotalSumValue,
+  getTotalSum,
 } from '../../redux/reports';
+import { formatSum, normalizeMonth } from '../../utils/';
 import s from './Reports.module.scss';
-import { formatSum } from '../../utils/formSum';
 
-const Reports = ({ finance }) => {
+const Reports = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -25,39 +26,82 @@ const Reports = ({ finance }) => {
   const transactions = useSelector(getTransactions);
   const type = useSelector(getType);
   const date = useSelector(getDate);
-  const error = useSelector(getError);
+  const totalSumValue = useSelector(getTotalSumValue);
   const isLoading = useSelector(getIsLoading);
 
   const isExpenseCategory = type === 'expense' ? 'income' : 'expense';
   const isExpenseTitle =
     type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
+  const isDateExist = Object.keys(date).length;
+
+  const memoTransactions = useMemo(() => {
+    return [...transactions].sort((a, b) => {
+      return b.totalCategoriesSum - a.totalCategoriesSum;
+    });
+    // return transactions.sort((a, b) => {
+    //   return b.totalCategoriesSum - a.totalCategoriesSum;
+    // });
+  }, [transactions]);
+
+  const memoSumExpense = useMemo(() => {
+    if (totalSumValue.length) {
+      return totalSumValue.find(({ _id: category }) => {
+        return !category;
+      });
+    }
+  }, [totalSumValue]);
+
+  const memoSumIncomes = useMemo(() => {
+    if (totalSumValue.length) {
+      return totalSumValue.find(({ _id: category }) => {
+        return category;
+      });
+    }
+  }, [totalSumValue]);
+
+  // console.log(memoTransactions, '-------memo');
+  // console.log(transactions, 'transactions');
 
   // console.log(date, '---------------date');
   // console.log(transactions, 'transactions');
   // console.log(type, 'type');
-  console.log(chartsData, 'chartsData');
+  // console.log(chartsData, 'chartsData');
+  // console.log(currentCategory, 'currentCategory');
+  // console.log(totalSumValue, 'totalSumValue');
+
+  const getTransactionsData = useCallback(async () => {
+    try {
+      if (isDateExist) {
+        const normalizedMonth = normalizeMonth(date.month);
+        dispatch(getData({ type, month: normalizedMonth, year: date.year }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [isDateExist, date, dispatch, type]);
+
+  const getTotalSumData = useCallback(async () => {
+    try {
+      if (isDateExist) {
+        const normalizedMonth = normalizeMonth(date.month);
+        dispatch(getTotalSum({ month: normalizedMonth, year: date.year }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, date, isDateExist]);
 
   useEffect(() => {
-    (async function () {
-      try {
-        if (Object.keys(date).length) {
-          const { year, month } = date;
-          const normalizeMonth =
-            month.toString().length === 1 ? '0' + month : month;
+    getTransactionsData();
+  }, [getTransactionsData]);
 
-          await dispatch(getData({ type, normalizeMonth, year })).unwrap();
-        }
-      } catch (error) {
-        console.log(error, 'error');
-      }
-    })();
-  }, [date, dispatch, type]);
+  useEffect(() => {
+    getTotalSumData();
+  }, [getTotalSumData]);
 
   useEffect(() => {
     resetCategory();
   }, [date]);
-
-  console.log(currentCategory, 'currentCategory');
 
   const resetCategory = () => {
     setChartsData([]);
@@ -79,23 +123,31 @@ const Reports = ({ finance }) => {
     );
 
     setChartsData(list);
-    // console.log(categories[0]._id, 'setCurrentCategory(categories[0]._id)');
-    // console.log(categories[id].report, 'categories[id]');
   };
-
-  // console.log(transactions, 'transactions');
 
   return (
     <>
       <div className={s.financeWrapper}>
         <div className={s.expensesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
-          <p className={s.expenses}>{`- ${finance.expenses} ${t('hrn')}`}</p>
+          {memoSumExpense?.totalSum ? (
+            <p className={s.expenses}>{`- ${memoSumExpense?.totalSum} ${t(
+              'hrn'
+            )}`}</p>
+          ) : (
+            <p className={s.expenses}>{t('noExpenses')}</p>
+          )}
         </div>
         <span className={s.divider} />
         <div className={s.incomesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsIncomes') + ':'}`}</p>
-          <p className={s.incomes}>{`+ ${finance.incomes} ${t('hrn')}`}</p>
+          {memoSumIncomes?.totalSum ? (
+            <p className={s.incomes}>{`+ ${memoSumIncomes?.totalSum} ${t(
+              'hrn'
+            )}`}</p>
+          ) : (
+            <p className={s.incomes}>{t('noIncomes')}</p>
+          )}
         </div>
       </div>
 
@@ -135,43 +187,48 @@ const Reports = ({ finance }) => {
           </button>
         </div>
 
-        {!!error && <h2 className={s.error}>{t('noTransactions')}</h2>}
+        {!isLoading && !memoTransactions.length && (
+          <p className={s.error}>{t('noTransactions')}</p>
+        )}
+
         {isLoading ? (
-          <h2 className={s.loading}>{t('loading')}</h2>
+          <p className={s.loading}>{t('loading')}</p>
         ) : (
           <ul className={s.categories}>
-            {transactions.map(({ totalCategoriesSum, _id: category }, id) => {
-              return (
-                <li key={category} className={s.category}>
-                  <p className={s.categoryValue}>{t(category)}</p>
-                  <button
-                    type="button"
-                    className={
-                      currentCategory === category
-                        ? s.categoryBtnActive
-                        : s.categoryBtn
-                    }
-                    onClick={() => handleCategoryClick(id, category)}
-                  >
-                    <IconSvg
-                      sprite={svgSprite}
-                      icon={category}
-                      className={s.categoryIcon}
+            {memoTransactions?.map(
+              ({ totalCategoriesSum, _id: category }, id) => {
+                return (
+                  <li key={category} className={s.category}>
+                    <p className={s.categoryValue}>{t(category)}</p>
+                    <button
+                      type="button"
+                      className={
+                        currentCategory === category
+                          ? s.categoryBtnActive
+                          : s.categoryBtn
+                      }
+                      onClick={() => handleCategoryClick(id, category)}
+                    >
+                      <IconSvg
+                        sprite={svgSprite}
+                        icon={category}
+                        className={s.categoryIcon}
+                      />
+                    </button>
+                    <span
+                      className={
+                        currentCategory === category
+                          ? s.categoryBackgroundActive
+                          : s.categoryBackground
+                      }
                     />
-                  </button>
-                  <span
-                    className={
-                      currentCategory === category
-                        ? s.categoryBackgroundActive
-                        : s.categoryBackground
-                    }
-                  />
-                  <p className={s.categoryName}>
-                    {formatSum(totalCategoriesSum)}
-                  </p>
-                </li>
-              );
-            })}
+                    <p className={s.categoryName}>
+                      {formatSum(totalCategoriesSum)}
+                    </p>
+                  </li>
+                );
+              }
+            )}
           </ul>
         )}
       </div>

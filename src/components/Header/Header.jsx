@@ -17,10 +17,12 @@ export const Header = () => {
   const email = useSelector(authSelectors.getEmail);
   const userPicture = useSelector(authSelectors.getUserPicture);
   const dispatch = useDispatch();
+
   const toggleModal = e => {
     e.preventDefault();
     setShowModal(prevShowModal => !prevShowModal);
   };
+
   const leter = email?.split('');
   return (
     <div>
@@ -71,8 +73,9 @@ export const Header = () => {
       </div>
       {showModal && (
         <Modal
-          onClick={toggleModal}
-          massage={'Do you really want to log out?'}
+          message={'Do you really want to log out?'}
+          onYesClick={() => dispatch(authOperations.logOut())}
+          onNoClick={toggleModal}
         />
       )}
     </div>

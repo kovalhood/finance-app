@@ -3,15 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import { HeaderTable } from './HeaderTable.jsx';
 import Transaction from './Transaction';
 import styles from './Table.module.scss';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
+
 import GlobalContext from '../../../context/GlobalContext';
 
 export default function Table() {
   const [transactions, setTransactions] = useState([]);
+  const [dateSort, setDateSort] = useState('');
+  const [descriptionSort, setDescriptionSort] = useState('');
+  const [categorySort, setCategorySort] = useState('');
+  const [valueSort, setValueSort] = useState('');
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -32,7 +38,81 @@ export default function Table() {
         if (res.payload === undefined) {
           return setTransactions([]);
         }
-        const trans = res.payload;
+        const trans = res.payload.result;
+
+        // Setting first date sorting rule
+        trans.reverse();
+
+        // Date sorting handler
+        if (
+          dateSort === true &&
+          descriptionSort === '' &&
+          categorySort === '' &&
+          valueSort === ''
+        ) {
+          trans.reverse();
+        }
+
+        // Description descending
+        if (
+          dateSort === '' &&
+          descriptionSort === true &&
+          categorySort === '' &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => a.description.localeCompare(b.description));
+        }
+
+        // Description ascending
+        if (
+          dateSort === '' &&
+          descriptionSort === false &&
+          categorySort === '' &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => b.description.localeCompare(a.description));
+        }
+
+        // Category descending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === true &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => a.categories.localeCompare(b.categories));
+        }
+
+        // Category ascending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === false &&
+          valueSort === ''
+        ) {
+          trans.sort((a, b) => b.categories.localeCompare(a.categories));
+        }
+
+        // Value descending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === '' &&
+          valueSort === true
+        ) {
+          trans.sort((a, b) => b.value - a.value);
+        }
+
+        // Value ascending
+        if (
+          dateSort === '' &&
+          descriptionSort === '' &&
+          categorySort === '' &&
+          valueSort === false
+        ) {
+          trans.sort((a, b) => a.value - b.value);
+        }
+
         setTransactions(trans);
         dispatch(authOperations.fetchCurrentUser())
           .unwrap()
@@ -48,8 +128,17 @@ export default function Table() {
         setTransactions([]);
       }
     );
-  }, [type, getBalance, daySelected]);
+  }, [
+    type,
+    getBalance,
+    daySelected,
+    dateSort,
+    descriptionSort,
+    categorySort,
+    valueSort,
+  ]);
 
+  // console.log(transactions);
   const trans = transactions.map(item => {
     const day = item.day;
     const month = item.month;
@@ -64,7 +153,7 @@ export default function Table() {
 
   const arrayLength = trans.length;
 
-  function createTableOfNineRows(length) {
+  function createTableOfSixteenRows(length) {
     if (length >= 16) {
       return;
     }
@@ -80,29 +169,24 @@ export default function Table() {
         categories: '',
         value: null,
         income: true,
-        // owner: '6315d0f27a7659ec61c4543f',
       });
       const newArrayLength = transactions.length;
-      createTableOfNineRows(newArrayLength);
+      createTableOfSixteenRows(newArrayLength);
     }
   }
 
-  createTableOfNineRows(arrayLength);
+  createTableOfSixteenRows(arrayLength);
   return (
     <>
+      <HeaderTable
+        handleDateSort={setDateSort}
+        handleDescriptionSort={setDescriptionSort}
+        handleCategorySort={setCategorySort}
+        handleValueSort={setValueSort}
+      />
       <div className={styles.scroll}>
         <div className={styles.window}>
           <table className={styles.transactionHistory}>
-            {/* <thead className={styles.thead}>
-              <tr>
-                <th>DATE</th>
-                <th>DESCRIPTION</th>
-                <th>CATEGORY</th>
-                <th>SUM</th>
-                <th></th>
-              </tr>
-            </thead> */}
-
             <tbody>
               {transactions &&
                 transactions.map(item => (

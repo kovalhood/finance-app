@@ -49,7 +49,7 @@ export const Summary = () => {
         {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
             <span>{month[parseInt(_id.month) - 1]}</span>
-            <span>{formatSum(total)}</span>
+            <span>{formatSum(total)} UAH</span>
           </li>
         ))}
       </ul>

@@ -4,8 +4,9 @@ export {
   getIsLoading,
   getTransactions,
   getDate,
+  getTotalSumValue,
 } from './reportsSelectors';
 
-export { getData } from './reportsOperations';
+export { getData, getTotalSum } from './reportsOperations';
 
 export { reportsSlice, updateType, updateDate } from './reportsSlice';

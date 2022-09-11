@@ -1,85 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import DateFnsUtils from '@date-io/date-fns';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import InputAdornment from '@mui/material/InputAdornment';
-import Icon from '@mui/material/Icon';
-import { createTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import Calendar from '../../Calendar';
 import CategoryInput from './CategoryInput';
 import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import GlobalContext from '../../../context/GlobalContext';
-import { commonDate } from '../../../utils/date';
-
-const materialTheme = createTheme({
-  overrides: {
-    MuiPickersToolbar: {
-      toolbar: {
-        backgroundColor: '#FF751D',
-      },
-    },
-    MuiPickersCalendarHeader: {
-      switchHeader: {
-        // backgroundColor: lightBlue.A200,
-        // color: "white",
-      },
-    },
-
-    // Hover color for icon
-    MuiInput: {
-      root: {
-        '&:hover svg': {
-          fill: '#FF751D',
-        },
-      },
-    },
-    MuiPickersDay: {
-      day: {
-        color: '#f88a46',
-      },
-      daySelected: {
-        backgroundColor: '#FF751D',
-      },
-      dayDisabled: {
-        color: '#C7CCDC',
-      },
-      current: {
-        color: '#FF751D',
-      },
-    },
-    MuiButton: {
-      textPrimary: {
-        color: '#FF751D',
-      },
-    },
-    MuiTypography: {
-      colorPrimary: {
-        color: '#FF751D',
-      },
-    },
-    MuiInputBase: {
-      input: {
-        cursor: 'pointer',
-      },
-    },
-  },
-});
 
 const Form = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const { daySelected, setDaySelected } = useContext(GlobalContext);
+  const [selectedDate, setSelectedDate] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [sum, setSum] = useState('0.00');
-  // const [selectedDay, setSelectedDay] = useState('');
-  // const [selectedMonth, setSelectedMonth] = useState('');
-  // const [selectedYear, setSelectedYear] = useState('');
-
-  const { daySelected, setDaySelected } = useContext(GlobalContext);
-  setDaySelected(selectedDate);
+  const [sum, setSum] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -123,26 +58,97 @@ const Form = () => {
     setSum(event.currentTarget.value);
   };
 
+  // Rules for Description input keydown events
+  function handleDescriptionKeydown(event) {
+    const inputDescription = event.currentTarget.value;
+    if (inputDescription.length === 19) {
+      Notify.warning('Description length must be less than 20 characters');
+    }
+  }
+
+  // Rules for Sum input keydown events
   function handleSumKeydown(event) {
-    ['e', 'E', '+', '-'].includes(event.key) && event.preventDefault();
+    const inputSum = event.currentTarget.value;
+    if (inputSum === '') {
+      ['e', 'E', '+', '-', '.', '0'].includes(event.key) &&
+        event.preventDefault();
+    }
+    if (inputSum !== '') {
+      ['e', 'E', '+', '-'].includes(event.key) && event.preventDefault();
+    }
+    // Rule for not letting enter more than two digits after the dot
+    if (inputSum.includes('.') && String(inputSum).split('.')[1].length === 2) {
+      [
+        'e',
+        'E',
+        '+',
+        '-',
+        '.',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+      ].includes(event.key) && event.preventDefault();
+    }
   }
 
   const handleSubmit = event => {
     event.preventDefault();
 
+    if (
+      description.trim() === '' &&
+      category.trim() === '' &&
+      sum.trim() === ''
+    ) {
+      setDescription('');
+      setCategory('');
+      setSum('');
+      return Notify.warning('Enter transaction info');
+    }
+
+    if (description.trim() === '' && category.trim() === '') {
+      setDescription('');
+      setCategory('');
+      return Notify.warning('Enter transaction description and category');
+    }
+
+    if (description.trim() === '' && sum.trim() === '') {
+      setDescription('');
+      setSum('');
+      return Notify.warning('Enter transaction description and sum');
+    }
+
+    if (category.trim() === '' && sum.trim() === '') {
+      setCategory('');
+      setSum('');
+      return Notify.warning('Enter transaction category and sum');
+    }
+
     if (description.trim() === '') {
       setDescription('');
-      return console.log('Input description of transaction');
+      return Notify.warning('Enter transaction description');
     }
 
     if (category.trim() === '') {
       setCategory('');
-      return console.log('Input category of transaction');
+      return Notify.warning('Enter transaction category');
     }
 
     if (sum.trim() === '') {
       setSum('');
-      return console.log('Input sum of transaction');
+      return Notify.warning('Enter transaction sum');
+    }
+
+    if (description.length < 3) {
+      return Notify.warning(
+        'Description length must be more than 2 characters'
+      );
     }
 
     const dayQuery = new Date(selectedDate)
@@ -157,7 +163,7 @@ const Form = () => {
     //============== Добавление Транзакции Income либо Expense
     const transaction = {
       // Объект transaction собрать из полей
-      value: parseInt(sum),
+      value: Number(sum),
       categories: category,
       description: description,
       day: dayQuery,
@@ -176,6 +182,7 @@ const Form = () => {
 
     //===============
 
+    Notify.success('Transaction added');
     setDescription('');
     setSum('');
   };
@@ -183,42 +190,6 @@ const Form = () => {
   const handleClear = event => {
     event.preventDefault();
 
-    //===Проверка удаления транзакции
-
-    const id = '63165843b34f6f28d0455e53';
-
-    // dispatch(authOperations.deleteTransaction({id}))
-    //     .then(response => {
-    //       console.log(response);
-    //     })
-    //     .catch(error => {
-    //       Notify.failure(`${error.message}`);
-    //     });
-    const type = location.pathname.slice(1);
-    // Получение всех транзакций по типу
-    // const month = '09',
-    //     year = '2022'
-    //
-    //
-    // dispatch(authOperations.getTransactionListByType({type, month,year}))
-    //     .then(response => {
-    //         console.log(response.payload);
-    //     })
-    //     .catch(error => {
-    //         Notify.failure(`${error.message}`);
-    //     });
-    //Получение за месяц транзакции
-    //    dispatch(authOperations.getTransactionsByMonth({type}))
-    //        .then(response => {
-    //            console.log(response.payload);
-    //        })
-    //        .catch(error => {
-    //            Notify.failure(`${error.message}`);
-    //        });
-
-    //==============================
-
-    setSelectedDate(new Date());
     setDescription('');
     setCategory('');
     setSum('');
@@ -227,49 +198,19 @@ const Form = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.input_wrapper}>
-        <ThemeProvider theme={materialTheme}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableFuture
-              format="dd.MM.yyyy"
-              InputProps={{
-                disableUnderline: true,
-                style: {
-                  width: 100,
-                  fontSize: 12,
-                  fontWeight: 900,
-                  color: '#52555F',
-                  cursor: 'pointer',
-                },
-                startAdornment: (
-                  <InputAdornment position={'start'}>
-                    <Icon>
-                      <svg
-                        className={styles.calendar_icon}
-                        width="20"
-                        height="20"
-                      >
-                        <use href={`${sprite}#calendar`}></use>
-                      </svg>
-                    </Icon>
-                  </InputAdornment>
-                ),
-              }}
-              value={selectedDate}
-              onChange={setSelectedDate}
-            />
-          </MuiPickersUtilsProvider>
-        </ThemeProvider>
+        <Calendar dateHandler={setSelectedDate} />
 
         <div className={styles.inputs}>
           <input
             className={styles.description}
             type="text"
             autoComplete="off"
+            maxLength="20"
             name="description"
             placeholder="Description"
             value={description}
             onChange={handleDescriptionChange}
+            onKeyPress={handleDescriptionKeydown}
           />
           <CategoryInput
             type="expenses"

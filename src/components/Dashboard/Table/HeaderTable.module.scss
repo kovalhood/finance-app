@@ -17,61 +17,85 @@
   text-transform: uppercase;
   color: $blackColor;
   background-color: $grayBackgroundColor;
+
+  box-sizing: border-box;
   @media screen and (min-width: 768px) {
     width: 624px;
     margin-top: 48px;
+    padding-left: 22px;
+    padding-right: 90px;
   }
   @media screen and (min-width: 1280px) {
     width: 746px;
     margin-top: 62px;
+    padding-left: 26px;
+    padding-right: 92px;
   }
 }
 
-.date {
-    
+.date_wrapper{
   @media screen and (min-width: 768px) {
-    width: 84px;
-    padding-left: 20px;
-    text-align: left;
+    width: 109px;
   }
   @media screen and (min-width: 1280px) {
-    padding-left: 0px;
-    width: 115px;
-    text-align: center;
+    width: 114px;
   }
 }
-
-.description {
-  text-align: left;
-  padding-left: 20px;
-
+.description_wrapper{
   @media screen and (min-width: 768px) {
-    width: 168px;
-    padding-left: 25px;
+    width: 150px;
   }
-  @media screen and (min-width: 1280px) {
-    width: 187px;
-  }
+
+  @media screen and (min-width: 1280px) {}
 }
-.category {
-    width: 128px;
+
+.category_wrapper {
+  display: flex;
+  justify-content: center;
+  @media screen and (min-width: 768px) {
+    margin-left: 20px;
+    width: 146px;
+  }
+  
   @media screen and (min-width: 1280px) {
-    width: 190px;
+    margin-left: 54px;
+    width: 176px;
   }
 }
 
+.sum_wrapper{
+  display: flex;
+  justify-content: flex-end;
+
+  @media screen and (min-width: 768px) {  
+    width: 90px;
+  }
+  
+  @media screen and (min-width: 1280px) {
+    width: 140px;
+  }
+}
+
+.date,
+.description,
+.category,
 .sum {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 10px 0;
+  cursor: pointer;
 
-//   padding-left: 20px;
-  width: 104px;
-  @media screen and (min-width: 1280px) {
-    width: 135px;
-    // padding-left: 20px;
-    text-align: center;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus{
+    color: $orangeBasicColor;
   }
 }
 
-.action{
-    width: 95px;
+.sort_icon{
+  margin-bottom: 2px;
+  margin-left: 5px;
+  fill: currentColor;
 }

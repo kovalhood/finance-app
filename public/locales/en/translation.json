@@ -1,7 +1,7 @@
 {
   "reportsExpenses": "Expenses",
   "reportsIncomes": "Incomes",
-  "hrn": "hrn",
+  "hrn": "uah",
   "goBackBtn": "Go back to the main",
   "en": "eng",
   "uk": "ukr",
@@ -31,5 +31,7 @@
   "november": "november",
   "december": "december",
   "noTransactions": "No transactions for this period",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "noExpenses": "No expenses",
+  "noIncomes": "No incomes"
 }

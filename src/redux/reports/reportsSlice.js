@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getData } from './reportsOperations';
+import { getData, getTotalSum } from './reportsOperations';
 
 const initialState = {
   transactions: [],
+  totalSum: [],
   type: 'expense',
   date: {},
   isLoading: false,
@@ -22,12 +23,9 @@ export const reportsSlice = createSlice({
   },
   extraReducers: {
     [getData.fulfilled]: (state, { payload }) => {
-      state.transactions = [...payload.transactions];
+      state.transactions = payload.transactions;
       state.isLoading = false;
       state.error = null;
-
-      console.log('payload', payload);
-      console.log('payload.transactions', payload.transactions);
     },
     [getData.pending]: state => {
       state.isLoading = true;
@@ -36,6 +34,22 @@ export const reportsSlice = createSlice({
     [getData.rejected]: (state, { payload }) => {
       state.transactions = [];
       state.isLoading = false;
+      state.error = payload;
+    },
+
+    [getTotalSum.fulfilled]: (state, { payload }) => {
+      // console.log(payload.data);
+      state.totalSum = payload.data;
+      // state.totalSum = { ...payload.data };
+      // state.isLoading = false;
+      state.error = null;
+    },
+    [getTotalSum.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [getTotalSum.rejected]: (state, { payload }) => {
+      // state.isLoading = false;
       state.error = payload;
     },
   },

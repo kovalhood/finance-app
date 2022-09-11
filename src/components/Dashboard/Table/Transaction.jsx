@@ -1,52 +1,90 @@
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { RedactSvgSelector } from './RedactSvgSelector.jsx';
 import { useDispatch } from 'react-redux';
-import operetion from '../../../redux/operation/authOperations';
-// import sprite from '../../../images/sprite.svg';
+import Modal from '../../Modal';
+import { authOperations } from '../../../redux/operation';
+import { useTranslation } from 'react-i18next';
+import { formatSum } from '../../../utils/formSum';
 import styles from './Table.module.scss';
 
 const Transaction = ({ id, date, description, category, sum, income }) => {
+  const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const value = sum;
   const isIncome = income;
 
+  const toggleModal = e => {
+    e.preventDefault();
+    setShowModal(prevShowModal => !prevShowModal);
+  };
+
   if (value) {
+    const newSum = formatSum(sum);
+
     if (isIncome) {
       return (
+        <>
+          <tr>
+            <td>{date}</td>
+            <td>{t(`${description}`)}</td>
+            <td>{t(`${category}`)}</td>
+            <td className={styles.green_color}>
+              {newSum} {t('hrn')}
+            </td>
+            <td>
+              <button
+                type="button"
+                onClick={toggleModal}
+                className={styles.button}
+              >
+                <RedactSvgSelector id="delete" />
+              </button>
+            </td>
+          </tr>
+          {showModal && (
+            <Modal
+              message={'Are you sure?'}
+              onYesClick={() =>
+                dispatch(authOperations.deleteTransaction({ id }))
+              }
+              onNoClick={toggleModal}
+            />
+          )}
+        </>
+      );
+    }
+
+    return (
+      <>
         <tr>
           <td>{date}</td>
-          <td>{description}</td>
-          <td>{category}</td>
-          <td className={styles.green_color}>{sum}.00 uah</td>
+          <td>{t(`${description}`)}</td>
+          <td>{t(`${category}`)}</td>
+          <td className={styles.red_color}>
+            - {newSum} {t('hrn')}
+          </td>
           <td>
             <button
               type="button"
-              onClick={() => dispatch(operetion.deleteTransaction({ id }))}
+              onClick={toggleModal}
               className={styles.button}
             >
               <RedactSvgSelector id="delete" />
             </button>
           </td>
         </tr>
-      );
-    }
-
-    return (
-      <tr>
-        <td>{date}</td>
-        <td>{description}</td>
-        <td>{category}</td>
-        <td className={styles.red_color}>- {sum}.00 uah</td>
-        <td>
-          <button
-            type="button"
-            onClick={() => dispatch(operetion.deleteTransaction({ id }))}
-            className={styles.button}
-          >
-            <RedactSvgSelector id="delete" />
-          </button>
-        </td>
-      </tr>
+        {showModal && (
+          <Modal
+            message={'Are you sure?'}
+            onYesClick={() =>
+              dispatch(authOperations.deleteTransaction({ id }))
+            }
+            onNoClick={toggleModal}
+          />
+        )}
+      </>
     );
   }
 
