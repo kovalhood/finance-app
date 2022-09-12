@@ -265,23 +265,30 @@
 }
 
 .chartsWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: -55px;
+
+  @media screen and (max-width: 440px) {
+    height: 400px;
+  }
+
+  @media screen and (min-width: 441px) and (max-width: 539px) {
+    height: 500px;
+  }
+
+  @media screen and (min-width: 540px) and (max-width: 767px) {
+    margin-top: -65px;
+    height: 600px;
+  }
 
   @media screen and (min-width: 768px) {
+    margin-top: 0;
     padding: 20px 0;
     margin: 40px 0;
-
     box-shadow: 0px 10px 60px rgba(170, 178, 197, 0.2);
     border-radius: 30px;
   }
-}
 
-.chartsHeight {
-  width: 700px;
-
-  @media screen and (min-width: 768px) {
-    height: 700px;
+  @media screen and (min-width: 1340px) {
+    height: 550px;
   }
 }

@@ -89,7 +89,7 @@ const Reports = () => {
         return {
           sum: totalDescriptionSum,
           category: description,
-          label: totalDescriptionSum + ' ' + t('hrn'),
+          label: formatSum(totalDescriptionSum),
         };
       })
       .sort((a, b) => {
@@ -244,9 +244,7 @@ const Reports = () => {
 
       {!!chartsData.length && (
         <div className={s.chartsWrapper}>
-          <div className={s.chartsHeight}>
-            <Charts data={chartsData} />
-          </div>
+          <Charts data={chartsData} />
         </div>
       )}
     </>
