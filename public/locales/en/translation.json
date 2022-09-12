@@ -33,5 +33,9 @@
   "noTransactions": "No transactions for this period",
   "loading": "Loading...",
   "noExpenses": "No expenses",
-  "noIncomes": "No incomes"
+  "noIncomes": "No incomes",
+  "date": "Date",
+  "sum": "Sum",
+  "description": "Description",
+  "сategory": "Category"
 }
