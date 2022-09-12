@@ -33,5 +33,13 @@
   "noTransactions": "No transactions for this period",
   "loading": "Loading...",
   "noExpenses": "No expenses",
-  "noIncomes": "No incomes"
+  "noIncomes": "No incomes",
+  "summary": "Summary",
+  "summaryFirstNotify": "This functionality is not available until the balance is replenished",
+  "email": "E-mail",
+  "password": "Password",
+  "signin-btn": "Sign In",
+  "signup-btn": "Sign Up",
+  "firstGogleLabel": "You can sign in with your Google Account:",
+  "secondGogleLabel": "Or sign in using your e-mail and password, having previously registered:"
 }

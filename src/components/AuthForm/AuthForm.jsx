@@ -16,10 +16,12 @@ import { Google } from '../Google';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import * as Yup from 'yup';
 import YupPassword from 'yup-password';
+import { useTranslation } from 'react-i18next';
 
 YupPassword(Yup);
 
 export const AuthForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initState = {
@@ -147,7 +149,7 @@ export const AuthForm = () => {
         <Google />
 
         <Form.Group className={styles.emailGroup} controlId="formBasicEmail">
-          <Form.Label className={styles.label}>Електронна пошта:</Form.Label>
+          <Form.Label className={styles.label}>{t('email')} </Form.Label>
           <Form.Control
             className={IsMobile ? styles.mobInput : styles.input}
             type="email"
@@ -164,7 +166,7 @@ export const AuthForm = () => {
         </Form.Group>
 
         <Form.Group className={styles.passGroup} controlId="formBasicPassword">
-          <Form.Label className={styles.label}>Пароль:</Form.Label>
+          <Form.Label className={styles.label}>{t('password')}</Form.Label>
           <Form.Control
             className={IsMobile ? styles.mobInput : styles.input}
             autoComplete="off"
@@ -186,14 +188,15 @@ export const AuthForm = () => {
             type="button"
             onClick={handleSubmit(onLogin, onError)}
           >
-            Увійти
+            {' '}
+            {t('signin-btn')}
           </Button>
           <Button
             className={styles.registerButton}
             variant="primary"
             type="submit"
           >
-            Реєстрація
+            {t('signup-btn')}
           </Button>
         </div>
       </Form>
