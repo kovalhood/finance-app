@@ -38,21 +38,17 @@ export const reportsSlice = createSlice({
     },
 
     [getTotalSum.fulfilled]: (state, { payload }) => {
-      // console.log(payload.data);
       state.totalSum = payload.data;
-      // state.totalSum = { ...payload.data };
-      // state.isLoading = false;
       state.error = null;
     },
     [getTotalSum.pending]: state => {
-      state.isLoading = true;
       state.error = null;
     },
     [getTotalSum.rejected]: (state, { payload }) => {
-      // state.isLoading = false;
       state.error = payload;
     },
   },
 });
 
 export const { updateType, updateDate } = reportsSlice.actions;
+// reports redux refactoring

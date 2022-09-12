@@ -86,7 +86,11 @@ const Reports = () => {
   const makeChartsData = array => {
     return array
       .map(({ totalDescriptionSum, _id: { description } }) => {
-        return { sum: totalDescriptionSum, category: description };
+        return {
+          sum: totalDescriptionSum,
+          category: description,
+          label: totalDescriptionSum + ' ' + t('hrn'),
+        };
       })
       .sort((a, b) => {
         return b.sum - a.sum;
@@ -140,7 +144,7 @@ const Reports = () => {
           <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
           {memoSumExpense?.totalSum ? (
             <p className={s.expenses}>{`- ${
-              formatSum(memoSumExpense?.totalSum) + t('hrn')
+              formatSum(memoSumExpense?.totalSum) + ' ' + t('hrn')
             }`}</p>
           ) : (
             <p className={s.expenses}>{t('noExpenses')}</p>
@@ -151,7 +155,7 @@ const Reports = () => {
           <p className={s.financeTitle}>{`${t('reportsIncomes') + ':'}`}</p>
           {memoSumIncomes?.totalSum ? (
             <p className={s.incomes}>{`+ ${
-              formatSum(memoSumIncomes?.totalSum) + t('hrn')
+              formatSum(memoSumIncomes?.totalSum) + ' ' + t('hrn')
             }`}</p>
           ) : (
             <p className={s.incomes}>{t('noIncomes')}</p>
