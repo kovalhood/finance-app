@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const getData = createAsyncThunk(
   'transactions/report',
   async (props, { rejectWithValue, getState }) => {
-    console.log(props, '--------props');
+    // console.log(props, '--------props');
     const { type, month, year } = props;
     const state = getState();
     const persistedToken = state.auth.token;
