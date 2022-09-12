@@ -51,4 +51,3 @@ export const reportsSlice = createSlice({
 });
 
 export const { updateType, updateDate } = reportsSlice.actions;
-// reports redux refactoring
