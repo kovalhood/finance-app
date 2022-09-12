@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import sprite from '../../../images/sprite.svg';
 import styles from './HeaderTable.module.scss';
 
@@ -9,6 +10,7 @@ export function HeaderTable({
   handleCategorySort,
   handleValueSort,
 }) {
+  const { t } = useTranslation();
   const [dateSortType, setDateSortType] = useState(true);
   const [descriptionSortType, setDescriptionSortType] = useState(false);
   const [categorySortType, setCategorySortType] = useState(false);
@@ -104,7 +106,7 @@ export function HeaderTable({
             onClick={handleDate}
             style={dateIcon ? { color: '#FF751D' } : {}}
           >
-            Date
+            {t('date')}
             {dateSortType ? (
               <svg className={styles.sort_icon} width="14" height="14">
                 <use href={`${sprite}#arrow-up`}></use>
@@ -122,7 +124,7 @@ export function HeaderTable({
             onClick={handleDescription}
             style={descriptionIcon ? { color: '#FF751D' } : {}}
           >
-            Description
+            {t(`description`)}
             {descriptionSortType ? (
               <svg className={styles.sort_icon} width="14" height="14">
                 <use href={`${sprite}#arrow-up`}></use>
@@ -140,7 +142,7 @@ export function HeaderTable({
             onClick={handleCategory}
             style={categoryIcon ? { color: '#FF751D' } : {}}
           >
-            Category
+            {t(`сategory`)}
             {categorySortType ? (
               <svg className={styles.sort_icon} width="14" height="14">
                 <use href={`${sprite}#arrow-up`}></use>
@@ -158,7 +160,7 @@ export function HeaderTable({
             onClick={handleSum}
             style={valueIcon ? { color: '#FF751D' } : {}}
           >
-            Sum
+            {t('sum')}
             {valueSortType ? (
               <svg className={styles.sort_icon} width="14" height="14">
                 <use href={`${sprite}#arrow-up`}></use>
