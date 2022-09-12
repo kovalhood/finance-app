@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../Logo/Logo';
 import { ReactComponent as Logout } from './icons/logoutIcon.svg';
 import defaultAvatar from './icons/user.png';
+import { LangSwitcher } from '../LangSwitcher';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal';
 import { authSelectors, authOperations } from '../../redux/operation';
@@ -33,6 +34,7 @@ export const Header = () => {
           </Link>
           {loggedIn ? (
             <div className={styles.user__menu}>
+              <LangSwitcher />
               <div className={styles.user__avatar}>
                 <span>{leter[0]}</span>
               </div>

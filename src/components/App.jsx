@@ -23,8 +23,8 @@ export const App = () => {
 
   return (
     <>
-      <Header />
       <Suspense fallback={<Loader />}>
+        <Header />
         <Routes>
           <Route
             path="/"
