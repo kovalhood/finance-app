@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconSvg } from '../UI';
@@ -38,9 +38,6 @@ const Reports = () => {
     return [...transactions].sort((a, b) => {
       return b.totalCategoriesSum - a.totalCategoriesSum;
     });
-    // return transactions.sort((a, b) => {
-    //   return b.totalCategoriesSum - a.totalCategoriesSum;
-    // });
   }, [transactions]);
 
   const memoSumExpense = useMemo(() => {
@@ -58,16 +55,6 @@ const Reports = () => {
       });
     }
   }, [totalSumValue]);
-
-  // console.log(memoTransactions, '-------memo');
-  // console.log(transactions, 'transactions');
-
-  // console.log(date, '---------------date');
-  // console.log(transactions, 'transactions');
-  // console.log(type, 'type');
-  // console.log(chartsData, 'chartsData');
-  // console.log(currentCategory, 'currentCategory');
-  // console.log(totalSumValue, 'totalSumValue');
 
   const getTransactionsData = useCallback(async () => {
     try {
@@ -116,13 +103,15 @@ const Reports = () => {
   const handleCategoryClick = (id, value) => {
     setCurrentCategory(value);
 
-    const list = transactions[id]?.report.map(
-      ({ totalDescriptionSum, _id: { description } }) => {
+    const detailedTransactions = memoTransactions[id]?.report
+      .map(({ totalDescriptionSum, _id: { description } }) => {
         return { sum: totalDescriptionSum, category: description };
-      }
-    );
+      })
+      .sort((a, b) => {
+        return b.sum - a.sum;
+      });
 
-    setChartsData(list);
+    setChartsData(detailedTransactions);
   };
 
   return (
@@ -131,9 +120,9 @@ const Reports = () => {
         <div className={s.expensesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
           {memoSumExpense?.totalSum ? (
-            <p className={s.expenses}>{`- ${memoSumExpense?.totalSum} ${t(
-              'hrn'
-            )}`}</p>
+            <p className={s.expenses}>{`- ${formatSum(
+              memoSumExpense?.totalSum
+            )} ${t('hrn')}`}</p>
           ) : (
             <p className={s.expenses}>{t('noExpenses')}</p>
           )}
@@ -142,9 +131,9 @@ const Reports = () => {
         <div className={s.incomesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsIncomes') + ':'}`}</p>
           {memoSumIncomes?.totalSum ? (
-            <p className={s.incomes}>{`+ ${memoSumIncomes?.totalSum} ${t(
-              'hrn'
-            )}`}</p>
+            <p className={s.incomes}>{`+ ${formatSum(
+              memoSumIncomes?.totalSum
+            )} ${t('hrn')}`}</p>
           ) : (
             <p className={s.incomes}>{t('noIncomes')}</p>
           )}
@@ -158,7 +147,6 @@ const Reports = () => {
             onClick={handleTypeChange}
             className={s.switchBtn}
           >
-            {/* <IconSvg icon="smallArrowLeft" /> */}
             <svg
               width="7"
               height="12"
@@ -174,8 +162,6 @@ const Reports = () => {
             onClick={handleTypeChange}
             className={s.switchBtn}
           >
-            {/* <IconSvg className="icon" icon="smallArrowRight" /> */}
-
             <svg
               width="7"
               height="12"
@@ -232,13 +218,14 @@ const Reports = () => {
           </ul>
         )}
       </div>
-      {/* <>
-        {!!chartsData.length && (
-          <div className={s.chartsWrapper}>
+
+      {!!chartsData.length && (
+        <div className={s.chartsWrapper}>
+          <div className={s.chartsHeight}>
             <Charts data={chartsData} />
           </div>
-        )}
-      </> */}
+        </div>
+      )}
     </>
   );
 };
