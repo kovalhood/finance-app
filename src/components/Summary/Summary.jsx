@@ -46,6 +46,11 @@ export const Summary = () => {
     <div className={IsMobile ? styles.mobContainer : styles.container}>
       <h4 className={styles.title}>СВОДКА</h4>
       <ul className={styles.list}>
+        {getBalance === null && (
+          <li className={styles.firstMessage}>
+            До поповнення балансу даний функціонал недоступний
+          </li>
+        )}
         {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
             <span>{month[parseInt(_id.month) - 1]}</span>
