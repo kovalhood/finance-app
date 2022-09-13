@@ -42,4 +42,8 @@
   "signup-btn": "Sign Up",
   "firstGogleLabel": "You can sign in with your Google Account:",
   "secondGogleLabel": "Or sign in using your e-mail and password, having previously registered:"
+  "date": "Date",
+  "sum": "Sum",
+  "description": "Description",
+  "сategory": "Category"
 }
