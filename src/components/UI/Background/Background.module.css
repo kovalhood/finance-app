@@ -13,7 +13,7 @@
 
 .tablet {
   composes: mobile;
-  height: 582px;
+  height: 527px;
 }
 
 .desktop {
