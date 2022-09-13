@@ -16,10 +16,12 @@ import { Google } from '../Google';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import * as Yup from 'yup';
 import YupPassword from 'yup-password';
+import { useTranslation } from 'react-i18next';
 
 YupPassword(Yup);
 
 export const AuthForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initState = {
@@ -36,29 +38,21 @@ export const AuthForm = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required('Дане поле є обовязковим')
-      .email(
-        'Невірно введена електронна адреса. Перевірте коректність написання електронної адреси'
-      )
+      .required(`${t('requiredNote')}`)
+      .email(`${t('wrongEmail')}`)
       .matches(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        'Електронна адреса не повинна містити спеціальні символи'
+        /^(([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[a-z_-]+\d*|\d*[a-z_-] [0-9A-Za-z]{1} )@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
+        `${t('wrongSpecialSymbol')}`
       ),
 
     password: Yup.string()
-      .required('Дане поле є обовязковим')
-      .min(6, 'Пароль має бути не менше 6 символів')
-      .max(20, 'Пароль не повинен перевищувати 20 символів')
-      .minLowercase(
-        2,
-        'Пароль повинен містити принаймні 2 малі літери латиницею'
-      )
-      .minUppercase(
-        2,
-        'Пароль повинен містити принаймні 2 великі літери латиницею'
-      )
-      .minNumbers(3, 'Пароль повинен містити не менше 3 цифр')
-      .minSymbols(1, 'Пароль повинен містити не менше 1 спеціального символу'),
+      .required(`${t('requiredNote')}`)
+      .min(6, `${t('pass6symbol')}`)
+      .max(20, `${t('pass20symbols')}`)
+      .minLowercase(2, `${t('passLowerCase')}`)
+      .minUppercase(2, `${t('passUpperCase')}`)
+      .minNumbers(3, `${t('passMinNumber')}`)
+      .minSymbols(1, `${t('passMinSymbol')}`),
   });
 
   const onLogin = (data, e) => {
@@ -147,7 +141,7 @@ export const AuthForm = () => {
         <Google />
 
         <Form.Group className={styles.emailGroup} controlId="formBasicEmail">
-          <Form.Label className={styles.label}>Електронна пошта:</Form.Label>
+          <Form.Label className={styles.label}>{t('email')} </Form.Label>
           <Form.Control
             className={IsMobile ? styles.mobInput : styles.input}
             type="email"
@@ -164,7 +158,7 @@ export const AuthForm = () => {
         </Form.Group>
 
         <Form.Group className={styles.passGroup} controlId="formBasicPassword">
-          <Form.Label className={styles.label}>Пароль:</Form.Label>
+          <Form.Label className={styles.label}>{t('password')}</Form.Label>
           <Form.Control
             className={IsMobile ? styles.mobInput : styles.input}
             autoComplete="off"
@@ -186,14 +180,15 @@ export const AuthForm = () => {
             type="button"
             onClick={handleSubmit(onLogin, onError)}
           >
-            Увійти
+            {' '}
+            {t('signin-btn')}
           </Button>
           <Button
             className={styles.registerButton}
             variant="primary"
             type="submit"
           >
-            Реєстрація
+            {t('signup-btn')}
           </Button>
         </div>
       </Form>

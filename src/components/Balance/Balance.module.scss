@@ -78,6 +78,7 @@
   background-color: transparent;
   border: none;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  
   &:hover,
   &:focus{
     color: $orangeBasicColor;
@@ -89,12 +90,12 @@
 }
 @media screen and (min-width: 768px) {
   .reportLink {
-  margin:0;
-}
+    margin:0;
+  }
 }
 
 @media screen and (min-width: 1280px) {
   .reportLink {
-  padding: 0;
+    padding: 0;
   }
 }

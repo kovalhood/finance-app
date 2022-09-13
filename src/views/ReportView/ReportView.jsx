@@ -1,18 +1,16 @@
+import { useMediaQuery } from 'react-responsive';
 // import { Background } from '../../components/UI/Background';
 import { GoBackButton, MonthPicker, Reports } from '../../components';
-import styles from './ReportView.module.scss';
 import { Container } from '../../components/UI/Container';
 import { isTablet } from '../../utils/mediaQuery';
-import { LangSwitcher } from '../../components/LangSwitcher/';
 import { BalanceInput } from '../../components/Balance/BalanceInput';
-import { useMediaQuery } from 'react-responsive';
 
+import styles from './ReportView.module.scss';
 const ReportView = () => {
   const Tablet = isTablet(useMediaQuery);
 
   return (
     <Container>
-      {/* <LangSwitcher /> */}
       <div className={styles.wrapper}>
         <div className={styles.btn}>
           <GoBackButton />
@@ -20,7 +18,6 @@ const ReportView = () => {
         <div className={styles.balance}>
           <BalanceInput isReportsVariant={Tablet} />
         </div>
-
         <MonthPicker />
       </div>
 
@@ -34,4 +31,5 @@ const ReportView = () => {
     </Container>
   );
 };
+
 export default ReportView;

@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import s from './BalanceInput.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export const BalanceInput = ({ isReportsVariant }) => {
+  const { t } = useTranslation();
   const getBalance = useSelector(authSelectors.getBalance);
   const [balance, setBalance] = useState(
     getBalance === null ? '00.00 UAH' : getBalance
@@ -54,7 +56,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
     <>
       <form className={s.form} onSubmit={handleSubmit}>
         <label htmlFor="balance" className={s.label}>
-          Balance:
+          {t('balanceText')}
         </label>
         <div className={s.btnContainer}>
           <input
@@ -77,19 +79,15 @@ export const BalanceInput = ({ isReportsVariant }) => {
               className={!isDisabledBtn ? s.button : s.buttonDisabled}
               disabled={isDisabledBtn}
             >
-              Confirm
+              {t('confirmButton')}
             </button>
           )}
         </div>
       </form>
       {getBalance === null ? (
         <div className={s.popUpContainer}>
-          <p className={s.popUpText}>
-            Hello! To get started, enter the current balance of your account!
-          </p>
-          <p className={s.popUpTextBottom}>
-            You can't spend money until you have it &#128521;
-          </p>
+          <p className={s.popUpText}>{t('balanceMessage1')}</p>
+          <p className={s.popUpTextBottom}>{t('balanceMessage2')} &#128521;</p>
         </div>
       ) : null}
     </>

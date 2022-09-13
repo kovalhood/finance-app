@@ -7,10 +7,10 @@ import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import GlobalContext from '../../../context/GlobalContext';
+import { useTranslation } from 'react-i18next';
 
 const Form = () => {
-  // const { daySelected, setDaySelected } = useContext(GlobalContext);
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -54,7 +54,6 @@ const Form = () => {
     setCategory(event.currentTarget.value);
   };
   const handleSumChange = event => {
-    // setSum(Number(event.currentTarget.value).toFixed(2));
     setSum(event.currentTarget.value);
   };
 
@@ -62,7 +61,7 @@ const Form = () => {
   function handleDescriptionKeydown(event) {
     const inputDescription = event.currentTarget.value;
     if (inputDescription.length === 19) {
-      Notify.warning('Description length must be less than 20 characters');
+      Notify.warning(`${t('descriptionMax')}`);
     }
   }
 
@@ -109,46 +108,44 @@ const Form = () => {
       setDescription('');
       setCategory('');
       setSum('');
-      return Notify.warning('Enter transaction info');
+      return Notify.warning(`${t('noTransInfo')}`);
     }
 
     if (description.trim() === '' && category.trim() === '') {
       setDescription('');
       setCategory('');
-      return Notify.warning('Enter transaction description and category');
+      return Notify.warning(`${t('noDescrAndCategory')}`);
     }
 
     if (description.trim() === '' && sum.trim() === '') {
       setDescription('');
       setSum('');
-      return Notify.warning('Enter transaction description and sum');
+      return Notify.warning(`${t('noDescrAndSum')}`);
     }
 
     if (category.trim() === '' && sum.trim() === '') {
       setCategory('');
       setSum('');
-      return Notify.warning('Enter transaction category and sum');
+      return Notify.warning(`${t('noCategoryAndSum')}`);
     }
 
     if (description.trim() === '') {
       setDescription('');
-      return Notify.warning('Enter transaction description');
+      return Notify.warning(`${t('noDescr')}`);
     }
 
     if (category.trim() === '') {
       setCategory('');
-      return Notify.warning('Enter transaction category');
+      return Notify.warning(`${t('noCategory')}`);
     }
 
     if (sum.trim() === '') {
       setSum('');
-      return Notify.warning('Enter transaction sum');
+      return Notify.warning(`${t('noSum')}`);
     }
 
     if (description.length < 3) {
-      return Notify.warning(
-        'Description length must be more than 2 characters'
-      );
+      return Notify.warning(`${t('descriptionMin')}`);
     }
 
     const dayQuery = new Date(selectedDate)
@@ -160,9 +157,7 @@ const Form = () => {
       .padStart(2, '0');
     const yearQuery = new Date(selectedDate).getFullYear();
 
-    //============== Добавление Транзакции Income либо Expense
     const transaction = {
-      // Объект transaction собрать из полей
       value: Number(sum),
       categories: category,
       description: description,
@@ -170,7 +165,8 @@ const Form = () => {
       month: monthQuery,
       year: String(yearQuery),
     };
-    const type = location.pathname.slice(1); // Оставить
+
+    const type = location.pathname.slice(1);
 
     dispatch(authOperations.addTransaction({ type, transaction }))
       .then(response => {
@@ -180,9 +176,7 @@ const Form = () => {
         Notify.failure(`${error.message}`);
       });
 
-    //===============
-
-    Notify.success('Transaction added');
+    Notify.success(`${t('transSuccess')}`);
     setDescription('');
     setSum('');
   };
@@ -207,7 +201,7 @@ const Form = () => {
             autoComplete="off"
             maxLength="20"
             name="description"
-            placeholder="Description"
+            placeholder={t('description')}
             value={description}
             onChange={handleDescriptionChange}
             onKeyPress={handleDescriptionKeydown}
@@ -247,14 +241,14 @@ const Form = () => {
           className={styles.button_input}
           onClick={handleSubmit}
         >
-          Add
+          {t('add')}
         </button>
         <button
           type="button"
           className={styles.button_clear}
           onClick={handleClear}
         >
-          Clear
+          {t('clear')}
         </button>
       </div>
     </form>

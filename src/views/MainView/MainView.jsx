@@ -10,6 +10,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Summary } from '../../components/Summary';
 import { useMediaQuery } from 'react-responsive';
 import { Mobile, Tablet, Desktop } from '../../utils/mediaQuery';
+import { BackgroundImage } from '../../components/UI/BackgroundImage';
 
 const MainView = () => {
   const dispatch = useDispatch();
@@ -37,11 +38,13 @@ const MainView = () => {
       <Tablet>
         <Balance />
         <Dashboard />
+        <BackgroundImage />
       </Tablet>
 
       <Desktop>
         <Balance />
         <Dashboard />
+        <BackgroundImage />
       </Desktop>
     </>
   );

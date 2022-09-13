@@ -18,12 +18,16 @@
   background-color: $whiteColor;
 }
 
+.controls{
+  display: flex;
+  align-items: center;
+}
+
 .button_logout {
   display: inline-block;
   position: relative;
   margin-left: 0;
   padding: 8px 16px;
-  // border-radius: 2px;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
@@ -35,15 +39,12 @@
   border: 0;
   text-decoration: underline;
   cursor: pointer;
-  /* text-decoration-line: underline; */
   font-family: inherit;
-  // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-  //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
-@media screen and (max-width: 767px) {
-  .button_logout {
-    display: none;
-  }
+  @media screen and (max-width: 767px) {
+    .button_logout {
+      display: none;
+    }
 }
 
 .button_logout_mobile {
@@ -81,7 +82,6 @@
 .button_logout_mobile:focus {
   text-decoration: underline;
   cursor: pointer;
-  // background-color: $orangeBasicColor;
   color: $orangeBasicColor;
   fill: $orangeBasicColor;
 }
@@ -140,38 +140,11 @@
   color: $whiteColor;
   text-transform: uppercase;
   pointer-events: none;
-@media screen and (min-width: 1280px) {
+
+  @media screen and (min-width: 1280px) {
     margin-right: 12px;
+  }
 }
-}
-
-// .backgroundLoggedIn::after {
-//     content: '';
-//     z-index: -1;
-//     position: absolute;
-//     background-color: $basicTextColor;
-//     ;
-//     height: 320px;
-//     width: 100%;
-//     border-bottom-left-radius: 130px;
-// }
-
-// .backgroundLoggedOut::after {
-//     content: '';
-//     z-index: -1;
-//     position: absolute;
-//     background-color: $basicTextColor;
-//     height: 320px;
-//     width: 100%;
-//     border-bottom-left-radius: 130px;
-// }
-
-// .button_logout_mobile {
-//     width: 12px;
-//     height: 16px;
-//     border: none;
-//     background: none;
-// }
 
 .DesktopHeader {
   min-width: 1279px;
@@ -181,7 +154,6 @@
 }
 
 .TabletHeader {
-  // composes: header;
   padding-left: 20px;
   padding-right: 20px;
 }

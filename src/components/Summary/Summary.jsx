@@ -9,8 +9,26 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { formatSum } from '../../utils/formSum';
 import { month } from '../../utils/month';
 import { nanoid } from 'nanoid';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
+
+const MONTH_LIST = {
+  1: 'january',
+  2: 'february',
+  3: 'march',
+  4: 'april',
+  5: 'may',
+  6: 'june',
+  7: 'july',
+  8: 'august',
+  9: 'september',
+  10: 'october',
+  11: 'november',
+  12: 'december',
+};
 
 export const Summary = () => {
+  const { t } = useTranslation();
   const getBalance = useSelector(authSelectors.getBalance);
   const IsMobile = isMobile(useMediaQuery);
   const dispatch = useDispatch();
@@ -44,12 +62,24 @@ export const Summary = () => {
 
   return (
     <div className={IsMobile ? styles.mobContainer : styles.container}>
-      <h4 className={styles.title}>СВОДКА</h4>
+      <h4 className={styles.title}>{t('summary').toUpperCase()} </h4>
       <ul className={styles.list}>
+        {getBalance === null && (
+          <li className={styles.firstMessage}>
+            {t('summaryFirstNotify').toUpperCase()}
+          </li>
+        )}
+        {dataList.length === 0 && getBalance !== null && (
+          <li className={styles.noTransactions}>
+            {t('summaryNoTransactions')}
+          </li>
+        )}
         {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
-            <span>{month[parseInt(_id.month) - 1]}</span>
-            <span>{formatSum(total)} UAH</span>
+            <span>{t(MONTH_LIST[parseInt(_id.month)])}</span>
+            <span>
+              {formatSum(total)} {t('hrn').toUpperCase()}
+            </span>
           </li>
         ))}
       </ul>

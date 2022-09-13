@@ -1,37 +1,58 @@
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
-import { useTranslation } from 'react-i18next';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryLabel,
+  VictoryTheme,
+} from 'victory';
 import { useMediaQuery } from 'react-responsive';
 import { isMobile } from '../../utils/mediaQuery';
-import { formatSum } from '../../utils';
+
+const CHARTS_STYLE = {
+  data: {
+    width: 15,
+    fill: '#FF751D',
+  },
+};
+
+const LABEL_STYLE = {
+  fontFamily: 'Roboto',
+  fontSize: 9,
+  fill: '#52555F',
+};
+
+const CORNER_RADIUS = {
+  topLeft: 5,
+  topRight: 5,
+};
 
 const Charts = ({ data }) => {
-  const { t } = useTranslation();
-  const Mobile = isMobile(useMediaQuery);
-  const axisX = Object.keys(...data)[1];
-  const axisY = Object.keys(...data)[0];
+  const mobile = isMobile(useMediaQuery);
+  const [axisY, axisX] = Object.keys(...data);
+  const height = mobile ? 400 : 300;
+  const width = mobile ? 200 : 600;
 
   return (
     <VictoryChart
-      domainPadding={40}
-      height={Mobile ? 400 : 700}
-      width={Mobile ? 300 : 600}
+      domainPadding={10}
+      // padding={70}
+      height={height}
+      width={width}
       theme={VictoryTheme.material}
     >
-      <VictoryAxis horizontal={Mobile} />
-      {Mobile ? (
-        <VictoryAxis />
-      ) : (
-        <VictoryAxis
-          dependentAxis
-          tickFormat={x => `${formatSum(x)} ${t('hrn')}`}
-        />
-      )}
-
+      <VictoryAxis
+        horizontal={mobile}
+        style={{
+          tickLabels: LABEL_STYLE,
+        }}
+      />
       <VictoryBar
         data={data}
         x={axisX}
         y={axisY}
-        style={{ data: { fill: '#FF751D' } }}
+        style={CHARTS_STYLE}
+        cornerRadius={CORNER_RADIUS}
+        labelComponent={<VictoryLabel style={LABEL_STYLE} />}
       />
     </VictoryChart>
   );
