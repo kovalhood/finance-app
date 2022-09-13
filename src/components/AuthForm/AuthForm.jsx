@@ -57,7 +57,6 @@ export const AuthForm = () => {
 
   const onLogin = (data, e) => {
     e.preventDefault();
-    console.log(e.currentTarget);
     setLoaderState(true);
     const { email, password } = data;
     dispatch(authOperations.logIn({ email, password }))
