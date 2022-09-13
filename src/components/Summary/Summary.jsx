@@ -62,10 +62,12 @@ export const Summary = () => {
 
   return (
     <div className={IsMobile ? styles.mobContainer : styles.container}>
-      <h4 className={styles.title}>{t('summary')} </h4>
+      <h4 className={styles.title}>{t('summary').toUpperCase()} </h4>
       <ul className={styles.list}>
         {getBalance === null && (
-          <li className={styles.firstMessage}>{t('summaryFirstNotify')}</li>
+          <li className={styles.firstMessage}>
+            {t('summaryFirstNotify').toUpperCase()}
+          </li>
         )}
         {dataList.length === 0 && (
           <li className={styles.noTransactions}>
@@ -76,7 +78,7 @@ export const Summary = () => {
           <li key={nanoid()} className={styles.item}>
             <span>{t(MONTH_LIST[parseInt(_id.month)])}</span>
             <span>
-              {formatSum(total)} {t('hrn')}
+              {formatSum(total)} {t('hrn').toUpperCase()}
             </span>
           </li>
         ))}

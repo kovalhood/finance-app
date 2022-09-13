@@ -38,29 +38,21 @@ export const AuthForm = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required('Дане поле є обовязковим')
-      .email(
-        'Невірно введена електронна адреса. Перевірте коректність написання електронної адреси'
-      )
+      .required(`${t('requiredNote')}`)
+      .email(`${t('wrongEmail')}`)
       .matches(
         /^(([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[a-z_-]+\d*|\d*[a-z_-] [0-9A-Za-z]{1} )@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
-        'Електронна адреса не повинна містити спеціальні символи'
+        `${t('wrongSpecialSymbol')}`
       ),
 
     password: Yup.string()
-      .required('Дане поле є обовязковим')
-      .min(6, 'Пароль має бути не менше 6 символів')
-      .max(20, 'Пароль не повинен перевищувати 20 символів')
-      .minLowercase(
-        2,
-        'Пароль повинен містити принаймні 2 малі літери латиницею'
-      )
-      .minUppercase(
-        2,
-        'Пароль повинен містити принаймні 2 великі літери латиницею'
-      )
-      .minNumbers(3, 'Пароль повинен містити не менше 3 цифр')
-      .minSymbols(1, 'Пароль повинен містити не менше 1 спеціального символу'),
+      .required(`${t('requiredNote')}`)
+      .min(6, `${t('pass6symbol')}`)
+      .max(20, `${t('pass20symbols')}`)
+      .minLowercase(2, `${t('passLowerCase')}`)
+      .minUppercase(2, `${t('passUpperCase')}`)
+      .minNumbers(3, `${t('passMinNumber')}`)
+      .minSymbols(1, `${t('passMinSymbol')}`),
   });
 
   const onLogin = (data, e) => {
