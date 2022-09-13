@@ -9,7 +9,6 @@ import styles from './Table.module.scss';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { commonDate } from '../../../utils/date';
-
 import GlobalContext from '../../../context/GlobalContext';
 
 export default function Table() {

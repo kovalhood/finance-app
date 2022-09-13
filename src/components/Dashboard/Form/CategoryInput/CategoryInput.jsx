@@ -3,8 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authSelectors } from '../../../../redux/operation';
 import styles from './CategoryInput.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const CategoryInput = ({ type, categoryPick, setCategory }) => {
+  const { t } = useTranslation();
   const [isCategories, setIsCategories] = useState(true);
   const categories = useSelector(authSelectors.getCategories);
 
@@ -44,8 +46,8 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
           id="category_input"
           type="text"
           readOnly
-          value={categoryPick}
-          placeholder={'Category'}
+          value={t(`${categoryPick}`)}
+          placeholder={t('category')}
         />
 
         {isCategories ? (
@@ -71,7 +73,7 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
                       name="exp_category"
                       className={styles.radiobutton}
                     />
-                    {data.title}
+                    {t(`${data.title}`)}
                   </label>
                 </li>
               ))
@@ -87,7 +89,7 @@ const CategoryInput = ({ type, categoryPick, setCategory }) => {
                       name="exp_category"
                       className={styles.radiobutton}
                     />
-                    {data.title}
+                    {t(`${data.title}`)}
                   </label>
                 </li>
               ))}

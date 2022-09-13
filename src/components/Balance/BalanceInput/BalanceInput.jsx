@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import s from './BalanceInput.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export const BalanceInput = ({ isReportsVariant }) => {
+  const { t } = useTranslation();
   const getBalance = useSelector(authSelectors.getBalance);
   const [balance, setBalance] = useState(
     getBalance === null ? '00.00 UAH' : getBalance
@@ -13,14 +15,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setBalance(
-      Number(getBalance)
-        .toLocaleString('cs-CZ', {
-          style: 'currency',
-          currency: 'UAH',
-        })
-        .replace(',', '.')
-    );
+    setBalance(Number(getBalance).toLocaleString('cs-CZ').replace(',', '.'));
   }, [getBalance]);
 
   const handleChange = e => {
@@ -34,14 +29,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
 
     dispatch(authOperations.setBalance({ balance }))
       .then(response => {
-        setBalance(
-          Number(balance)
-            .toLocaleString('cs-CZ', {
-              style: 'currency',
-              currency: 'UAH',
-            })
-            .replace(',', '.')
-        );
+        setBalance(Number(balance).toLocaleString('cs-CZ').replace(',', '.'));
         setIsDisabledBtn(true);
         Notify.success(`Your balance updated successfully.`);
       })
@@ -54,7 +42,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
     <>
       <form className={s.form} onSubmit={handleSubmit}>
         <label htmlFor="balance" className={s.label}>
-          Balance:
+          {t('balanceText')}
         </label>
         <div className={s.btnContainer}>
           <input
@@ -62,7 +50,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
             className={s.input}
             type="text"
             name="balance"
-            value={balance}
+            value={balance + ` ${t('hrn')}`}
             onChange={handleChange}
             minLength="1"
             pattern="^[0-9]+$"
@@ -77,7 +65,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
               className={!isDisabledBtn ? s.button : s.buttonDisabled}
               disabled={isDisabledBtn}
             >
-              Confirm
+              {t('confirmButton')}
             </button>
           )}
         </div>

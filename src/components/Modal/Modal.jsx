@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactComponent as CloseModal } from '../../images/closeIcon.svg';
 import styles from './Modal.module.scss';
+import { useTranslation } from 'react-i18next';
 const modalRoot = document.querySelector('#modal-root');
 
 const Modal = ({ message, onNoClick, onYesClick }) => {
+  const { t } = useTranslation();
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
@@ -57,14 +59,14 @@ const Modal = ({ message, onNoClick, onYesClick }) => {
             type="button"
             onClick={handleYesClick}
           >
-            Yes
+            {t('modalYes')}
           </button>
           <button
             className={styles.btn_close}
             type="button"
             onClick={onNoClick}
           >
-            No
+            {t('modalNo')}
           </button>
         </div>
       </div>
