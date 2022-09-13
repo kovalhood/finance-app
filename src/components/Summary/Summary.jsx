@@ -69,10 +69,14 @@ export const Summary = () => {
             {t('summaryFirstNotify').toUpperCase()}
           </li>
         )}
+        {dataList.length === 0 && (
+          <li className={styles.noTransactions}>
+            {t('summaryNoTransactions')}
+          </li>
+        )}
         {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
-            <span> {t(MONTH_LIST[parseInt(_id.month)]).toUpperCase()}</span>
-
+            <span>{t(MONTH_LIST[parseInt(_id.month)])}</span>
             <span>
               {formatSum(total)} {t('hrn').toUpperCase()}
             </span>

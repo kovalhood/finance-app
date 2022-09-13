@@ -7,11 +7,9 @@ import styles from './Form.module.scss';
 import sprite from '../../../images/sprite.svg';
 import { authOperations } from '../../../redux/operation';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import GlobalContext from '../../../context/GlobalContext';
 import { useTranslation } from 'react-i18next';
 
 const Form = () => {
-  // const { daySelected, setDaySelected } = useContext(GlobalContext);
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState('');
   const [description, setDescription] = useState('');
@@ -159,9 +157,7 @@ const Form = () => {
       .padStart(2, '0');
     const yearQuery = new Date(selectedDate).getFullYear();
 
-    //============== Добавление Транзакции Income либо Expense
     const transaction = {
-      // Объект transaction собрать из полей
       value: Number(sum),
       categories: category,
       description: description,
@@ -169,7 +165,8 @@ const Form = () => {
       month: monthQuery,
       year: String(yearQuery),
     };
-    const type = location.pathname.slice(1); // Оставить
+
+    const type = location.pathname.slice(1);
 
     dispatch(authOperations.addTransaction({ type, transaction }))
       .then(response => {
@@ -178,8 +175,6 @@ const Form = () => {
       .catch(error => {
         Notify.failure(`${error.message}`);
       });
-
-    //===============
 
     Notify.success(`${t('transSuccess')}`);
     setDescription('');

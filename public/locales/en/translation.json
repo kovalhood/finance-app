@@ -36,6 +36,7 @@
   "noIncomes": "No incomes",
   "summary": "Summary",
   "summaryFirstNotify": "This functionality is not available until the balance is replenished",
+  "summaryNoTransactions": "Not enough transactions",
   "email": "E-mail",
   "password": "Password",
   "signin-btn": "Sign In",
@@ -80,5 +81,8 @@
   "passLowerCase": "The password must contain at least 2 lowercase Latin letters",
   "passUpperCase": "The password must contain at least 2 uppercase Latin letters",
   "passMinNumber": "The password must contain at least 3 digits",
-  "passMinSymbol": "The password must contain at least 1 special symbol"
+  "passMinSymbol": "The password must contain at least 1 special symbol",
+  "balanceMessage1": "Hello! To get started, enter the current balance of your account!",
+  "balanceMessage2": "You can't spend money until you have it",
+  "calendar": "enLocale"
 }
