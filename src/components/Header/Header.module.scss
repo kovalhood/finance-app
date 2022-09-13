@@ -18,6 +18,11 @@
   background-color: $whiteColor;
 }
 
+.controls{
+  display: flex;
+  align-items: center;
+}
+
 .button_logout {
   display: inline-block;
   position: relative;

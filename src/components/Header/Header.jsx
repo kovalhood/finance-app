@@ -32,45 +32,47 @@ export const Header = () => {
           <Link to="/">
             <Logo />
           </Link>
-          {loggedIn ? (
-            <div className={styles.user__menu}>
-              <LangSwitcher />
-              <div className={styles.user__avatar}>
-                <span>{leter[0]}</span>
-              </div>
-              <span className={styles.user__name}>{email.split('@')[0]}</span>
-              {dropdown && (
-                <div className={styles.dropdown}>
-                  <span className={styles.user_mail} title={email}>
-                    {email}
-                  </span>
-
-                  <button
-                    type="button"
-                    className={styles.button}
-                    onClick={() => dispatch(authOperations.logOut())}
-                  >
-                    Log out
-                  </button>
+          <div className={styles.controls}>
+            <LangSwitcher />
+            {loggedIn ? (
+              <div className={styles.user__menu}>
+                <div className={styles.user__avatar}>
+                  <span>{leter[0]}</span>
                 </div>
-              )}
-              <button
-                type="button"
-                className={styles.button_logout_mobile}
-                onClick={toggleModal}
-              >
-                <Logout />
-              </button>
-              <a
-                href="/"
-                className={styles.button_logout}
-                onClick={toggleModal}
-              >
-                {' '}
-                Exit
-              </a>
-            </div>
-          ) : null}
+                <span className={styles.user__name}>{email.split('@')[0]}</span>
+                {dropdown && (
+                  <div className={styles.dropdown}>
+                    <span className={styles.user_mail} title={email}>
+                      {email}
+                    </span>
+
+                    <button
+                      type="button"
+                      className={styles.button}
+                      onClick={() => dispatch(authOperations.logOut())}
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  className={styles.button_logout_mobile}
+                  onClick={toggleModal}
+                >
+                  <Logout />
+                </button>
+                <a
+                  href="/"
+                  className={styles.button_logout}
+                  onClick={toggleModal}
+                >
+                  {' '}
+                  Exit
+                </a>
+              </div>
+            ) : null}
+          </div>
         </header>
       </div>
       {showModal && (
