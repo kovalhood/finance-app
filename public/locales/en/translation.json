@@ -69,5 +69,6 @@
   "exitHeader": "Exit",
   "reportsTab": "Reports",
   "confirmButton": "Confirm",
-  "balanceText": "Balance:"
+  "balanceText": "Balance:",
+  "calendar": "enLocale"
 }

@@ -69,5 +69,6 @@
   "exitHeader": "Вихід",
   "reportsTab": "Звітність",
   "confirmButton": "Підтвердити",
-  "balanceText": "Баланс:"
+  "balanceText": "Баланс:",
+  "calendar": "ukLocale"
 }

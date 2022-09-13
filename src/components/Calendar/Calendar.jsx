@@ -9,6 +9,9 @@ import { ThemeProvider } from '@material-ui/styles';
 import styles from './Calendar.module.scss';
 import sprite from '../../images/sprite.svg';
 import GlobalContext from '../../context/GlobalContext';
+import enLocale from 'date-fns/locale/en-US';
+import ukLocale from 'date-fns/locale/uk';
+import { useTranslation } from 'react-i18next';
 
 const materialTheme = createTheme({
   overrides: {
@@ -65,19 +68,11 @@ const materialTheme = createTheme({
 });
 
 const Calendar = props => {
+  const { t } = useTranslation();
   const { daySelected, setDaySelected } = useContext(GlobalContext);
   const [selectedDate, setSelectedDate] = useState(
     daySelected === null ? new Date() : new Date(daySelected)
   );
-
-  // console.log(new Date(daySelected));
-  // useEffect(() => {
-  //   handleQueryChange();
-  //   setDaySelected(selectedDate);
-  // }, []);
-
-  // console.log(`cache:${daySelected}`);
-  // console.log(`date:${selectedDate}`);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -105,7 +100,10 @@ const Calendar = props => {
 
   return (
     <ThemeProvider theme={materialTheme}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider
+        locale={`${t('calendar')}` === 'enLocale' ? enLocale : ukLocale}
+        utils={DateFnsUtils}
+      >
         <DatePicker
           disableFuture
           format="dd.MM.yyyy"
