@@ -34,8 +34,9 @@
   "loading": "Завантаження...",
   "noExpenses": "Витрат немає",
   "noIncomes": "Доходів немає",
-  "summary": "Сводка",
-  "summaryFirstNotify": "До поповнення бвлвнсу даний функціонал недоступний",
+  "summary": "Зведення",
+  "summaryFirstNotify": "До поповнення балансу даний функціонал недоступний",
+  "summaryNoTransactions": "Недостатньо транзакцій",
   "email": "Електронна пошта:",
   "password": "Пароль:",
   "signin-btn": "УВІЙТИ",
@@ -70,5 +71,7 @@
   "reportsTab": "Звітність",
   "confirmButton": "Підтвердити",
   "balanceText": "Баланс:",
+  "balanceMessage1": "Привіт! Для початку введіть поточний баланс Вашого рахунку!",
+  "balanceMessage2": "Ви не можете витрачати гроші, поки їх у Вас немає",
   "calendar": "ukLocale"
 }

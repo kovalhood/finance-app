@@ -155,7 +155,7 @@
 .popUpText {
   display: block;
   width: 230px;
-  margin: 0 auto;
+  margin: 0 15px;
   padding: 0;
   font-weight: 400;
   font-size: 14px;
@@ -166,16 +166,14 @@
 @media screen and (min-width: 768px){
   .popUpText {
     align-items: center;
-    padding-top: 15px;
-    padding-left: 25px;
-    padding-right: 25px;
+    margin-top: 10px;
   }
 }
 
 .popUpTextBottom {
   display: block;
-  width: 230px;
-  margin: 0 auto;
+  width: 190px;
+  margin: 0 15px;
   padding: 0;
   font-weight: 400;
   font-size: 14px;
@@ -188,7 +186,5 @@
 }
 @media screen and (min-width: 768px){
   .popUpTextBottom {
-    padding-left: 25px;
-    padding-right: 25px;
   }
 }

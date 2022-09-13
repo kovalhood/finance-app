@@ -36,6 +36,7 @@
   "noIncomes": "No incomes",
   "summary": "Summary",
   "summaryFirstNotify": "This functionality is not available until the balance is replenished",
+  "summaryNoTransactions": "Not enough transactions",
   "email": "E-mail",
   "password": "Password",
   "signin-btn": "Sign In",
@@ -70,5 +71,7 @@
   "reportsTab": "Reports",
   "confirmButton": "Confirm",
   "balanceText": "Balance:",
+  "balanceMessage1": "Hello! To get started, enter the current balance of your account!",
+  "balanceMessage2": "You can't spend money until you have it",
   "calendar": "enLocale"
 }

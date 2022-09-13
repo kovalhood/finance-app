@@ -15,7 +15,14 @@ export const BalanceInput = ({ isReportsVariant }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setBalance(Number(getBalance).toLocaleString('cs-CZ').replace(',', '.'));
+    setBalance(
+      Number(getBalance)
+        .toLocaleString('cs-CZ', {
+          style: 'currency',
+          currency: 'UAH',
+        })
+        .replace(',', '.')
+    );
   }, [getBalance]);
 
   const handleChange = e => {
@@ -29,7 +36,14 @@ export const BalanceInput = ({ isReportsVariant }) => {
 
     dispatch(authOperations.setBalance({ balance }))
       .then(response => {
-        setBalance(Number(balance).toLocaleString('cs-CZ').replace(',', '.'));
+        setBalance(
+          Number(balance)
+            .toLocaleString('cs-CZ', {
+              style: 'currency',
+              currency: 'UAH',
+            })
+            .replace(',', '.')
+        );
         setIsDisabledBtn(true);
         Notify.success(`Your balance updated successfully.`);
       })
@@ -50,7 +64,7 @@ export const BalanceInput = ({ isReportsVariant }) => {
             className={s.input}
             type="text"
             name="balance"
-            value={balance + ` ${t('hrn')}`}
+            value={balance}
             onChange={handleChange}
             minLength="1"
             pattern="^[0-9]+$"
@@ -72,12 +86,8 @@ export const BalanceInput = ({ isReportsVariant }) => {
       </form>
       {getBalance === null ? (
         <div className={s.popUpContainer}>
-          <p className={s.popUpText}>
-            Hello! To get started, enter the current balance of your account!
-          </p>
-          <p className={s.popUpTextBottom}>
-            You can't spend money until you have it &#128521;
-          </p>
+          <p className={s.popUpText}>{t('balanceMessage1')}</p>
+          <p className={s.popUpTextBottom}>{t('balanceMessage2')} &#128521;</p>
         </div>
       ) : null}
     </>

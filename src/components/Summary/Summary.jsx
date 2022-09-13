@@ -67,10 +67,14 @@ export const Summary = () => {
         {getBalance === null && (
           <li className={styles.firstMessage}>{t('summaryFirstNotify')}</li>
         )}
+        {dataList.length === 0 && (
+          <li className={styles.noTransactions}>
+            {t('summaryNoTransactions')}
+          </li>
+        )}
         {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
             <span>{t(MONTH_LIST[parseInt(_id.month)])}</span>
-            {/*<span>{month[parseInt(_id.month) - 1]}</span>*/}
             <span>
               {formatSum(total)} {t('hrn')}
             </span>
