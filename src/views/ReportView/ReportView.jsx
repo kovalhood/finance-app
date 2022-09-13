@@ -2,13 +2,14 @@ import { useMediaQuery } from 'react-responsive';
 import { Background } from '../../components/UI/Background';
 import { GoBackButton, MonthPicker, Reports } from '../../components';
 import { Container } from '../../components/UI/Container';
-import { isTablet } from '../../utils/mediaQuery';
+import { isMobile, isTablet } from '../../utils/mediaQuery';
 import { BalanceInput } from '../../components/Balance/BalanceInput';
 import { BackgroundImage } from '../../components/UI/BackgroundImage';
 import styles from './ReportView.module.scss';
 
 const ReportView = () => {
-  const tablet = isTablet(useMediaQuery);
+  const IsMobile = isMobile(useMediaQuery);
+  const IsTablet = isTablet(useMediaQuery);
 
   return (
     <div className={styles.reportViewWrapper}>
@@ -21,13 +22,17 @@ const ReportView = () => {
             <GoBackButton />
           </div>
           <div className={styles.balance}>
-            <BalanceInput isReportsVariant={tablet} />
+            <BalanceInput isReportsVariant={IsTablet} />
           </div>
           <MonthPicker />
         </div>
         <Reports />
-        {/* <BackgroundImage /> */}
       </Container>
+      {IsMobile ? null : IsTablet ? (
+        <div className={styles.bgImageTablet}></div>
+      ) : (
+        <div className={styles.bgImageDesktop}></div>
+      )}
     </div>
   );
 };
