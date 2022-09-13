@@ -45,7 +45,7 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
           </tr>
           {showModal && (
             <Modal
-              message={'Are you sure?'}
+              message={t('modalDeleteText')}
               onYesClick={() =>
                 dispatch(authOperations.deleteTransaction({ id }))
               }
@@ -77,7 +77,7 @@ const Transaction = ({ id, date, description, category, sum, income }) => {
         </tr>
         {showModal && (
           <Modal
-            message={'Are you sure?'}
+            message={t('modalDeleteText')}
             onYesClick={() =>
               dispatch(authOperations.deleteTransaction({ id }))
             }

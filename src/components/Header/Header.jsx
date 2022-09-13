@@ -10,8 +10,10 @@ import { LangSwitcher } from '../LangSwitcher';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal';
 import { authSelectors, authOperations } from '../../redux/operation';
+import { useTranslation } from 'react-i18next';
 
 export const Header = () => {
+  const { t } = useTranslation();
   const loggedIn = useSelector(authSelectors.getIsLoggedIn);
   const [showModal, setShowModal] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -68,7 +70,7 @@ export const Header = () => {
                   onClick={toggleModal}
                 >
                   {' '}
-                  Exit
+                  {t('exitHeader')}
                 </a>
               </div>
             ) : null}
@@ -77,7 +79,7 @@ export const Header = () => {
       </div>
       {showModal && (
         <Modal
-          message={'Do you really want to log out?'}
+          message={t('modalLogoutText')}
           onYesClick={() => dispatch(authOperations.logOut())}
           onNoClick={toggleModal}
         />

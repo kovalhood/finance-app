@@ -9,8 +9,10 @@ import FormMobile from './FormMobile';
 import TableMobile from './TableMobile';
 import styles from './DashboardMobile.module.scss';
 import sprite from '../../images/sprite.svg';
+import { useTranslation } from 'react-i18next';
 
 export const DashboardMobile = () => {
+  const { t } = useTranslation();
   const [transactionDate, setTransactionDate] = useState('');
   const [addTransaction, setAddTransaction] = useState(false);
 
@@ -78,8 +80,8 @@ export const DashboardMobile = () => {
               onClick={handleControlsClick}
               style={getBalance === null ? { pointerEvents: 'none' } : {}}
             >
-              <ControlsMobile link={'/expense'} title={'Expense'} />
-              <ControlsMobile link={'/income'} title={'Income'} />
+              <ControlsMobile link={'/expense'} title={t('expense')} />
+              <ControlsMobile link={'/income'} title={t('income')} />
             </div>
           </>
         )}
