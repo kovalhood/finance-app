@@ -48,7 +48,7 @@ const MonthPicker = () => {
   const handleMonthDecrement = () => {
     setPickedDate(prev => {
       if (prev.month === 1) {
-        return { year: prev.year - 1, month: prev.month + 11 };
+        return { year: prev.year - 1, month: 12 };
       }
 
       return { ...prev, month: prev.month - 1 };
@@ -58,7 +58,7 @@ const MonthPicker = () => {
   const handleMonthIncrement = () => {
     setPickedDate(prev => {
       if (prev.month === 12) {
-        return { year: prev.year + 1, month: prev.month - 11 };
+        return { year: prev.year + 1, month: 1 };
       }
 
       return { ...prev, month: prev.month + 1 };

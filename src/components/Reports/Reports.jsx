@@ -26,15 +26,14 @@ const Reports = () => {
   const transactions = useSelector(getTransactions);
   const type = useSelector(getType);
   const date = useSelector(getDate);
-  const totalSumValue = useSelector(getTotalSumValue);
   const isLoading = useSelector(getIsLoading);
-
-  const isExpenseCategory = type === 'expense' ? 'income' : 'expense';
-  const isExpenseTitle =
-    type === 'expense' ? t('reportsExpenses') : t('reportsIncomes');
-  const isDateExist = Object.keys(date).length;
+  const totalSumValue = useSelector(getTotalSumValue);
 
   const memoTransactions = useMemo(() => {
+    if (transactions.length < 2) {
+      return transactions;
+    }
+
     return [...transactions].sort((a, b) => {
       return b.totalCategoriesSum - a.totalCategoriesSum;
     });
@@ -55,6 +54,12 @@ const Reports = () => {
       });
     }
   }, [totalSumValue]);
+
+  const isExpenseCategory = type === 'expense' ? 'income' : 'expense';
+  const isExpenseTitle =
+    type === 'expense' ? 'reportsExpenses' : 'reportsIncomes';
+  const isDateExist = Object.keys(date).length;
+  const transactionsDontExist = !isLoading && !memoTransactions.length;
 
   const getTransactionsData = useCallback(async () => {
     try {
@@ -78,17 +83,19 @@ const Reports = () => {
     }
   }, [dispatch, date, isDateExist]);
 
-  useEffect(() => {
-    getTransactionsData();
-  }, [getTransactionsData]);
-
-  useEffect(() => {
-    getTotalSumData();
-  }, [getTotalSumData]);
-
-  useEffect(() => {
-    resetCategory();
-  }, [date]);
+  const makeChartsData = array => {
+    return array
+      .map(({ totalDescriptionSum, _id: { description } }) => {
+        return {
+          sum: totalDescriptionSum,
+          category: description,
+          label: formatSum(totalDescriptionSum),
+        };
+      })
+      .sort((a, b) => {
+        return b.sum - a.sum;
+      });
+  };
 
   const resetCategory = () => {
     setChartsData([]);
@@ -102,17 +109,33 @@ const Reports = () => {
 
   const handleCategoryClick = (id, value) => {
     setCurrentCategory(value);
-
-    const detailedTransactions = memoTransactions[id]?.report
-      .map(({ totalDescriptionSum, _id: { description } }) => {
-        return { sum: totalDescriptionSum, category: description };
-      })
-      .sort((a, b) => {
-        return b.sum - a.sum;
-      });
-
+    const detailedTransactions = makeChartsData(memoTransactions[id]?.report);
     setChartsData(detailedTransactions);
   };
+
+  const showDefaultChartsData = useCallback(() => {
+    if (memoTransactions.length) {
+      const detailedTransactions = makeChartsData(memoTransactions[0].report);
+      setChartsData(detailedTransactions);
+      setCurrentCategory(memoTransactions[0]?._id);
+    }
+  }, [memoTransactions]);
+
+  useEffect(() => {
+    getTransactionsData();
+  }, [getTransactionsData]);
+
+  useEffect(() => {
+    getTotalSumData();
+  }, [getTotalSumData]);
+
+  useEffect(() => {
+    resetCategory();
+  }, [date]);
+
+  useEffect(() => {
+    showDefaultChartsData();
+  }, [showDefaultChartsData]);
 
   return (
     <>
@@ -120,9 +143,9 @@ const Reports = () => {
         <div className={s.expensesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsExpenses') + ':'}`}</p>
           {memoSumExpense?.totalSum ? (
-            <p className={s.expenses}>{`- ${formatSum(
-              memoSumExpense?.totalSum
-            )} ${t('hrn')}`}</p>
+            <p className={s.expenses}>{`- ${
+              formatSum(memoSumExpense?.totalSum) + ' ' + t('hrn')
+            }`}</p>
           ) : (
             <p className={s.expenses}>{t('noExpenses')}</p>
           )}
@@ -131,9 +154,9 @@ const Reports = () => {
         <div className={s.incomesWrapper}>
           <p className={s.financeTitle}>{`${t('reportsIncomes') + ':'}`}</p>
           {memoSumIncomes?.totalSum ? (
-            <p className={s.incomes}>{`+ ${formatSum(
-              memoSumIncomes?.totalSum
-            )} ${t('hrn')}`}</p>
+            <p className={s.incomes}>{`+ ${
+              formatSum(memoSumIncomes?.totalSum) + ' ' + t('hrn')
+            }`}</p>
           ) : (
             <p className={s.incomes}>{t('noIncomes')}</p>
           )}
@@ -156,7 +179,7 @@ const Reports = () => {
               <path d="M6 1 2 6l4 5" stroke="#FF751D" strokeWidth="2" />
             </svg>
           </button>
-          <p className={s.switchTitle}>{isExpenseTitle}</p>
+          <p className={s.switchTitle}>{t(isExpenseTitle)}</p>
           <button
             type="button"
             onClick={handleTypeChange}
@@ -173,7 +196,7 @@ const Reports = () => {
           </button>
         </div>
 
-        {!isLoading && !memoTransactions.length && (
+        {transactionsDontExist && (
           <p className={s.error}>{t('noTransactions')}</p>
         )}
 
@@ -221,9 +244,7 @@ const Reports = () => {
 
       {!!chartsData.length && (
         <div className={s.chartsWrapper}>
-          <div className={s.chartsHeight}>
-            <Charts data={chartsData} />
-          </div>
+          <Charts data={chartsData} />
         </div>
       )}
     </>
