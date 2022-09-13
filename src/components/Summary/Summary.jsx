@@ -62,17 +62,19 @@ export const Summary = () => {
 
   return (
     <div className={IsMobile ? styles.mobContainer : styles.container}>
-      <h4 className={styles.title}>{t('summary')} </h4>
+      <h4 className={styles.title}>{t('summary').toUpperCase()} </h4>
       <ul className={styles.list}>
         {getBalance === null && (
-          <li className={styles.firstMessage}>{t('summaryFirstNotify')}</li>
+          <li className={styles.firstMessage}>
+            {t('summaryFirstNotify').toUpperCase()}
+          </li>
         )}
         {dataList.map(({ _id, total }) => (
           <li key={nanoid()} className={styles.item}>
-            <span>{t(MONTH_LIST[parseInt(_id.month)])}</span>
-            {/*<span>{month[parseInt(_id.month) - 1]}</span>*/}
+            <span> {t(MONTH_LIST[parseInt(_id.month)]).toUpperCase()}</span>
+
             <span>
-              {formatSum(total)} {t('hrn')}
+              {formatSum(total)} {t('hrn').toUpperCase()}
             </span>
           </li>
         ))}
