@@ -4,10 +4,11 @@ import { GoBackButton, MonthPicker, Reports } from '../../components';
 import { Container } from '../../components/UI/Container';
 import { isTablet } from '../../utils/mediaQuery';
 import { BalanceInput } from '../../components/Balance/BalanceInput';
-
+import { BackgroundImage } from '../../components/UI/BackgroundImage';
 import styles from './ReportView.module.scss';
+
 const ReportView = () => {
-  const Tablet = isTablet(useMediaQuery);
+  const tablet = isTablet(useMediaQuery);
 
   return (
     <div className={styles.reportViewWrapper}>
@@ -20,42 +21,15 @@ const ReportView = () => {
             <GoBackButton />
           </div>
           <div className={styles.balance}>
-            <BalanceInput isReportsVariant={Tablet} />
+            <BalanceInput isReportsVariant={tablet} />
           </div>
           <MonthPicker />
         </div>
-        <Reports />{' '}
+        <Reports />
+        {/* <BackgroundImage /> */}
       </Container>
     </div>
   );
 };
 
 export default ReportView;
-
-// import { useMediaQuery } from 'react-responsive';
-// import { GoBackButton, MonthPicker, Reports } from '../../components';
-// import { Container } from '../../components/UI/Container';
-// import { BalanceInput } from '../../components/Balance/BalanceInput';
-// import { isTablet } from '../../utils/mediaQuery';
-// import styles from './ReportView.module.scss';
-
-// const ReportView = () => {
-//   const tablet = isTablet(useMediaQuery);
-
-//   return (
-//     <Container>
-//       <div className={styles.wrapper}>
-//         <div className={styles.btn}>
-//           <GoBackButton />
-//         </div>
-//         <div className={styles.balance}>
-//           <BalanceInput isReportsVariant={tablet} />
-//         </div>
-//         <MonthPicker />
-//       </div>
-//       <Reports />
-//     </Container>
-//   );
-// };
-
-// export default ReportView;
