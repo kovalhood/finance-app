@@ -69,7 +69,7 @@ export const Summary = () => {
             {t('summaryFirstNotify').toUpperCase()}
           </li>
         )}
-        {dataList.length === 0 && (
+        {dataList.length === 0 && getBalance !== null && (
           <li className={styles.noTransactions}>
             {t('summaryNoTransactions')}
           </li>
