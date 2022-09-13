@@ -35,7 +35,6 @@ const Charts = ({ data }) => {
   return (
     <VictoryChart
       domainPadding={10}
-      // padding={70}
       height={height}
       width={width}
       theme={VictoryTheme.material}
