@@ -94,7 +94,8 @@ const Reports = () => {
       })
       .sort((a, b) => {
         return b.sum - a.sum;
-      });
+      })
+      .splice(0, 10);
   };
 
   const resetCategory = () => {
