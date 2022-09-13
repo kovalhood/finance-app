@@ -21,10 +21,7 @@ const materialTheme = createTheme({
       },
     },
     MuiPickersCalendarHeader: {
-      switchHeader: {
-        // backgroundColor: lightBlue.A200,
-        // color: "white",
-      },
+      switchHeader: {},
     },
 
     // Hover color for icon

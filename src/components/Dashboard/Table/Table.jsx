@@ -137,7 +137,6 @@ export default function Table() {
     valueSort,
   ]);
 
-  // console.log(transactions);
   const trans = transactions.map(item => {
     const day = item.day;
     const month = item.month;

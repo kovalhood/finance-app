@@ -142,14 +142,11 @@ const FormMobile = ({ date, goBack }) => {
     const type = location.pathname.slice(1);
 
     dispatch(authOperations.addTransaction({ type, transaction }))
-      .then(response => {
-        console.log(response);
-      })
+      .then(Notify.success(`${t('transSuccess')}`))
       .catch(error => {
         Notify.failure(`${error.message}`);
       });
 
-    Notify.success(`${t('transSuccess')}`);
     setDescription('');
     setSum('');
 

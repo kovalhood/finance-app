@@ -1,11 +1,8 @@
 import styles from './Header.module.scss';
 import React, { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { isDesktop } from '../../utils/mediaQuery';
 import { Link } from 'react-router-dom';
 import { Logo } from '../Logo/Logo';
 import { ReactComponent as Logout } from './icons/logoutIcon.svg';
-import defaultAvatar from './icons/user.png';
 import { LangSwitcher } from '../LangSwitcher';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal';
@@ -18,7 +15,6 @@ export const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const email = useSelector(authSelectors.getEmail);
-  const userPicture = useSelector(authSelectors.getUserPicture);
   const dispatch = useDispatch();
 
   const toggleModal = e => {
@@ -26,7 +22,7 @@ export const Header = () => {
     setShowModal(prevShowModal => !prevShowModal);
   };
 
-  const leter = email?.split('');
+  const letter = email?.split('');
   return (
     <div>
       <div className={styles.wrapper}>
@@ -39,7 +35,7 @@ export const Header = () => {
             {loggedIn ? (
               <div className={styles.user__menu}>
                 <div className={styles.user__avatar}>
-                  <span>{leter[0]}</span>
+                  <span>{letter[0]}</span>
                 </div>
                 <span className={styles.user__name}>{email.split('@')[0]}</span>
                 {dropdown && (
