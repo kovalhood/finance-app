@@ -1,14 +1,13 @@
 .financeWrapper {
-  padding: 7px;
-
   display: flex;
   justify-content: space-evenly;
 
-  background: #ffffff;
-  box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
-  border-radius: 20px;
   margin-bottom: 32px;
   padding: 22px 13px;
+
+  background-color: #ffffff;
+  box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
+  border-radius: 20px;
 
   @media screen and (min-width: 768px) {
     justify-content: center;
@@ -35,7 +34,6 @@
   font-size: 14px;
   line-height: 16px;
   color: #52555f;
-
   margin-bottom: 5px;
 
   @media screen and (min-width: 768px) {
@@ -56,14 +54,8 @@
 }
 
 .incomes {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
+  @extend .expenses;
   color: #407946;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .divider {
@@ -84,6 +76,7 @@
   @media screen and (min-width: 768px) {
     padding: 20px 40px;
 
+    background-color: #ffffff;
     box-shadow: 0px 10px 60px rgba(170, 178, 197, 0.2);
     border-radius: 30px;
   }
@@ -109,6 +102,7 @@
   font-weight: 500;
   cursor: pointer;
   text-align: center;
+
   border-radius: 4px;
   border: none;
   background-color: transparent;
@@ -156,24 +150,24 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+
   background-color: transparent;
   color: #071f41;
-  cursor: pointer;
   border-radius: 4px;
   border: none;
-  background-color: transparent;
+  cursor: pointer;
 }
 
 .categoryBtnActive {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: transparent;
+
   color: #ff751d;
-  cursor: pointer;
   border-radius: 4px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .categoryValue {
@@ -185,7 +179,6 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #52555f;
-
   margin-bottom: 5px;
 }
 
@@ -198,28 +191,7 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #52555f;
-
   margin-top: 5px;
-}
-
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  fill: red;
-  // width: 199px;
-  text-align: center;
-  display: block;
-  margin: 0 auto;
-  height: 15px;
-  width: 15px;
-}
-
-.iconSvg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .categoryIcon {
@@ -228,30 +200,29 @@
   height: 60px;
 }
 
-.categoryBackgroundActive {
-  display: block;
-
-  width: 59px;
-  height: 46px;
-
-  background: #ffdac0;
-  border-radius: 20px;
-
-  position: absolute;
-  z-index: -1;
-}
-
 .categoryBackground {
   display: block;
+  position: absolute;
+  z-index: -1;
 
   width: 59px;
   height: 46px;
 
   background: #f5f6fb;
   border-radius: 20px;
+}
 
+.categoryBackgroundActive {
+  // @extend .categoryBackground;
+  display: block;
   position: absolute;
   z-index: -1;
+
+  width: 59px;
+  height: 46px;
+
+  border-radius: 20px;
+  background: #ffdac0;
 }
 
 .error,
@@ -265,10 +236,10 @@
 }
 
 .chartsWrapper {
-  margin-top: -55px;
+  margin-top: -50px;
 
   @media screen and (max-width: 440px) {
-    height: 400px;
+    height: 450px;
   }
 
   @media screen and (min-width: 441px) and (max-width: 539px) {
@@ -284,6 +255,8 @@
     margin-top: 0;
     padding: 20px 0;
     margin: 40px 0;
+
+    background-color: #ffffff;
     box-shadow: 0px 10px 60px rgba(170, 178, 197, 0.2);
     border-radius: 30px;
   }
