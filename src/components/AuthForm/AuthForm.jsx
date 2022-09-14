@@ -144,7 +144,7 @@ export const AuthForm = () => {
           <Form.Control
             className={IsMobile ? styles.mobInput : styles.input}
             type="email"
-            placeholder="Enter email"
+            placeholder={t('emailPlaceholder')}
             {...register('email')}
           />
 
@@ -162,7 +162,7 @@ export const AuthForm = () => {
             className={IsMobile ? styles.mobInput : styles.input}
             autoComplete="off"
             type="password"
-            placeholder="Password"
+            placeholder={t('passPlaceholder')}
             {...register('password')}
           />
           {errors.password && errors.password.type === 'required' && (
